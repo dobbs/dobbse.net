@@ -1,0 +1,180 @@
+---
+posted: "2008-12-29T23:42:13"
+layout: default
+fulltitle: Logo, Fractals, and Recursion; Programming, and Removing Repetition
+charset: UTF-8
+---
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2008/12/logo-fractals-recursion.html">Logo, Fractals, and Recursion; Programming, and Removing Repetition</a></h1>
+<div class="time 2008-12-29T23:42:13 pubdate meta">Monday 29 December 2008 at 23:42 </div>
+<p>Last summer while <a href="http://dobbse.net/thinair/2008/09/openworld-learning.html">volunteering for OWL</a> I spent several weeks working with a fifth grader we&#39;ll call Sam who&#39;d already blown through all of <span class="caps">OWL</span>&#39;s exercises.  Logo is a dialect of lisp and I was particularly interested in teaching Sam some different ways to use lists and functions.  I searched the net a bit hoping to find something short and interesting, but with some repetition in its implementation that would help me teach how to remove repetition.</p>
+
+<p>When learning literacy, one begins with reading before writing.  Then the two skills grow together, one complementing the other.  Working with someone else&#39;s code was an important dimension of this lesson.</p>
+
+<p>I found <a href="http://cgibin.erols.com/ziring/cgi-bin/cep/cep.pl?_alpha=l">an example logo program in the Dictionary of Programming Languages</a> which turned out to be even better than I expected.  I&#39;ve copied the code from that example below making minor changes to run it in <a href="http://www.microworlds.com/">MicroWorlds Logo</a>.  In addition to all of my own criteria, this example introduces recursion and fractals.</p>
+
+<pre>
+; Recursive procedure to line, fractalized
+to DrawFractalLine :level :length
+  ifelse :level &lt; 1 [
+    forward :length] [
+    DrawFractalLine (sum -1 :level) (quotient :length 3.00)
+    left 60
+    DrawFractalLine (sum -1 :level) (quotient :length 3.00)
+    right 120 
+    DrawFractalLine (sum -1 :level) (quotient :length 3.00)
+    left 60
+    DrawFractalLine (sum -1 :level) (quotient :length 3.00)
+  ]
+end
+
+; procedure to clear screen and position turtle
+to SetupTurtle
+  cg setpensize 1 setpos [-160 -10] right 60 clean pd
+end
+
+; setup turtle then draw Koch&#39;s snowflake(5)
+SetupTurtle
+repeat 3 [DrawFractalLine 5 330 right 120]
+</pre><p><img src="http://dobbse.net/thinair/2008/12/vonkoch-snowflake.png" /></p>
+
+<p>Having seen the above, we typed in the following:</p>
+
+<pre>
+cg pu setpos [-160 250] right 90 pd
+DrawFractalLine 0 330
+pu setpos [-160 150] pd
+DrawFractalLine 1 330
+pu setpos [-160 50] pd
+DrawFractalLine 2 330
+</pre><p><img src="http://dobbse.net/thinair/2008/12/vonkoch-012.png" /></p>
+
+<p>Sam pretty quickly understood that we can compare level=0 with level=1 to understand the basic transformation that happens at each additional level of recursion.  At each level we divide the previous level&#39;s line segments into three pieces and replace the middle one with two sides of an equilateral triangle.</p>
+
+<pre>
+pu setpos [-160 -50] pd
+DrawFractalLine 3 330
+pu setpos [-160 -150] pd
+DrawFractalLine 4 330
+pu setpos [-160 -250] pd
+DrawFractalLine 5 330
+</pre><p><img src="http://dobbse.net/thinair/2008/12/vonkoch-345.png" /></p>
+
+<p>My first surprise was how quickly Sam began developing an intuitive grasp of recursion.  Watching the turtle draw each shape in real-time helped make clear what was happening.  A simple set of rules created a fairly complex shape.  What a concrete and compelling introduction to recursion compared to computer science tradition in the Fibonacci series!</p>
+
+<p>Although I didn&#39;t go there while working with Sam, I realize while writing this there&#39;s an opportunity to plant seeds of understanding for &quot;significant digits.&quot;  We can only barely see a difference between a curves drawn with level=6 and level=7.  The differences are smaller than the pixels on our screen -- visually they are insignificant.  In other words, there&#39;s no extra value to be gained by setting the level any more than 6, and it&#39;s obviously not worth the significant extra time.</p>
+
+<p><img src="http://dobbse.net/thinair/2008/12/vonkoch-67.png" /></p>
+
+<p>Having worked with <a href="http://www.bivio.biz/hm/team">Rob &quot;Once and only once&quot; Nagler</a> for five years now, I cannot look at a routine like DrawFractalLine without seeing the repetition.  DrawFractalLine DrawFractalLine DrawFractalLine.  Let&#39;s clean that up a bit.  (By the way, Logo really shines here.  It would be considerably more difficult and verbose to do this in Java or C#.)</p>
+
+<pre>
+to DrawFractalLine :level :length
+  ifelse :level &lt; 1 [
+    forward :length
+  ] [
+    dolist [command [
+      [left 60]
+      [right 120]
+      [left 60]
+      []
+    ]] [
+      DrawFractalLine (sum -1 :level) (quotient :length 3.00)
+      if not empty? :command [run :command]
+    ]
+  ]
+end
+</pre><p>This is a small enough bit of code that one might reasonably ask &quot;why bother?&quot;  However one additional change lets us reuse DrawFractalLine for another classic fractal: the Peano curve.</p>
+
+<pre>
+to DrawFractalLine :commands :level :length
+  ifelse :level &lt; 1 [
+    forward :length
+  ] [
+    dolist [command :commands] [
+      DrawFractalLine :commands (sum -1 :level) (quotient :length 3.00)
+      if not empty? :command [run :command]
+    ]
+  ]
+end
+
+to VonKoch :level :length
+  DrawFractalLine [
+    [left 60]
+    [right 120]
+    [left 60]
+    []
+  ] :level :length
+end
+
+to Peano :level :length
+  DrawFractalLine [
+    [left 90]
+    [right 90]
+    [right 90]
+    [right 90]
+    [left 90]
+    [left 90]
+    [left 90]
+    [right 90]
+    []
+  ] :level :length
+end
+</pre><p><img src="http://dobbse.net/thinair/2008/12/peano-012.png" /></p>
+
+<p>In shape, the Von Koch snowflake and the Peano curve are markedly different.  But with the code in front of us the similarity of construction is quite concrete.  Both involve replacing the middle of one segment with the same basic shape.  That&#39;s exactly what DrawFractalLine now does.  As another point of comparison between these two fractals, the Peano curve is space-filling: the more deeply we recurse, the more completely the space is colored in (for example, this was level=4):</p>
+
+<p><img src="http://dobbse.net/thinair/2008/12/peano-4.png" /></p>
+
+<p>By the time we&#39;d made these changes to the code and talked about a these two classic fractals, Sam started suggesting different base shapes to try.  Here was one where he suggested doing things a little differently with the peano curve.</p>
+
+<pre>
+to sam-curve :level :length
+ DrawFractalLine [
+  [left 90]
+  [right 90]
+  [right 90]
+  []
+  [right 90]
+  [right 90]
+  [right 90]
+  [forward (2 * :length / 3)]
+ ] :level :length
+end
+</pre><p><img src="http://dobbse.net/thinair/2008/12/sam-curve-1.png" /></p>
+
+<p><img src="http://dobbse.net/thinair/2008/12/sam-curve-2.png" /></p>
+
+<p><img src="http://dobbse.net/thinair/2008/12/sam-curve-3.png" /></p>
+
+<p><img src="http://dobbse.net/thinair/2008/12/sam-curve-4.png" /></p>
+
+<p>And next is a variation on the Von Koch curve.  Why does this one grow in size with the depth of recursion?</p>
+
+<pre>
+to vkzig :level :length
+  DrawFractalLine [
+    [left 30]
+    [right 120]
+    [left 120]
+    [right 30]
+    []
+  ] :level :length
+end
+</pre><p><img src="http://dobbse.net/thinair/2008/12/vkzig-1.png" /></p>
+
+<p><img src="http://dobbse.net/thinair/2008/12/vkzig-2.png" /></p>
+
+<p><img src="http://dobbse.net/thinair/2008/12/vkzig-6.png" /></p>
+
+<p>Sam&#39;s attention was really captured thinking of new base shapes and trying to understand why they behave the way they do.</p>
+
+<p>There&#39;s also a really important lesson about programming and automation in general.  With a couple fairly simple refinements to the original program, we have created our own power tool for exploring this class of fractal.  We created our own power tool.  As programs go, this one is incredibly simple and small, yet has some amazing reach instructionally.  What if we started kids in elementary school building up their own collection of computational tools?  What if they shared tools?  Computers are more than just fancy typewriters, or televisions.  They&#39;re more than excellent gaming systems.  Used thoughtfully, software offers leverage unlike anything that&#39;s come before.  The problem we solved today can become a tool that lets us solve more complex problems tomorrow.</p>
+
+</div>
+
+<div class="section comments"><a name="comments"></a>
+
+</div>
+
+

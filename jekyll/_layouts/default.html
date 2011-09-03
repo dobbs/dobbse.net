@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={% if page.charset %}{{ page.charset }}{% else %}{{ site.charset }}{% endif %}" />
+<title>{% if page.fulltitle %}{{ page.fulltitle }} - {% endif %}thinair</title>
+<link rel="stylesheet" href="http://dobbse.net/style.css" type="text/css" />
+</head>
+<body>
+
+<div class="header">
+<h1><a href="/">thinair</a></h1>
+<div class="hgroup">
+<h2 class="first">Boulder, Colorado</h2>
+<h2>elevation 5400 feet</h2>
+<h2>your guide: Eric Dobbs</h2>
+</div>
+</div>
+
+{{ content }}
+
+<div class="nav">
+<ol>
+<li>Archives
+  <ol>
+    <li><a href="/thinair/2011/">2011</a></li>
+    <li><a href="/thinair/2010/">2010</a></li>
+    <li><a href="/thinair/2009/">2009</a></li>
+    <li><a href="/thinair/2008/">2008</a></li>
+    <li><a href="/thinair/2007/">2007</a></li>
+    <li><a href="/thinair/2006/">2006</a></li>
+    <li><a href="/thinair/2005/">2005</a></li>
+    <li><a href="/thinair/2004/">2004</a></li>
+    <li><a href="/thinair/2003/">2003</a></li>
+    <li><a href="/thinair/2002/">2002</a></li>
+    <li><a href="/thinair/2001/">2001</a></li>
+  </ol>
+</li>
+<li>Below the fold
+  <ol class="wide">
+{% for post in site.posts limit:20 offset:10 %}
+    <li><a href="{{ post.url }}">{{ post.title }}</a></li>
+{% endfor %}
+  </ol>
+</li>
+</ol>
+</div>
+
+<div class="footer meta">
+&copy; {% if page.date %}{{ page.date | date: "%Y" }}{% else %}{{ site.copyright }}-{{ site.time | date: "%Y" }}{% endif %} Eric Dobbs.  All rights reserved.
+</div>
+
+</body>
+</html>

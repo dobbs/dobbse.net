@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Lisp blazed the trail, (code generation and dynamic languages) (thinair)</title>
+<link rel="alternate" type="application/rss+xml" title="thinair feed" href="http://dobbse.net/index.rdf" />
+<link rel="stylesheet" href="http://dobbse.net/style.css" type="text/css" />
+<link rel="start" href="http://dobbse.net/" title="Home" />
+<link rel="prev" href="http://dobbse.net/thinair/2004/02/worms.html" title="MyDoom, NovaRG, Worms and Mac OS X" />
+
+<link rel="next" href="http://dobbse.net/thinair/2004/02/pdf-default.html" title="Mac OS X Preview doesn't display Acrobat Forms" />
+
+</head>
+<body>
+
+<div class="header">
+<h1><a href="/">thinair</a></h1>
+<div class="hgroup">
+<h2 class="first">Boulder, Colorado</h2>
+<h2>elevation 5400 feet</h2>
+<h2>your guide: Eric Dobbs</h2>
+</div>
+</div>
+
+
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2004/02/lisp.html">Lisp blazed the trail, (code generation and dynamic languages)</a></h1>
+<div class="time 2004-02-11T23:02:14 pubdate meta">Wednesday 11 February 2004 at 23:02 </div>
+<p>Three posts in today&#39;s <span class="caps">RSS</span> feeds mentioned code generation.  My first exposure to code generation was in contributions to <a href="http://db.apache.org/torque/">Torque</a> (which also made me a <a href="http://jakarta.apache.org/turbine/">Turbine</a> committer).</p>
+
+<p><a href="http://www.cwinters.com/News/show/?news_id=1157">While talking about Spring, Chris mentioned a new code generation system he&#39;s written</a>.</p>
+
+<p><a href="http://simon.incutio.com/archive/2004/02/11/codeGeneration">Simon prefers data driven programming to code generation</a>.</p>
+
+<blockquote><p>We considered using code generators for our current major project at work, and picked up Jack Herrington&#39;s <a href="http://www.codegeneration.net/cgia/">book</a> on the subject. Reading through it, it became clear that many of the problems that code generators solve can be tackled instead using <a href="http://simon.incutio.com/archive/2003/12/05/dataDriven">data driven programming</a> techniques made possible by dynamic languages. Since we had already settled on Python as our implementation language the need for code generation became far less apparent, and we ended up avoiding it entirely with the exception of a command line tool for passvely generating basic templates for our admin interface.</p></blockquote>
+
+<p><a href="http://weblog.infoworld.com/udell/2004/02/11.html#a915">Jon endorses dynamic languages while discussing Programs That Write Programs</a>.</p>
+
+<blockquote><p>We&#39;ve always known that dynamic languages are a great way to create &quot;little languages&quot; for specific tasks. But we don&#39;t yet fully appreciate that all programming is a continuous process of language invention. And we don&#39;t (yet) evaluate programming-language productivity on those terms. ....  We are linguistic animals endowed with a protean ability to generate language. Naturally we&#39;ll want that same generative power in our programming languages.</p></blockquote>
+
+<p>Jon has written a perfect description of lisp.  Guy Steele shared this wisdom in his inspired presentation at <span class="caps">OOPSLA 1998 </span><a href="http://research.sun.com/research/jtech/pubs/98-oopsla-growing.ps">Growing a Language</a>. (140K PostScript)  Paul Graham calls it bottom-up programming.  I&#39;m still slowly working my way through <a href="http://www.paulgraham.com/onlisp.html">On Lisp</a>.  Lisp macros are code generators -- programs that write programs.  Code generation is baked into the language.  Although, <a href="http://www.paulgraham.com/paulgraham/avg.html">Paul says macros make lisp more powerful than other languages</a>, he also observes &quot;macros are harder to write than ordinary Lisp functions, and it&#39;s considered to be bad style to use them when they&#39;re not necessary.&quot;</p>
+
+<p>Lisp is the mother of dynamic languages.  Its secret power is in the ease with which it can be extended into custom &quot;little languages&quot; which match the domain of the program under development.  But code generation is only a part of that power.  Functions and lexical closures are also quite powerful.</p>
+
+<p>I&#39;ve been programming in perl since I joined as an apprentice to <a href="http://www.bivio.biz/">bivio Software Artisans</a>.  In 1999 <a href="http://www.bivio.biz/hm/csci7818-bop-intro/why-bop">perl [was chosen] for [its] Lispishness, ubiquity and reliability</a>.  Though python and ruby are more fashionable, perl is still quite capable and lispish.  It&#39;s fun applying lessons from On Lisp to my daily perl hacking.  It&#39;s also fun learning to grow a language.</p>
+
+<p>The future is here, just not evenly distributed.  Lisp programmers understand about the process of continuous language invention.  It&#39;s the rest of us who have yet to fully embrace that wisdom.  The bad news is that it&#39;s hard work expanding your programming mind set, judging by the time it&#39;s taking me to digest On Lisp.  The good news is the lisp hackers have been blazing this trail for over 40 years and there are good travel guides if you ever decide to set out in that direction.</p>
+
+</div>
+
+<div class="section comments"><a name="comments"></a>
+
+</div>
+
+
+<div class="nav">
+<ol>
+<li>Archives
+  <ol>
+    <li><a href="http://dobbse.net/thinair/2011/01/index.html">January 2011</a></li>
+    <li><a href="http://dobbse.net/thinair/2010/12/index.html">December 2010</a></li>
+    <li><a href="http://dobbse.net/thinair/2010/09/index.html">September 2010</a></li>
+    <li><a href="http://dobbse.net/thinair/2010/08/index.html">August 2010</a></li>
+    <li><a href="http://dobbse.net/thinair/2010/06/index.html">June 2010</a></li>
+    <li><a href="http://dobbse.net/thinair/2010/02/index.html">February 2010</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/10/index.html">October 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/09/index.html">September 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/07/index.html">July 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/05/index.html">May 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/03/index.html">March 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/02/index.html">February 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/01/index.html">January 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2008/12/index.html">December 2008</a></li>
+    <li><a href="http://dobbse.net/thinair/2008/09/index.html">September 2008</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/10/index.html">October 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/09/index.html">September 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/08/index.html">August 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/06/index.html">June 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/04/index.html">April 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/03/index.html">March 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/01/index.html">January 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/12/index.html">December 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/11/index.html">November 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/10/index.html">October 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/09/index.html">September 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/08/index.html">August 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/07/index.html">July 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/06/index.html">June 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/04/index.html">April 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/02/index.html">February 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/12/index.html">December 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/10/index.html">October 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/06/index.html">June 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/05/index.html">May 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/04/index.html">April 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/03/index.html">March 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/02/index.html">February 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/12/index.html">December 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/11/index.html">November 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/10/index.html">October 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/09/index.html">September 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/08/index.html">August 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/07/index.html">July 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/06/index.html">June 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/05/index.html">May 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/04/index.html">April 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/03/index.html">March 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/02/index.html">February 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/01/index.html">January 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/12/index.html">December 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/11/index.html">November 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/10/index.html">October 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/09/index.html">September 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/08/index.html">August 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/07/index.html">July 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/06/index.html">June 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/05/index.html">May 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/04/index.html">April 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/03/index.html">March 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/02/index.html">February 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/01/index.html">January 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2002/12/index.html">December 2002</a></li>
+    <li><a href="http://dobbse.net/thinair/2002/11/index.html">November 2002</a></li>
+    <li><a href="http://dobbse.net/thinair/2002/10/index.html">October 2002</a></li>
+    <li><a href="http://dobbse.net/thinair/2002/09/index.html">September 2002</a></li>
+    <li><a href="http://dobbse.net/thinair/2001/01/index.html">January 2001</a></li>
+
+  </ol>
+</li>
+
+<li>Around
+  <ol class="wide">
+    <li><a href="http://dobbse.net/thinair/2004/02/worms.html">&laquo; MyDoom, NovaRG, Worms and Mac OS X</a></li>
+
+    <li><a href="http://dobbse.net/thinair/2004/02/pdf-default.html">&raquo; Mac OS X Preview doesn't display Acrobat Forms</a></li>
+
+  </ol>
+</li>
+
+</ol>
+</div>
+<div class="footer meta">
+All content &copy; 2001-2011  Eric Dobbs unless otherwise noted.  All rights reserved.
+</div>
+
+</body>
+</html>

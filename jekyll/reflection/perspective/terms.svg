@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN"    "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd" [
+	<!ENTITY ns_svg "http://www.w3.org/2000/svg">
+	<!ENTITY ns_xlink "http://www.w3.org/1999/xlink">
+]>
+<!-- copyright (c) 2002 Eric Dobbs. All rights reserved. -->
+<svg  xmlns="&ns_svg;" xmlns:xlink="&ns_xlink;" width="430" height="300" viewBox="0 0 430 300" overflow="visible" onload="init(evt);">
+
+<style type="text/css"><![CDATA[
+    .off {
+        stroke: black;
+        fill: none;
+        stroke-width: 1;
+    }
+
+    .on {
+        stroke: red;
+        fill: none;
+        stroke-width: 2;
+    }
+
+    text.off {
+        stroke-width: 1;
+        stroke: none;
+        fill: black;
+        font-weight: normal;
+    }
+    text.on  {
+        stroke-width: 1;
+        stroke: none;
+        fill: red;
+        font-weight: bold;
+    }
+
+    circle.off {
+        stroke-width: 4;
+        fill: black;
+        stroke: none;
+    }
+    circle.on {
+        stroke-width: 4;
+        fill: red;
+        stroke: red;
+    }
+
+    #text-message {visibility: hidden;}
+
+]]></style>
+
+<script type="text/ecmascript"><![CDATA[
+
+var hiliteId;
+
+function init(evt)
+{
+  hiliteId="";
+}
+
+function hilite(id)
+{
+  unhilite(hiliteId);
+  svgDocument.getElementById(id).setAttribute("class","on");
+  svgDocument.getElementById(id + "-label").setAttribute("class","on");
+  hiliteId = id;
+  changeMessage("-" + id + "-");
+}
+
+function unhilite(id)
+{
+  if (id != "")
+  {
+    svgDocument.getElementById(id).setAttribute("class","off");
+    svgDocument.getElementById(id + "-label").setAttribute("class","off");
+  }
+}
+
+function changeMessage(newMsg)
+{
+  obj = svgDocument.getElementById("text-message");
+  var newMessage = svgDocument.createTextNode(newMsg);
+  obj.replaceChild(newMessage, obj.getFirstChild());
+}
+
+// ]]></script>
+
+	<path onclick="hilite('GroundPlane');" id="GroundPlane" class="off"
+		d="M 425.454,167.023 L 107.659,240.22 L 1.792,202.977 l 317.793,-73.197 L 425.454,167.023 z"/>
+	<path onclick="hilite('PicturePlane');" id="PicturePlane" class="off"
+		d="M 246.156,37.95l,-0.053,170.777 l -105.867,-37.242 l 0.051,-170.778 L 246.156,37.95 z"/>
+	<path onclick="hilite('Projector');" id="Projector"
+	        class="off" d="M 85.812,90.149 l 239.101,64.206"/>
+	<path onclick="hilite('GroundProjector');" id="GroundProjector"
+	        class="off" d="M 85.812,213.939 l 239.101,-59.585"/>
+	<path onclick="hilite('PictureProjector');" id="PictureProjector"
+	        class="off" d="M 187.816,187.419 V 64.838"/>
+	<g onclick="hilite('Observer');" id="Observer" class="off">
+		<path d="M 98.716,106.749 L 70.49,96.898V68.672 l 28.226,9.851 V 106.749 z"/>
+		<path d="M 85.812,213.939"/>
+		<path d="M 55.167,118.567 l 61.29,21.391"/>
+		<path d="M 67.264,207.062 l 18.549,-36.268"/>
+		<path d="M 104.361,220.01 l -18.549,-49.215"/>
+		<path d="M 85.812,170.795 v -69.356"/>
+	</g>
+	<circle onclick="hilite('PointOfView');" id="PointOfView"
+		class="off" cx="85.812" cy="90.149" r="2"/>
+	<circle onclick="hilite('ProjectionPoint');" id="ProjectionPoint"
+		class="off" cx="187.816" cy="118.064" r="2"/>
+	<circle onclick="hilite('ObservedPoint');" id="ObservedPoint"
+		class="off" cx="324.913" cy="154.354" r="2"/>
+
+	<text onclick="hilite('GroundPlane');" id="GroundPlane-label" x="50" y="260">Ground Plane</text>
+	<text onclick="hilite('PicturePlane');" id="PicturePlane-label" x="50" y="272">Picture Plane</text>
+	<text onclick="hilite('Observer');" id="Observer-label" x="50" y="284">Observer</text>
+
+	<text onclick="hilite('PointOfView');" id="PointOfView-label" x="150" y="260">Point of View</text>
+	<text onclick="hilite('ObservedPoint');" id="ObservedPoint-label" x="150" y="272">Observed Point</text>
+	<text onclick="hilite('ProjectionPoint');" id="ProjectionPoint-label" x="150" y="284">Projection Point</text>
+
+	<text onclick="hilite('Projector');" id="Projector-label" x="250" y="260">Projector</text>
+	<text onclick="hilite('GroundProjector');" id="GroundProjector-label" x="250" y="272">Ground Projector</text>
+	<text onclick="hilite('PictureProjector');" id="PictureProjector-label" x="250" y="284">Picture Projector</text>
+
+	<text id="text-message" x="200" y="300">no message</text>
+</svg>

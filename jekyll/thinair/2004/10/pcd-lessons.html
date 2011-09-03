@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>FSM kitchen sink:  workflows, pipelines, asynchrony, SOAs (thinair)</title>
+<link rel="alternate" type="application/rss+xml" title="thinair feed" href="http://dobbse.net/index.rdf" />
+<link rel="stylesheet" href="http://dobbse.net/style.css" type="text/css" />
+<link rel="start" href="http://dobbse.net/" title="Home" />
+<link rel="prev" href="http://dobbse.net/thinair/2004/09/debate.html" title="The debate, the war on terror, and freedom from fear" />
+
+<link rel="next" href="http://dobbse.net/thinair/2004/10/business-process.html" title="State Machines and Business Process and Workflow" />
+
+</head>
+<body>
+
+<div class="header">
+<h1><a href="/">thinair</a></h1>
+<div class="hgroup">
+<h2 class="first">Boulder, Colorado</h2>
+<h2>elevation 5400 feet</h2>
+<h2>your guide: Eric Dobbs</h2>
+</div>
+</div>
+
+
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2004/10/pcd-lessons.html">FSM kitchen sink:  workflows, pipelines, asynchrony, SOAs</a></h1>
+<div class="time 2004-10-03T22:09:47 pubdate meta">Sunday 03 October 2004 at 22:09 </div>
+<p><a href="http://dobbse.net/thinair/2003/09/000140.html">State machines</a> part eleven</p>
+
+<p><em>These were my first rambling thoughts about workflow from June of 2002.  (Maybe I should call this "part zero". :-)  I haven't looked at Commons workflow nor Turbine's pipeline since then.  The code has probably diverged from my UML diagrams.</em></p>
+
+<p>A summary of what I've learned over the past couple
+years of working on PlanetCAD's workflow and paying
+attention to other options.</p>
+
+<p>I think there are several different things that get
+described as "workflow".  I think of them as different
+use cases for a general workflow engine.</p>
+
+<ol>
+<li>There's the wizard interface that organizes a
+complex form into multiple steps (or pages, or screens,
+or whatever).  This is what commons-workflow is
+primarily about.</li>
+
+<li>There's the business process automation where a
+purchase order must have quotes from three different
+suppliers, reviewed by someone in management, further
+reviewed by someone in purchasing, and finally the PO
+is cut and delivered to the winning supplier.</li>
+
+<li>Complex processing of data without human
+intervention.  The stuff we're doing at PlanetCAD is
+automating the preparation, processing, and delivery of
+engineering data between manufacturers and their
+suppliers.  I like to describe this as a distributed
+batch processing system.  A sysadmin sets up the
+scripts that will be used for processing.  When an end
+user sends a collection of engineering files to another
+user, the destination user's profile determines which
+of the scripts get used for processing.  The scripts
+are run without human intervention by a collection of
+job servers.  A workflow state machine manages the
+processing of the script.</li>
+</ol>
+
+<p><em>As you might guess from the rest of the entries in this series, I now see applications for workflow everywhere.</em></p>
+
+<p>Clearly, some workflow systems would be a natural
+combination of these things.  I think that Jason's use
+case of the lifecycle of a book will probably be a
+combination of 2 and 3.  In fact, we have a couple
+cases where our automated workflow pauses to wait for a
+human to approve what's been done so far.  We started
+with 3 and are adding elements of 2 as they are
+requested.  I'm not as interested in 1, but I've seen
+some discussion on the commons lists about using
+commons workflow for some of these other kinds of
+workflow, so I have been including it in my thinking.</p>
+
+<p><em>The original audience for whom I wrote this knew what I meant by "Jason's use case."  For the rest of you, Jason van Zyl described the process a book goes through in editing and production -- something important for <a href="http://tambora.zenplex.org/">tambora</a>.  </em></p>
+
+<p><img src="http://dobbse.net/thinair/2004/10/figures.gif" border="0" height="345" width="281" alt="figures.gif" align="left" /></p>
+
+<h3>Commons Workflow (figure 1):</h3>
+
+<p>An Activity (or wizard) is a collection of steps.
+There's a composite called Block that allows steps to
+be arbitrarily nested.  Blocks are also used to model
+'if', 'for', and 'where' type operations.  There's some
+plans to add a Process which is a collection of
+Activities.  The existing code handles wizards.
+'Process' would be needed to add support for workflows
+between people (type 2) or workflows between systems
+(type 3).  A Context is provided at runtime as
+processing flows through a defined Activity.  Decisions
+through the workflow are made based on objects in the
+Context.</p>
+
+
+<h3>Turbine's Pipeline (figure 2):</h3>
+
+<p>Looks pretty similar to Commons Workflow, though a
+little more simple.  A Pipeline is a collection of
+valves.  The pipeline is defined with an XML file not
+unlike the default means of configuring Steps in an
+Activity in Workflow.  At runtime RunData and
+ValveContext are provided as processing flows through
+the Pipeline.  There's no composite patter like the
+Workflow Block, but the rest is pretty similar.</p>
+
+
+<h3>State design pattern (figure 3):</h3>
+
+<p>I think this turns the Pipeline model inside out.
+Instead of having a context and moving it through a
+pipeline, client code talks to the context and it
+changes states through subsequent calls.  Context is
+the object that client code talks to and the behavior
+of that Context changes as the state of the Context
+changes.  PlanetCAD's workflow uses a State pattern.
+It's worked pretty well for us but it seems to invite
+some coupling between the State objects and the
+Context.  And we're also seeing some proliferation of
+pretty similar states.</p>
+
+<h3>Event model:</h3>
+
+<p>The asynchronous nature of a business process workflow
+(type 2 above) invites some thinking about making the
+workflow event driven, which is what I've been doing
+for the past several weeks.  In this case the
+individual Steps or Valves or States would be decoupled
+and made independent.  Then the workflow would be a
+network of listeners that trigger a particular
+processing step including access to contextual info in
+the invocation.  When processing completes an event
+would be fired to indicate its completion and some
+other step could be listening for that event.  You
+could still use an XML descriptor to define the network
+of listeners and the rules that govern different paths
+through the network.  But I think making the steps more
+loosely coupled opens the opportunity to change the
+workflow at runtime.  That would allow ad-hoc workflows
+to be created, or existing workflows to be changed on
+the fly to handle exceptions in the standard process.</p>
+
+<p>I also like the potential for letting completely
+different systems trigger events in the network.  I
+haven't quite gotten my head around this one yet, which
+is why I haven't included an illustration.  Seems like
+the same sort of mental transition to event driving
+programming and GUIs.  The elements start to look like
+they aren't doing enough, but the effect of a whole
+bunch of them orchestrated by the user makes cool
+things happen.  In the workflow stuff I'm working on,
+it pushes a lot of the magic into how the network of
+listeners is organized how the rules in the network
+interact with one another to control flow through the
+network.</p>
+
+<p><em>These decoupled states waiting for asynchronous events could even be web services in a pipeline, if you accept my theory that a pipeline is just an inside-out workflow.  I still think there are interesting parallels between the asynchronous event-driven processing of GUI applications and similar asynchronous event-driven processing in Service Oriented Architectures.  I don't think its any coincidence that SOAs and pipelines are getting some buzz these days.  Finally, I'm still interested in a workflow engine supporting ad-hoc workflows.</em></p>
+
+</div>
+
+<div class="section comments"><a name="comments"></a>
+
+</div>
+
+
+<div class="nav">
+<ol>
+<li>Archives
+  <ol>
+    <li><a href="http://dobbse.net/thinair/2011/01/index.html">January 2011</a></li>
+    <li><a href="http://dobbse.net/thinair/2010/12/index.html">December 2010</a></li>
+    <li><a href="http://dobbse.net/thinair/2010/09/index.html">September 2010</a></li>
+    <li><a href="http://dobbse.net/thinair/2010/08/index.html">August 2010</a></li>
+    <li><a href="http://dobbse.net/thinair/2010/06/index.html">June 2010</a></li>
+    <li><a href="http://dobbse.net/thinair/2010/02/index.html">February 2010</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/10/index.html">October 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/09/index.html">September 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/07/index.html">July 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/05/index.html">May 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/03/index.html">March 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/02/index.html">February 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/01/index.html">January 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2008/12/index.html">December 2008</a></li>
+    <li><a href="http://dobbse.net/thinair/2008/09/index.html">September 2008</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/10/index.html">October 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/09/index.html">September 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/08/index.html">August 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/06/index.html">June 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/04/index.html">April 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/03/index.html">March 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/01/index.html">January 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/12/index.html">December 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/11/index.html">November 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/10/index.html">October 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/09/index.html">September 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/08/index.html">August 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/07/index.html">July 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/06/index.html">June 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/04/index.html">April 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/02/index.html">February 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/12/index.html">December 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/10/index.html">October 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/06/index.html">June 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/05/index.html">May 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/04/index.html">April 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/03/index.html">March 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/02/index.html">February 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/12/index.html">December 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/11/index.html">November 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/10/index.html">October 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/09/index.html">September 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/08/index.html">August 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/07/index.html">July 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/06/index.html">June 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/05/index.html">May 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/04/index.html">April 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/03/index.html">March 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/02/index.html">February 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/01/index.html">January 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/12/index.html">December 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/11/index.html">November 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/10/index.html">October 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/09/index.html">September 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/08/index.html">August 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/07/index.html">July 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/06/index.html">June 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/05/index.html">May 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/04/index.html">April 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/03/index.html">March 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/02/index.html">February 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/01/index.html">January 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2002/12/index.html">December 2002</a></li>
+    <li><a href="http://dobbse.net/thinair/2002/11/index.html">November 2002</a></li>
+    <li><a href="http://dobbse.net/thinair/2002/10/index.html">October 2002</a></li>
+    <li><a href="http://dobbse.net/thinair/2002/09/index.html">September 2002</a></li>
+    <li><a href="http://dobbse.net/thinair/2001/01/index.html">January 2001</a></li>
+
+  </ol>
+</li>
+
+<li>Around
+  <ol class="wide">
+    <li><a href="http://dobbse.net/thinair/2004/09/debate.html">&laquo; The debate, the war on terror, and freedom from fear</a></li>
+
+    <li><a href="http://dobbse.net/thinair/2004/10/business-process.html">&raquo; State Machines and Business Process and Workflow</a></li>
+
+  </ol>
+</li>
+
+</ol>
+</div>
+<div class="footer meta">
+All content &copy; 2001-2011  Eric Dobbs unless otherwise noted.  All rights reserved.
+</div>
+
+</body>
+</html>

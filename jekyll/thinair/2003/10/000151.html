@@ -1,0 +1,212 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+
+<title>thinair: Expos&eacute; and Alt-tab</title>
+
+<link rel="stylesheet" href="http://dobbse.net//styles-site.css" type="text/css" />
+<link rel="alternate" type="application/rss+xml" title="RSS" href="http://dobbse.net/index.rdf" />
+
+<link rel="start" href="http://dobbse.net/" title="Home" />
+<link rel="prev" href="http://dobbse.net/thinair/2003/10/fsm-jsf-and-bop.html" title="State Machines, JavaServer Faces, bOP, and Rethinking the V in MVC" />
+
+<link rel="next" href="http://dobbse.net/thinair/2003/11/000152.html" title="Pumpkins, Pooh, and Grues" />
+
+
+<script type="text/javascript" language="javascript">
+<!--
+
+function OpenTrackback (c) {
+    window.open(c,
+                    'trackback',
+                    'width=480,height=480,scrollbars=yes,status=yes');
+}
+
+var HOST = 'dobbse.net';
+
+// Copyright (c) 1996-1997 Athenia Associates.
+// http://www.webreference.com/js/
+// License is granted if and only if this entire
+// copyright notice is included. By Tomer Shiran.
+
+function setCookie (name, value, expires, path, domain, secure) {
+    var curCookie = name + "=" + escape(value) + ((expires) ? "; expires=" + expires.toGMTString() : "") + ((path) ? "; path=" + path : "") + ((domain) ? "; domain=" + domain : "") + ((secure) ? "; secure" : "");
+    document.cookie = curCookie;
+}
+
+function getCookie (name) {
+    var prefix = name + '=';
+    var c = document.cookie;
+    var nullstring = '';
+    var cookieStartIndex = c.indexOf(prefix);
+    if (cookieStartIndex == -1)
+        return nullstring;
+    var cookieEndIndex = c.indexOf(";", cookieStartIndex + prefix.length);
+    if (cookieEndIndex == -1)
+        cookieEndIndex = c.length;
+    return unescape(c.substring(cookieStartIndex + prefix.length, cookieEndIndex));
+}
+
+function deleteCookie (name, path, domain) {
+    if (getCookie(name))
+        document.cookie = name + "=" + ((path) ? "; path=" + path : "") + ((domain) ? "; domain=" + domain : "") + "; expires=Thu, 01-Jan-70 00:00:01 GMT";
+}
+
+function fixDate (date) {
+    var base = new Date(0);
+    var skew = base.getTime();
+    if (skew > 0)
+        date.setTime(date.getTime() - skew);
+}
+
+function rememberMe (f) {
+    var now = new Date();
+    fixDate(now);
+    now.setTime(now.getTime() + 365 * 24 * 60 * 60 * 1000);
+    setCookie('mtcmtauth', f.author.value, now, '', HOST, '');
+    setCookie('mtcmtmail', f.email.value, now, '', HOST, '');
+    setCookie('mtcmthome', f.url.value, now, '', HOST, '');
+}
+
+function forgetMe (f) {
+    deleteCookie('mtcmtmail', '', HOST);
+    deleteCookie('mtcmthome', '', HOST);
+    deleteCookie('mtcmtauth', '', HOST);
+    f.email.value = '';
+    f.author.value = '';
+    f.url.value = '';
+}
+
+//-->
+</script>
+
+<!--
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/"
+         xmlns:dc="http://purl.org/dc/elements/1.1/">
+<rdf:Description
+    rdf:about="http://dobbse.net/thinair/2003/10/000151.html"
+    trackback:ping="http://dobbse.net/dobbse-cgi-bin/mt/mt-tb.cgi/141"
+    dc:title="<![CDATA[Expos&eacute; and Alt-tab]]>"
+    dc:identifier="http://dobbse.net/thinair/2003/10/000151.html"
+    dc:subject="Technology"
+    dc:description="<![CDATA[This behavior is described in Apple&#39;s pitch about Expos&eacute; but I didn&#39;t catch it until after I&#39;d seen it in action. I think it deserves a little more attention. At some point, when you have a bunch of windows open in a bunch of applications, hit F9 to activate expos&eacute;. Then use Alt-tab. Expos&eacute; remains active but the windows displayed narrow to only those for the application you&#39;ve just tabbed to. Now tab to a different application and watch that app&#39;s windows take center stage. Nice touch, Apple! Looks like I may no longer need the screen grooming habits that...]]>"
+    dc:creator="eric"
+    dc:date="2003-10-27T14:10:31-07:00" />
+</rdf:RDF>
+-->
+
+
+</head>
+
+<body>
+
+<div id="banner">
+<h1>thinair<span>views of various geekage from 1,655 meters (5,430 feet) above sea level</span></h1>
+</div>
+
+
+<div id="container">
+
+<div class="blog">
+
+<div id="menu">
+<a href="http://dobbse.net/thinair/2003/10/fsm-jsf-and-bop.html">&laquo; State Machines, JavaServer Faces, bOP, and Rethinking the V in MVC</a> |
+
+<a href="http://dobbse.net/">Main</a>
+| <a href="http://dobbse.net/thinair/2003/11/000152.html">Pumpkins, Pooh, and Grues &raquo;</a>
+
+</div>
+
+</div>
+
+
+<div class="blog">
+
+<div class="date">October 27, 2003</div>	
+
+<div class="blogbody">
+
+<h1 class="title">Expos&eacute; and Alt-tab</h1>
+
+<p>This behavior is described in <a href="http://www.apple.com/macosx/features/expose/">Apple&#39;s pitch about Expos&eacute;</a> but I didn&#39;t catch it until after I&#39;d seen it in action.  I think it deserves a little more attention.</p>
+
+<p>At some point, when you have a bunch of windows open in a bunch of applications, hit <span class="caps">F9</span> to activate expos&eacute;.  Then use Alt-tab.  Expos&eacute; remains active but the windows displayed narrow to only those for the application you&#39;ve just tabbed to.  Now tab to a different application and watch that app&#39;s windows take center stage.  Nice touch, Apple!</p>
+
+<p>Looks like I may no longer need the screen grooming habits that I&#39;ve developed over the years.  :)</p>
+
+<a name="more"></a>
+
+
+<span class="posted">Posted 02:10 PM
+| <a href="http://dobbse.net/dobbse-cgi-bin/mt/mt-tb.cgi?__mode=view&entry_id=151" onclick="OpenTrackback(this.href); return false">TrackBack (0)</a>
+
+<br /></span>
+
+</div>
+
+<div id="links">
+&nbsp;
+</div>
+
+
+<div class="comments-head"><a name="comments"></a>Comments</div>
+
+
+
+<div class="comments-head">Email a comment</div>
+<div class="comments-body">
+<p>The comment form is <a href="http://dobbse.net/thinair/2005/02/comments-broken.html">broken</a>.  Please email your comments to <a href="mailto:blog-comment@dobbse.net?subject=http://dobbse.net/thinair/2003/10/000151.html">blog-comment@dobbse.net</a>.</p>
+</div>
+
+<!-- comments are broken as of 02/14/2005
+<div class="comments-head">Post a comment</div>
+
+<div class="comments-body">
+<p>All comments are moderated. <a href="http://dobbse.net/thinair/2004/03/comments-moderated.html">How and Why?</a></p>
+
+<form method="post" action="http://dobbse.net/dobbse-cgi-bin/mt/mt-comments.cgi" name="comments_form" onsubmit="if (this.bakecookie.checked) rememberMe(this)">
+<input type="hidden" name="static" value="1" />
+<input type="hidden" name="entry_id" value="151" />
+
+Name:<br />
+<input name="author" /><br /><br />
+
+Email Address:<br />
+<input name="email" /><br /><br />
+
+URL:<br />
+<input name="url" /><br /><br />
+
+Comments:<br />
+<textarea name="text" rows="10" cols="50"></textarea><br /><br />
+
+<input type="checkbox" name="bakecookie" />Remember info?<br /><br />
+
+<input type="submit" name="preview" value="&nbsp;PREVIEW&nbsp;" />
+<input type="submit" name="post" value="&nbsp;POST&nbsp;" /><br /><br />
+
+<input type="button" onclick="forgetMe(this.form)" value="FORGET PERSONAL INFORMATION" />
+</form>
+-->
+
+<!-- comments broken <script type="text/javascript" language="javascript"> -->
+<!--
+document.comments_form.email.value = getCookie("mtcmtmail");
+document.comments_form.author.value = getCookie("mtcmtauth");
+document.comments_form.url.value = getCookie("mtcmthome");
+//-->
+<!-- comments broken </script> -->
+
+<!-- comments broken </div> -->
+
+</div>
+</div>
+<div id="copyright">
+All content &copy; 2002-2010  Eric Dobbs unless otherwise noted.  All rights reserved.
+</div>
+
+</body>
+</html>

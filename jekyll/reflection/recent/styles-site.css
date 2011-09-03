@@ -1,0 +1,509 @@
+	body {
+
+		margin:0px 0px 0px 0px;
+
+		background:#FFF;		
+
+		}
+
+	A 		{ color: #0000FF; font-family: verdana, arial, sans-serif; font-size:10px; text-decoration: none; font-weight:bold; } 
+
+	A:link		{ color: #0000FF; text-decoration: none; } 
+
+	A:visited	{ color: #0000FF; text-decoration: none; } 
+
+	A:active	{ color: #0000FF; text-decoration: underline; } 
+
+	A:hover		{ color: #0000FF; text-decoration: underline; } 
+
+
+
+	#banner {
+
+		font-family:georgia, verdana, arial, sans-serif;
+
+		color:#FFF;
+
+		font-size:24px;
+
+		font-weight:bold;
+
+		border-left:1px solid #FFF;	
+
+		border-right:1px solid #FFF;  		
+
+		border-top:1px solid #FFF;  		
+
+  		background:#3366FF;
+
+		}
+
+
+
+	#banner tr {
+
+		vertical-align:baseline;
+
+		}
+
+
+
+	.description {
+
+		font-family:verdana, arial, sans-serif;
+
+		color:#FFF;
+
+		font-size:11px;
+
+		font-weight:bold;
+
+  		background:#3366FF;
+
+  		text-transform:none;	
+
+		padding-left:15px;
+
+		}	
+
+
+
+	#banner.description {
+
+		margin-left:15px;
+
+		}
+
+
+
+	#content {
+
+		float:left;
+
+		postion:relative;
+
+		width:60%;
+
+		background:#FFF;
+
+		margin-right:15px;
+
+		margin-bottom:20px;
+
+		border:1px solid #FFF;	
+
+		}
+
+
+
+	#container {
+
+		background:#FFF;
+
+		border:1px solid #FFF;		
+
+		}
+
+
+
+	#links {
+
+		background:#FFF;
+
+		padding:15px;				
+
+		border:1px solid #FFF;			
+
+		}
+
+		
+
+	.blog {
+
+  		padding:15px;
+
+		background:#FFF;
+
+		}	
+
+
+
+	
+
+	.blogbody {
+
+		font-family:georgia, verdana, arial, sans-serif;
+
+		color:#666;
+
+		font-size:11px;
+
+		font-weight:normal;
+
+  		background:#FFF;
+
+  		line-height:16px;			
+
+		}	
+
+	
+
+
+	.title	{ 
+
+		text-indent:0px;
+
+		font-family: verdana, arial, sans-serif; 
+
+		font-size: 11px; 
+
+		font-weight:bold;
+
+		color: #222; 	
+
+		}			
+
+
+
+	#menu {
+
+  		margin-bottom:15px;
+
+		background:#FFF;
+
+		text-align:center;  							
+
+		}		
+
+
+
+	.date	{ 
+
+		font-family:georgia, verdana, arial, sans-serif; 
+
+		font-size: 11px; 
+
+		color: #666; 
+
+		border-bottom:1px solid #36F;
+
+		margin-bottom:10px;
+
+		font-weight:bold;
+
+		}			
+
+		
+
+	.posted	{ 
+
+		font-family:verdana, arial, sans-serif; 
+
+		font-size: 11px; 
+
+		color: #000000; 
+
+		margin-bottom:25px;
+
+		}
+
+		
+
+		
+
+	.calendar {
+
+		font-family:verdana, arial, sans-serif;
+
+		color:#36F;
+
+		font-size:10px;
+
+		font-weight:normal;
+
+  		background:#FFF;
+
+  		line-height:14px;
+
+  		padding:0px;
+
+  		text-align:center;	
+
+		}
+
+	
+
+	.calendarhead {	
+
+		font-family:verdana, arial, sans-serif;
+
+		color:#36F;
+
+		font-size:11px;
+
+		font-weight:bold;
+
+  		background:#FFF;
+
+  		line-height:14px;
+
+  		padding:2px;					
+
+		}	
+
+	
+
+	.side {
+
+		font-family:verdana, arial, sans-serif;
+
+		color:#36F;
+
+		font-size:11px;
+
+		font-weight:normal;
+
+  		background:#FFF;
+
+  		line-height:14px;
+
+  		padding:2px;				
+
+		}	
+
+		
+
+	.sidetitle {
+
+		font-family:georgia, verdana, arial, sans-serif;
+
+		color:#36F;
+
+		font-size:11px;
+
+		font-weight:normal;
+
+  		line-height:14px;
+
+  		padding:2px;
+
+  		margin-top:10px;
+
+		letter-spacing: .1em;
+
+		border-bottom:1px dotted #36F;
+
+  		background:#FFF;
+
+		}		
+
+	
+
+	.syndicate {
+
+		font-family:verdana, arial, sans-serif;
+
+		font-size:9px;
+
+		font-weight:bold;		
+
+  		line-height:14px;
+
+  		padding:2px;
+
+  		margin-top:10px;
+
+		border-top:1px dotted #36F;
+
+  		background:#FFF;
+
+ 		}	
+
+		
+
+	.powered {
+
+		font-family:verdana, arial, sans-serif;
+
+		color:#36F;
+
+		font-size:9px;
+
+		font-weight:bold;
+
+  		border-bottom:1px dotted #36F;			
+
+		line-height:14px;
+
+		text-transform:uppercase; 
+
+		padding:2px;
+
+		margin-top:10px;
+
+		letter-spacing: .2em;					
+
+  		background:#FFF;		
+
+		}	
+
+		
+
+	
+
+	.comments-body {
+
+		font-family:georgia, verdana, arial, sans-serif;
+
+		color:#666;
+
+		font-size:11px;
+
+		font-weight:normal;
+
+  		background:#FFF;
+
+  		line-height:14px;
+
+ 		padding-bottom:10px;
+
+  		padding-top:10px;		
+
+ 		border-bottom:1px dotted #36F; 					
+
+		}		
+
+
+
+	.comments-post {
+
+		font-family:verdana, arial, sans-serif;
+
+		color:#666;
+
+		font-size:9px;
+
+		font-weight:normal;
+
+  		background:#FFF;		
+
+		}	
+
+			
+
+	
+
+	.trackback-url {
+
+		font-family:georgia, verdana, arial, sans-serif;
+
+		color:#666;
+
+		font-size:11px;
+
+		font-weight:normal;
+
+  		background:#FFF;
+
+  		line-height:14px;
+
+ 		padding:5px;		
+
+ 		border:1px dotted #36F; 					
+
+		}
+
+
+
+
+
+	.trackback-body {
+
+		font-family:georgia, verdana, arial, sans-serif;
+
+		color:#666;
+
+		font-size:11px;
+
+		font-weight:normal;
+
+  		background:#FFF;
+
+  		line-height:14px;
+
+ 		padding-bottom:10px;
+
+  		padding-top:10px;		
+
+ 		border-bottom:1px dotted #36F; 					
+
+		}		
+
+
+
+	.trackback-post {
+
+		font-family:verdana, arial, sans-serif;
+
+		color:#666;
+
+		font-size:9px;
+
+		font-weight:normal;
+
+  		background:#FFF;		
+
+		}	
+
+
+
+		
+
+	.comments-head	{ 
+
+		font-family:georgia, verdana, arial, sans-serif; 
+
+		font-size: 11px; 
+
+		color: #666; 
+
+		border-bottom:1px solid #36F;
+
+		margin-top:20px;
+
+		font-weight:bold;
+
+  		background:#FFF;		
+
+		}		
+
+
+
+	#banner-commentspop {
+
+		font-family:georgia, verdana, arial, sans-serif;
+
+		color:#FFF;
+
+		font-size:18px;
+
+		font-weight:bold;
+
+		border-left:1px solid #FFF;	
+
+		border-right:1px solid #FFF;  		
+
+		border-top:1px solid #FFF;  		
+
+  		background:#3366FF;
+
+  		padding-left:15px;
+
+  		padding-right:15px;
+
+  		padding-top:5px;
+
+  		padding-bottom:5px;  		  		  			 
+
+		}
+

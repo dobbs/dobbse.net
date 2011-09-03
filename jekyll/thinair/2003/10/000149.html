@@ -1,0 +1,291 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+
+<title>thinair: State Machines and bOP</title>
+
+<link rel="stylesheet" href="http://dobbse.net//styles-site.css" type="text/css" />
+<link rel="alternate" type="application/rss+xml" title="RSS" href="http://dobbse.net/index.rdf" />
+
+<link rel="start" href="http://dobbse.net/" title="Home" />
+<link rel="prev" href="http://dobbse.net/thinair/2003/10/fsm-on-lisp.html" title="On Lisp" />
+
+<link rel="next" href="http://dobbse.net/thinair/2003/10/000150.html" title="State Machines, JavaServer Faces, bOP, and Rethinking the V in MVC" />
+
+
+<script type="text/javascript" language="javascript">
+<!--
+
+function OpenTrackback (c) {
+    window.open(c,
+                    'trackback',
+                    'width=480,height=480,scrollbars=yes,status=yes');
+}
+
+var HOST = 'dobbse.net';
+
+// Copyright (c) 1996-1997 Athenia Associates.
+// http://www.webreference.com/js/
+// License is granted if and only if this entire
+// copyright notice is included. By Tomer Shiran.
+
+function setCookie (name, value, expires, path, domain, secure) {
+    var curCookie = name + "=" + escape(value) + ((expires) ? "; expires=" + expires.toGMTString() : "") + ((path) ? "; path=" + path : "") + ((domain) ? "; domain=" + domain : "") + ((secure) ? "; secure" : "");
+    document.cookie = curCookie;
+}
+
+function getCookie (name) {
+    var prefix = name + '=';
+    var c = document.cookie;
+    var nullstring = '';
+    var cookieStartIndex = c.indexOf(prefix);
+    if (cookieStartIndex == -1)
+        return nullstring;
+    var cookieEndIndex = c.indexOf(";", cookieStartIndex + prefix.length);
+    if (cookieEndIndex == -1)
+        cookieEndIndex = c.length;
+    return unescape(c.substring(cookieStartIndex + prefix.length, cookieEndIndex));
+}
+
+function deleteCookie (name, path, domain) {
+    if (getCookie(name))
+        document.cookie = name + "=" + ((path) ? "; path=" + path : "") + ((domain) ? "; domain=" + domain : "") + "; expires=Thu, 01-Jan-70 00:00:01 GMT";
+}
+
+function fixDate (date) {
+    var base = new Date(0);
+    var skew = base.getTime();
+    if (skew > 0)
+        date.setTime(date.getTime() - skew);
+}
+
+function rememberMe (f) {
+    var now = new Date();
+    fixDate(now);
+    now.setTime(now.getTime() + 365 * 24 * 60 * 60 * 1000);
+    setCookie('mtcmtauth', f.author.value, now, '', HOST, '');
+    setCookie('mtcmtmail', f.email.value, now, '', HOST, '');
+    setCookie('mtcmthome', f.url.value, now, '', HOST, '');
+}
+
+function forgetMe (f) {
+    deleteCookie('mtcmtmail', '', HOST);
+    deleteCookie('mtcmthome', '', HOST);
+    deleteCookie('mtcmtauth', '', HOST);
+    f.email.value = '';
+    f.author.value = '';
+    f.url.value = '';
+}
+
+//-->
+</script>
+
+<!--
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/"
+         xmlns:dc="http://purl.org/dc/elements/1.1/">
+<rdf:Description
+    rdf:about="http://dobbse.net/thinair/2003/10/000149.html"
+    trackback:ping="http://dobbse.net/dobbse-cgi-bin/mt/mt-tb.cgi/139"
+    dc:title="State Machines and bOP"
+    dc:identifier="http://dobbse.net/thinair/2003/10/000149.html"
+    dc:subject="Technology"
+    dc:description="<![CDATA[State machines part five At the September meeting of frameworks-boulder Tom Vilot, an artist and a geek, presented bOP. Rob Nagler, President of bivio also showed up. Tom&#39;s personal website has interesting artwork. (I feel obliged to mention that there&#39;s some nudity - exercise caution if you or anyone with a view of your screen is likely to be offended.) Tom&#39;s also got an interesting business that you might check out. I enjoyed his presentation of bOP. The conversation with Rob afterwards was interesting enough that I ended up missing BJUG. Tom had explained that &quot;bOP is written in very...]]>"
+    dc:creator="eric"
+    dc:date="2003-10-10T07:28:28-07:00" />
+</rdf:RDF>
+-->
+
+
+</head>
+
+<body>
+
+<div id="banner">
+<h1>thinair<span>views of various geekage from 1,655 meters (5,430 feet) above sea level</span></h1>
+</div>
+
+
+<div id="container">
+
+<div class="blog">
+
+<div id="menu">
+<a href="http://dobbse.net/thinair/2003/10/fsm-on-lisp.html">&laquo; On Lisp</a> |
+
+<a href="http://dobbse.net/">Main</a>
+| <a href="http://dobbse.net/thinair/2003/10/000150.html">State Machines, JavaServer Faces, bOP, and Rethinking the V in MVC &raquo;</a>
+
+</div>
+
+</div>
+
+
+<div class="blog">
+
+<div class="date">October 10, 2003</div>	
+
+<div class="blogbody">
+
+<h1 class="title">State Machines and bOP</h1>
+
+<p><a href="http://dobbse.net/thinair/2003/09/000140.html">State machines</a> part five</p>
+
+<p>At the September meeting of <a href="http://www.frameworks-boulder.org/">frameworks-boulder</a> Tom Vilot, an artist and a geek, presented <a href="http://www.bivio.biz/hm/download-bOP">bOP</a>.   Rob Nagler, President of <a href="http://bivio.biz/">bivio</a> also showed up.  <a href="http://vilot.com/category-list?s=1">Tom&#39;s personal website</a> has interesting artwork. (I feel obliged to mention that there&#39;s some nudity -- exercise caution if you or anyone with a view of your screen is likely to be offended.)  <a href="http://PaintedSnapshot.com/">Tom&#39;s also got an interesting business</a> that you might check out.  I enjoyed his presentation of bOP.</p>
+
+<p>The conversation with Rob afterwards was interesting enough that I ended up missing <a href="http://boulderjug.org/">BJUG</a>.  Tom had explained that &quot;bOP is written in very lispish perl&quot;.  Rob added that it makes heavy use of closures which is part of what makes it lispish.  I also saw some use of anonymous subroutines (lambdas in lisp) in the task configuration[1].  While talking about lisp and perl Rob asked if I&#39;d read <em>On Lisp</em>?  <a href="http://dobbse.net/thinair/2003/10/000148.html">I&#39;ve been reading it slowly for the past few months</a>.  Interesting timing.  Most relevant for this conversation,  a bOP application centers around a task configuration which happens to be a state transition table.</p>
+
+<p>My intuition is ringing pretty loudly about this framework.  I haven&#39;t worked with it at all, but while I&#39;ve been looking more closely, everything I&#39;ve seen aligns with all of this state machinery.  Here&#39;s part of the example <a href="http://petshop.bivio.biz/src?s=Bivio::PetShop::Agent::TaskId">bOP Pet Store task configuration</a>.</p>
+
+<pre>
+sub get_delegate_info {
+    my($proto) = @_;
+    return $proto-&gt;merge_task_info($proto-&gt;SUPER::get_delegate_info, [
+	...
+	[qw(
+	    PRODUCTS
+	    500
+	    GENERAL
+	    ANYBODY
+	    Model.ProductList-&gt;execute_load_all_with_query
+	    View.products
+	)],
+	[qw(
+	    ITEM_SEARCH
+	    501
+	    GENERAL
+	    ANYBODY
+	    Model.ItemSearchList-&gt;execute_load_page
+            Model.ItemSearchListForm
+	    View.search
+            next=CART
+	)],
+	[qw(
+	    ITEMS
+	    502
+	    GENERAL
+	    ANYBODY
+	    Model.ItemList-&gt;execute_load_all_with_query
+	    Model.ItemListForm
+	    View.items
+	    next=CART
+	)],
+	[qw(
+	    ITEM_DETAIL
+	    503
+	    GENERAL
+	    ANYBODY
+	    Model.Item-&gt;execute_load_parent
+	    Model.Inventory-&gt;execute_load_parent
+	    Model.ItemForm
+	    View.item
+	    next=CART
+	)],
+	[qw(
+	    CART
+	    504
+	    GENERAL
+	    ANYBODY
+	    Model.CartItemList-&gt;execute_load_all
+	    Model.CartItemListForm
+	    View.cart
+	    next=CART
+	    want_query=0
+	)],
+	[qw(
+	    CHECKOUT
+	    505
+	    GENERAL
+	    ANYBODY
+	    Model.CartItemList-&gt;execute_load_all
+	    View.checkout
+	)],
+</pre><p>I don&#39;t know the mechanics behind it, but I&#39;m really interested in the lines that declare a relationship between Model and View and a given state.  It looks related to parts of <a href="http://research.sun.com/projects/ace/samples/NameTool/Nametool.aum">the Ace Application Usage Specification</a>.  Both appear to be declaring relationships between the state machine and the Model, though Ace is quite a bit more verbose.  Also, Ace is speculative research whereas bOP has been in production since 1999.</p>
+
+<p>When I read <a href="http://dobbse.net/thinair/2003/10/000145.html">Bob Martin&#39;s chapter on the state pattern</a>, I immediately started imagining how that could be connected to a web app framework so I could get back to <a href="http://dobbse.net/thinair/2003/10/000142.html">thinking about web apps like I used to with Tango</a>.  By all initial inspection, it&#39;s already implemented in bOP, and bivio&#39;s taken further steps to make the model and security connections also declarative.  In fact, while explaining <a href="http://www.bivio.biz/hm/why-bOP">why you should consider bOP</a> bivio uses language similar to what I was saying about Tango:</p>
+
+<blockquote><p>bOP&#39;s primary advantage is as an alternative model for web development. Application servers promote a page-centric model.  bOP&#39;s task-centric model allows you to think in terms of operations, not output (results).</p></blockquote>
+
+<p>[1] anonymous subs are how you do closures in perl so these are probably the same thing.</p>
+
+<a name="more"></a>
+
+
+<span class="posted">Posted 07:28 AM
+| <a href="http://dobbse.net/dobbse-cgi-bin/mt/mt-tb.cgi?__mode=view&entry_id=149" onclick="OpenTrackback(this.href); return false">TrackBack (0)</a>
+
+<br /></span>
+
+</div>
+
+<div id="links">
+&nbsp;
+</div>
+
+
+<div class="comments-head"><a name="comments"></a>Comments</div>
+
+<div class="comments-body">
+<p>Thanks for writing this review!</p>
+
+<p>And I would like to encourage anyone reading here to contact me at either tom@vilot.com or tom@paintedsnapshot.com (no spam filter there) if they have any questions. </p>
+<span class="comments-post">Posted by: <a target="_blank" href="http://vilot.com">Tom Vilot</a> on October 10, 2003 10:18 AM</span>
+</div>
+
+
+<div class="comments-head">Email a comment</div>
+<div class="comments-body">
+<p>The comment form is <a href="http://dobbse.net/thinair/2005/02/comments-broken.html">broken</a>.  Please email your comments to <a href="mailto:blog-comment@dobbse.net?subject=http://dobbse.net/thinair/2003/10/000149.html">blog-comment@dobbse.net</a>.</p>
+</div>
+
+<!-- comments are broken as of 02/14/2005
+<div class="comments-head">Post a comment</div>
+
+<div class="comments-body">
+<p>All comments are moderated. <a href="http://dobbse.net/thinair/2004/03/comments-moderated.html">How and Why?</a></p>
+
+<form method="post" action="http://dobbse.net/dobbse-cgi-bin/mt/mt-comments.cgi" name="comments_form" onsubmit="if (this.bakecookie.checked) rememberMe(this)">
+<input type="hidden" name="static" value="1" />
+<input type="hidden" name="entry_id" value="149" />
+
+Name:<br />
+<input name="author" /><br /><br />
+
+Email Address:<br />
+<input name="email" /><br /><br />
+
+URL:<br />
+<input name="url" /><br /><br />
+
+Comments:<br />
+<textarea name="text" rows="10" cols="50"></textarea><br /><br />
+
+<input type="checkbox" name="bakecookie" />Remember info?<br /><br />
+
+<input type="submit" name="preview" value="&nbsp;PREVIEW&nbsp;" />
+<input type="submit" name="post" value="&nbsp;POST&nbsp;" /><br /><br />
+
+<input type="button" onclick="forgetMe(this.form)" value="FORGET PERSONAL INFORMATION" />
+</form>
+-->
+
+<!-- comments broken <script type="text/javascript" language="javascript"> -->
+<!--
+document.comments_form.email.value = getCookie("mtcmtmail");
+document.comments_form.author.value = getCookie("mtcmtauth");
+document.comments_form.url.value = getCookie("mtcmthome");
+//-->
+<!-- comments broken </script> -->
+
+<!-- comments broken </div> -->
+
+</div>
+</div>
+<div id="copyright">
+All content &copy; 2002-2010  Eric Dobbs unless otherwise noted.  All rights reserved.
+</div>
+
+</body>
+</html>

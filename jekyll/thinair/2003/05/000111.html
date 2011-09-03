@@ -1,0 +1,218 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+
+<title>thinair: Would digital identity for mail servers cut down on spam?</title>
+
+<link rel="stylesheet" href="http://dobbse.net//styles-site.css" type="text/css" />
+<link rel="alternate" type="application/rss+xml" title="RSS" href="http://dobbse.net/index.rdf" />
+
+<link rel="start" href="http://dobbse.net/" title="Home" />
+<link rel="prev" href="http://dobbse.net/thinair/2003/04/pda-dev.html" title="PDA development quick links" />
+
+<link rel="next" href="http://dobbse.net/thinair/2003/06/000115.html" title="Road steering the car" />
+
+
+<script type="text/javascript" language="javascript">
+<!--
+
+function OpenTrackback (c) {
+    window.open(c,
+                    'trackback',
+                    'width=480,height=480,scrollbars=yes,status=yes');
+}
+
+var HOST = 'dobbse.net';
+
+// Copyright (c) 1996-1997 Athenia Associates.
+// http://www.webreference.com/js/
+// License is granted if and only if this entire
+// copyright notice is included. By Tomer Shiran.
+
+function setCookie (name, value, expires, path, domain, secure) {
+    var curCookie = name + "=" + escape(value) + ((expires) ? "; expires=" + expires.toGMTString() : "") + ((path) ? "; path=" + path : "") + ((domain) ? "; domain=" + domain : "") + ((secure) ? "; secure" : "");
+    document.cookie = curCookie;
+}
+
+function getCookie (name) {
+    var prefix = name + '=';
+    var c = document.cookie;
+    var nullstring = '';
+    var cookieStartIndex = c.indexOf(prefix);
+    if (cookieStartIndex == -1)
+        return nullstring;
+    var cookieEndIndex = c.indexOf(";", cookieStartIndex + prefix.length);
+    if (cookieEndIndex == -1)
+        cookieEndIndex = c.length;
+    return unescape(c.substring(cookieStartIndex + prefix.length, cookieEndIndex));
+}
+
+function deleteCookie (name, path, domain) {
+    if (getCookie(name))
+        document.cookie = name + "=" + ((path) ? "; path=" + path : "") + ((domain) ? "; domain=" + domain : "") + "; expires=Thu, 01-Jan-70 00:00:01 GMT";
+}
+
+function fixDate (date) {
+    var base = new Date(0);
+    var skew = base.getTime();
+    if (skew > 0)
+        date.setTime(date.getTime() - skew);
+}
+
+function rememberMe (f) {
+    var now = new Date();
+    fixDate(now);
+    now.setTime(now.getTime() + 365 * 24 * 60 * 60 * 1000);
+    setCookie('mtcmtauth', f.author.value, now, '', HOST, '');
+    setCookie('mtcmtmail', f.email.value, now, '', HOST, '');
+    setCookie('mtcmthome', f.url.value, now, '', HOST, '');
+}
+
+function forgetMe (f) {
+    deleteCookie('mtcmtmail', '', HOST);
+    deleteCookie('mtcmthome', '', HOST);
+    deleteCookie('mtcmtauth', '', HOST);
+    f.email.value = '';
+    f.author.value = '';
+    f.url.value = '';
+}
+
+//-->
+</script>
+
+<!--
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/"
+         xmlns:dc="http://purl.org/dc/elements/1.1/">
+<rdf:Description
+    rdf:about="http://dobbse.net/thinair/2003/05/000111.html"
+    trackback:ping="http://dobbse.net/dobbse-cgi-bin/mt/mt-tb.cgi/101"
+    dc:title="Would digital identity for mail servers cut down on spam?"
+    dc:identifier="http://dobbse.net/thinair/2003/05/000111.html"
+    dc:subject="Technology"
+    dc:description="The spam thread came up on the COMUG OS X developer&amp;#39;s mailing list recently. The thread started with a question about what programmers were doing about their spam. I&amp;#39;ve been meaning to post this idea for more than a week. I&amp;#39;m definitely seeing a big increase in spam these days. Yesterday was a new high of 100 or so junk mails in 24 hrs. (I don&amp;#39;t want to sound too impressed with myself. This is only half what CmdrTaco was getting last October.) Until recently, I&amp;#39;ve been happily relying on Mail.app to catch the junk. I&amp;#39;ve recently started a contract..."
+    dc:creator="eric"
+    dc:date="2003-05-13T10:11:17-07:00" />
+</rdf:RDF>
+-->
+
+
+</head>
+
+<body>
+
+<div id="banner">
+<h1>thinair<span>views of various geekage from 1,655 meters (5,430 feet) above sea level</span></h1>
+</div>
+
+
+<div id="container">
+
+<div class="blog">
+
+<div id="menu">
+<a href="http://dobbse.net/thinair/2003/04/pda-dev.html">&laquo; PDA development quick links</a> |
+
+<a href="http://dobbse.net/">Main</a>
+| <a href="http://dobbse.net/thinair/2003/06/000115.html">Road steering the car &raquo;</a>
+
+</div>
+
+</div>
+
+
+<div class="blog">
+
+<div class="date">May 13, 2003</div>	
+
+<div class="blogbody">
+
+<h1 class="title">Would digital identity for mail servers cut down on spam?</h1>
+
+<p>The spam thread came up on the <a href="http://comug.com/">COMUG</a> <span class="caps">OS X</span> developer&#39;s mailing list recently.  The thread started with a question about what programmers were doing about their spam.  I&#39;ve been meaning to post this idea for more than a week.</p>
+
+<p>I&#39;m definitely seeing a big increase in spam these days.  Yesterday was a new high of 100 or so junk mails in 24 hrs.  (I don&#39;t want to sound too impressed with myself.  This is only half what CmdrTaco was getting <a href="http://www.hardwareanalysis.com/content/article/1547/">last October</a>.)  Until recently, I&#39;ve been happily relying on Mail.app to catch the junk.  I&#39;ve recently started a contract where I&#39;m working in Windows and I&#39;m now having to wade through spam from work.</p>
+
+<p>I generally don&#39;t throw away my spam because I want the raw materials in case I ever re-install the <span class="caps">OS </span>(or get that new PowerBook I ordered) and need to re-train Mail.app.  If I had the time, I&#39;d hook a baysean spam filter to my procmail filters.  <a href="http://spambayes.sourceforge.net/">SpamBayes</a> looks interesting because I like python and Indra&#39;s net has python installed.  The advantages of server-side spam filter are compelling -- most importantly benefiting from the spam filter regardless of the computer or mail client in use.  The disadvantage is that I&#39;ll have to pay attention to my disk quotas on the server so I don&#39;t start bouncing mail because of my collection of spam.  It&#39;s easy enough to schedule a script to periodically zip and ship my spam collection home, but writing that script has to compete for time with all my other pet projects.</p>
+
+<p>That&#39;s how I&#39;ll deal with spam myself when time permits.  In the meantime I&#39;m suffering at work.</p>
+
+<p>Let me run an idea past you.  What if reputable <span class="caps">IS</span>Ps electronically signed messages sent from their servers, and only stored or forwarded mail similarly signed?  If mail servers have to certify their identity, then spammers would have to expose themselves -- opening them up for slashdot effects or denial of service attacks.  What holes do you see in this idea?  Would it be worth lobbying the programmers of sendmail and qmail?</p>
+
+<p>Others have suggested digital identity among individuals as a good solution for spam because spammers depend on anonymity.  The barier of educating all email users about digital identity is prohibitive, and there are good reasons why some email users want to maintain anonymity.  Would you agree that most <span class="caps">IS</span>Ps and those writing mail servers are technically clueful enough to deal with the complexities of digital identity?</p>
+
+<a name="more"></a>
+
+
+<span class="posted">Posted 10:11 AM
+| <a href="http://dobbse.net/dobbse-cgi-bin/mt/mt-tb.cgi?__mode=view&entry_id=111" onclick="OpenTrackback(this.href); return false">TrackBack (0)</a>
+
+<br /></span>
+
+</div>
+
+<div id="links">
+&nbsp;
+</div>
+
+
+<div class="comments-head"><a name="comments"></a>Comments</div>
+
+
+
+<div class="comments-head">Email a comment</div>
+<div class="comments-body">
+<p>The comment form is <a href="http://dobbse.net/thinair/2005/02/comments-broken.html">broken</a>.  Please email your comments to <a href="mailto:blog-comment@dobbse.net?subject=http://dobbse.net/thinair/2003/05/000111.html">blog-comment@dobbse.net</a>.</p>
+</div>
+
+<!-- comments are broken as of 02/14/2005
+<div class="comments-head">Post a comment</div>
+
+<div class="comments-body">
+<p>All comments are moderated. <a href="http://dobbse.net/thinair/2004/03/comments-moderated.html">How and Why?</a></p>
+
+<form method="post" action="http://dobbse.net/dobbse-cgi-bin/mt/mt-comments.cgi" name="comments_form" onsubmit="if (this.bakecookie.checked) rememberMe(this)">
+<input type="hidden" name="static" value="1" />
+<input type="hidden" name="entry_id" value="111" />
+
+Name:<br />
+<input name="author" /><br /><br />
+
+Email Address:<br />
+<input name="email" /><br /><br />
+
+URL:<br />
+<input name="url" /><br /><br />
+
+Comments:<br />
+<textarea name="text" rows="10" cols="50"></textarea><br /><br />
+
+<input type="checkbox" name="bakecookie" />Remember info?<br /><br />
+
+<input type="submit" name="preview" value="&nbsp;PREVIEW&nbsp;" />
+<input type="submit" name="post" value="&nbsp;POST&nbsp;" /><br /><br />
+
+<input type="button" onclick="forgetMe(this.form)" value="FORGET PERSONAL INFORMATION" />
+</form>
+-->
+
+<!-- comments broken <script type="text/javascript" language="javascript"> -->
+<!--
+document.comments_form.email.value = getCookie("mtcmtmail");
+document.comments_form.author.value = getCookie("mtcmtauth");
+document.comments_form.url.value = getCookie("mtcmthome");
+//-->
+<!-- comments broken </script> -->
+
+<!-- comments broken </div> -->
+
+</div>
+</div>
+<div id="copyright">
+All content &copy; 2002-2010  Eric Dobbs unless otherwise noted.  All rights reserved.
+</div>
+
+</body>
+</html>

@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+rsync -avz --exclude .imap --exclude mt-static --exclude 'cat_*.html' --exclude .DS_Store --exclude '._*' --exclude '*~' dobbse-host:www/html/ imported

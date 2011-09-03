@@ -1,0 +1,41 @@
+---
+posted: "2010-12-03T22:51:05"
+layout: default
+fulltitle: javascript turtle graphics
+charset: UTF-8
+---
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2010/12/javascript-turtle-graphics.html">javascript turtle graphics</a></h1>
+<div class="time 2010-12-03T22:51:05 pubdate meta">Friday 03 December 2010 at 22:51 </div>
+<p>Over Thanksgiving I was able to get a somewhat tested implementation of 2d turtle graphics in javascript -- the model is tested but the views that render into the canvas aren't really tests.  The code is here:</p>
+
+<p><a href="http://github.com/dobbs/turtle">http://github.com/dobbs/turtle</a>
+
+<p>I was even able to re-create the von Koch snowflake code that was the starting point for this post:</p>
+
+<p><a href="http://dobbse.net/thinair/2008/12/logo-fractals-recursion.html">http://dobbse.net/thinair/2008/12/logo-fractals-recursion.html</a></p>
+
+<p>Here's the same fractals written in javascript with two implementations...</p>
+
+<p><a href="http://github.com/dobbs/turtle/blob/master/fractal.js">http://github.com/dobbs/turtle/blob/master/fractal.js</a></p>
+
+<p>drawLine() is a reasonable port of the original logo code and fractalLine() is a generalization that lets me illustrate the similarity between the von Koch snowflake and the peano curve.</p>
+
+<p>The drawings do not animate yet... they're just a different api over the HTML5 canvas.  But I'm frankly blown away at the ridiculous simplicity of the implementation: move() calculates the change in x and y by just taking the sine and cosine of the turtle's direction!  So on top of the way turtles enable people to play with differential geometry (incredibly high-level mathematics made trivial by effective use of computing), the implementation is a beautiful application of very simple trigonometry -- a unit circle at work inside a simple state machine.  There are some exciting lessons around an amazingly small amount of code... both in the von Koch and peano example and inside the turtle itself.</p>
+
+<p>I think my next steps will be to create a player that will animate the drawing step-by-step and then to enable in-browser editing of the scripts.  No idea when I'll be able to make time for either of those little projects.  But this feels like a nice start.</p>
+
+<p>Oh, and if you happen to be visiting here with a browser that supports the HTML5 canvas element, you can see the von Koch snowflake and Peano curves illustrated below using my javascript turtle graphics.</p>
+
+<script type="text/javascript" src="http://github.com/dobbs/turtle/raw/master/turtle.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="http://github.com/dobbs/turtle/raw/master/fractal.js"></script>
+<canvas class="fractal" width="205" height="95">an image of the von Koch snowflake on the left and peano curve on the right</canvas>
+
+</div>
+
+<div class="section comments"><a name="comments"></a>
+
+</div>
+
+

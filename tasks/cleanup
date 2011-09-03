@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+ls jekyll/thinair/20??/*/*html | grep -v index.html | tail -30 | xargs rm

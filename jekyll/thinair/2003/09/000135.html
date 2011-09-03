@@ -1,0 +1,229 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+
+<title>thinair: Sobig.F and Blaster rekindle the OS wars</title>
+
+<link rel="stylesheet" href="http://dobbse.net//styles-site.css" type="text/css" />
+<link rel="alternate" type="application/rss+xml" title="RSS" href="http://dobbse.net/index.rdf" />
+
+<link rel="start" href="http://dobbse.net/" title="Home" />
+<link rel="prev" href="http://dobbse.net/thinair/2003/08/spam-virus-symbiosis.html" title="Is Sobig your handiwork, you disreputable spammer?" />
+
+<link rel="next" href="http://dobbse.net/thinair/2003/09/000136.html" title="Scaffolding and Architecture" />
+
+
+<script type="text/javascript" language="javascript">
+<!--
+
+function OpenTrackback (c) {
+    window.open(c,
+                    'trackback',
+                    'width=480,height=480,scrollbars=yes,status=yes');
+}
+
+var HOST = 'dobbse.net';
+
+// Copyright (c) 1996-1997 Athenia Associates.
+// http://www.webreference.com/js/
+// License is granted if and only if this entire
+// copyright notice is included. By Tomer Shiran.
+
+function setCookie (name, value, expires, path, domain, secure) {
+    var curCookie = name + "=" + escape(value) + ((expires) ? "; expires=" + expires.toGMTString() : "") + ((path) ? "; path=" + path : "") + ((domain) ? "; domain=" + domain : "") + ((secure) ? "; secure" : "");
+    document.cookie = curCookie;
+}
+
+function getCookie (name) {
+    var prefix = name + '=';
+    var c = document.cookie;
+    var nullstring = '';
+    var cookieStartIndex = c.indexOf(prefix);
+    if (cookieStartIndex == -1)
+        return nullstring;
+    var cookieEndIndex = c.indexOf(";", cookieStartIndex + prefix.length);
+    if (cookieEndIndex == -1)
+        cookieEndIndex = c.length;
+    return unescape(c.substring(cookieStartIndex + prefix.length, cookieEndIndex));
+}
+
+function deleteCookie (name, path, domain) {
+    if (getCookie(name))
+        document.cookie = name + "=" + ((path) ? "; path=" + path : "") + ((domain) ? "; domain=" + domain : "") + "; expires=Thu, 01-Jan-70 00:00:01 GMT";
+}
+
+function fixDate (date) {
+    var base = new Date(0);
+    var skew = base.getTime();
+    if (skew > 0)
+        date.setTime(date.getTime() - skew);
+}
+
+function rememberMe (f) {
+    var now = new Date();
+    fixDate(now);
+    now.setTime(now.getTime() + 365 * 24 * 60 * 60 * 1000);
+    setCookie('mtcmtauth', f.author.value, now, '', HOST, '');
+    setCookie('mtcmtmail', f.email.value, now, '', HOST, '');
+    setCookie('mtcmthome', f.url.value, now, '', HOST, '');
+}
+
+function forgetMe (f) {
+    deleteCookie('mtcmtmail', '', HOST);
+    deleteCookie('mtcmthome', '', HOST);
+    deleteCookie('mtcmtauth', '', HOST);
+    f.email.value = '';
+    f.author.value = '';
+    f.url.value = '';
+}
+
+//-->
+</script>
+
+<!--
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/"
+         xmlns:dc="http://purl.org/dc/elements/1.1/">
+<rdf:Description
+    rdf:about="http://dobbse.net/thinair/2003/09/000135.html"
+    trackback:ping="http://dobbse.net/dobbse-cgi-bin/mt/mt-tb.cgi/125"
+    dc:title="Sobig.F and Blaster rekindle the OS wars"
+    dc:identifier="http://dobbse.net/thinair/2003/09/000135.html"
+    dc:subject="Technology"
+    dc:description="Jon Udell offers his usual balanced opinion about Security blame games. He also responded to various reactions to this article in Monoculture, competition, and security. I&amp;#39;m not quoted ;-) but many of the sentiments echo my own thoughts on the matter. For example, Dan Gaters and Aaron Cohen both emphasized the advantages diversity brings to the table. But there&amp;#39;s one point in the original article I want to respond to. The mess we&amp;#39;re in is largely Microsoft&amp;#39;s fault, to be sure, but any dominant software player would have created a similar mess. Sobig.F and Blaster have rekindled the various Mac..."
+    dc:creator="eric"
+    dc:date="2003-09-09T09:09:09-07:00" />
+</rdf:RDF>
+-->
+
+
+</head>
+
+<body>
+
+<div id="banner">
+<h1>thinair<span>views of various geekage from 1,655 meters (5,430 feet) above sea level</span></h1>
+</div>
+
+
+<div id="container">
+
+<div class="blog">
+
+<div id="menu">
+<a href="http://dobbse.net/thinair/2003/08/spam-virus-symbiosis.html">&laquo; Is Sobig your handiwork, you disreputable spammer?</a> |
+
+<a href="http://dobbse.net/">Main</a>
+| <a href="http://dobbse.net/thinair/2003/09/000136.html">Scaffolding and Architecture &raquo;</a>
+
+</div>
+
+</div>
+
+
+<div class="blog">
+
+<div class="date">September 09, 2003</div>	
+
+<div class="blogbody">
+
+<h1 class="title">Sobig.F and Blaster rekindle the OS wars</h1>
+
+<p>Jon Udell offers his usual balanced opinion about <a href="http://www.infoworld.com/article/03/09/05/35OPstrategic_1.html">Security blame games.</a>  He also responded to various reactions to this article in <a href="http://weblog.infoworld.com/udell/2003/09/08.html#a793">Monoculture, competition, and security.</a><br />
+I&#39;m not quoted ;-) but many of the sentiments echo <a href="http://dobbse.net/thinair/2003/08/000132.html">my own thoughts on the matter</a>.  For example, Dan Gaters and Aaron Cohen both emphasized the advantages diversity brings to the table.  But there&#39;s one point in the original article I want to respond to.</p>
+
+<blockquote><p>The mess we&#39;re in is largely Microsoft&#39;s fault, to be sure, but any dominant software player would have created a similar mess.</p></blockquote>
+
+<p>Sobig.F and Blaster have rekindled the various Mac vs. <span class="caps">PC</span> debates among my friends.  I&#39;ve heard this point made often in the past few weeks.  Jon is as platform agnostic as they come, so I&#39;m really abusing his comment to launch an attack against my usual pro-Microsoft opponents.  ;-)</p>
+
+<p>My first complaint is that it is a completely unverifiable claim.  We can&#39;t re-run the universe to see how things would be different if Apple held 95% of the desktop market, say.  It seems logically plausible that hackers would be exploiting weaknesses in Mac <span class="caps">OS,</span> but there&#39;s no way to confirm nor deny the claim.  Unverifiable claims quickly descend into religious wars with each party claiming their own unverifiable holy ground.</p>
+
+<p>There is some anecdotal evidence to the contrary, though.  As Jon quoted, Ralph Loader observes:</p>
+
+<blockquote><p>For web serving software, Apache is the dominant player, with Microsoft&#39;s product in a distant minority, but still dominating real life security problems.</p></blockquote>
+
+<p>Even this counterpoint doesn&#39;t quite serve, though.  Apache&#39;s dominance of the web server market does not compare to Microsoft&#39;s dominance of the desktop market.  According to <a href="http://news.netcraft.com/archives/web_server_survey.html">Netcraft</a> Apache has about 65% of the market.  Although that&#39;s a substantial share, it&#39;s isn&#39;t the 95% we hear about for Windows desktops.[1]</p>
+
+<p>Here&#39;s the best I can muster to counter the argument.  The world that we actually live in is not the imaginary world where hackers exploit some other dominant operating system.  We live in the one dominated by Microsoft.  I&#39;ll say it again because it bears repeating.  If you are currently suffering on Windows, you can switch to any other operating system <em>today</em> and live in happy relative isolation from the havoc of these worms and viruses.  I would naturally suggest Mac <span class="caps">OS,</span> but any non-Windows <span class="caps">OS</span> could rescue you from the pain of the Microsoft monoculture.</p>
+
+<p>This brings me to my second point about the argument.  It sounds so self-defeated.  &quot;Yes, we Windows users have to suffer from viruses and so on.  But it wouldn&#39;t be any different if we all changed.&quot;  Who really cares if you &quot; <em>all</em> switch?&quot;  Why are <em>you</em> allowing this imaginary world stop <em>you</em> from switching <em>yourself</em> and enjoying the relative safety today? [2]</p>
+
+<p>[1] Is that figure an urban myth?  I have scrounged Google for a quick summary of the desktop market numbers and haven&#39;t turned up anything as satisfying as Netcraft&#39;s numbers for webservers.  If you know where those numbers are, please post a comment with the url.</p>
+
+<p>[2] To be fair, I should offer the answer I routinely get from my favorite Windows bigot.  Remote Desktop.  My friend, Jeff, is an excellent mostly-windows network admin who&#39;s network was not infected by Sobig.F nor Blaster.  Self-discipline is another viable antidote to the monoculture.  He does his backups and routinely patches the systems on his network and he also raves about Remote Desktop.  <span class="caps">X11</span> users will not be particularly impressed by it.  But there is a certain coolness factor in using a browser to initiate a remote desktop session.  And I can&#39;t dispute the utility it offers Jeff.</p>
+
+<a name="more"></a>
+
+
+<span class="posted">Posted 09:09 AM
+| <a href="http://dobbse.net/dobbse-cgi-bin/mt/mt-tb.cgi?__mode=view&entry_id=135" onclick="OpenTrackback(this.href); return false">TrackBack (0)</a>
+
+<br /></span>
+
+</div>
+
+<div id="links">
+&nbsp;
+</div>
+
+
+<div class="comments-head"><a name="comments"></a>Comments</div>
+
+
+
+<div class="comments-head">Email a comment</div>
+<div class="comments-body">
+<p>The comment form is <a href="http://dobbse.net/thinair/2005/02/comments-broken.html">broken</a>.  Please email your comments to <a href="mailto:blog-comment@dobbse.net?subject=http://dobbse.net/thinair/2003/09/000135.html">blog-comment@dobbse.net</a>.</p>
+</div>
+
+<!-- comments are broken as of 02/14/2005
+<div class="comments-head">Post a comment</div>
+
+<div class="comments-body">
+<p>All comments are moderated. <a href="http://dobbse.net/thinair/2004/03/comments-moderated.html">How and Why?</a></p>
+
+<form method="post" action="http://dobbse.net/dobbse-cgi-bin/mt/mt-comments.cgi" name="comments_form" onsubmit="if (this.bakecookie.checked) rememberMe(this)">
+<input type="hidden" name="static" value="1" />
+<input type="hidden" name="entry_id" value="135" />
+
+Name:<br />
+<input name="author" /><br /><br />
+
+Email Address:<br />
+<input name="email" /><br /><br />
+
+URL:<br />
+<input name="url" /><br /><br />
+
+Comments:<br />
+<textarea name="text" rows="10" cols="50"></textarea><br /><br />
+
+<input type="checkbox" name="bakecookie" />Remember info?<br /><br />
+
+<input type="submit" name="preview" value="&nbsp;PREVIEW&nbsp;" />
+<input type="submit" name="post" value="&nbsp;POST&nbsp;" /><br /><br />
+
+<input type="button" onclick="forgetMe(this.form)" value="FORGET PERSONAL INFORMATION" />
+</form>
+-->
+
+<!-- comments broken <script type="text/javascript" language="javascript"> -->
+<!--
+document.comments_form.email.value = getCookie("mtcmtmail");
+document.comments_form.author.value = getCookie("mtcmtauth");
+document.comments_form.url.value = getCookie("mtcmthome");
+//-->
+<!-- comments broken </script> -->
+
+<!-- comments broken </div> -->
+
+</div>
+</div>
+<div id="copyright">
+All content &copy; 2002-2010  Eric Dobbs unless otherwise noted.  All rights reserved.
+</div>
+
+</body>
+</html>

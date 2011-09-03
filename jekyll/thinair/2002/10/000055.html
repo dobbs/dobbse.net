@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+
+<title>thinair: OSS & Future of Software Development</title>
+
+<link rel="stylesheet" href="http://dobbse.net//styles-site.css" type="text/css" />
+<link rel="alternate" type="application/rss+xml" title="RSS" href="http://dobbse.net/index.rdf" />
+
+<link rel="start" href="http://dobbse.net/" title="Home" />
+
+<link rel="prev" href="http://dobbse.net/thinair/2002/10/000043.html" title="Naming conventions" />
+
+
+
+<script type="text/javascript" language="javascript">
+<!--
+
+function OpenTrackback (c) {
+    window.open(c,
+                    'trackback',
+                    'width=480,height=480,scrollbars=yes,status=yes');
+}
+
+var HOST = 'dobbse.net';
+
+// Copyright (c) 1996-1997 Athenia Associates.
+// http://www.webreference.com/js/
+// License is granted if and only if this entire
+// copyright notice is included. By Tomer Shiran.
+
+function setCookie (name, value, expires, path, domain, secure) {
+    var curCookie = name + "=" + escape(value) + ((expires) ? "; expires=" + expires.toGMTString() : "") + ((path) ? "; path=" + path : "") + ((domain) ? "; domain=" + domain : "") + ((secure) ? "; secure" : "");
+    document.cookie = curCookie;
+}
+
+function getCookie (name) {
+    var prefix = name + '=';
+    var c = document.cookie;
+    var nullstring = '';
+    var cookieStartIndex = c.indexOf(prefix);
+    if (cookieStartIndex == -1)
+        return nullstring;
+    var cookieEndIndex = c.indexOf(";", cookieStartIndex + prefix.length);
+    if (cookieEndIndex == -1)
+        cookieEndIndex = c.length;
+    return unescape(c.substring(cookieStartIndex + prefix.length, cookieEndIndex));
+}
+
+function deleteCookie (name, path, domain) {
+    if (getCookie(name))
+        document.cookie = name + "=" + ((path) ? "; path=" + path : "") + ((domain) ? "; domain=" + domain : "") + "; expires=Thu, 01-Jan-70 00:00:01 GMT";
+}
+
+function fixDate (date) {
+    var base = new Date(0);
+    var skew = base.getTime();
+    if (skew > 0)
+        date.setTime(date.getTime() - skew);
+}
+
+function rememberMe (f) {
+    var now = new Date();
+    fixDate(now);
+    now.setTime(now.getTime() + 365 * 24 * 60 * 60 * 1000);
+    setCookie('mtcmtauth', f.author.value, now, '', HOST, '');
+    setCookie('mtcmtmail', f.email.value, now, '', HOST, '');
+    setCookie('mtcmthome', f.url.value, now, '', HOST, '');
+}
+
+function forgetMe (f) {
+    deleteCookie('mtcmtmail', '', HOST);
+    deleteCookie('mtcmthome', '', HOST);
+    deleteCookie('mtcmtauth', '', HOST);
+    f.email.value = '';
+    f.author.value = '';
+    f.url.value = '';
+}
+
+//-->
+</script>
+
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:dc="http://purl.org/dc/elements/1.1/">
+<rdf:Description
+    about="http://dobbse.net/dobbse-cgi-bin/mt/mt-tb.cgi?tb_id=45"
+    dc:title="OSS &amp; Future of Software Development"
+    dc:identifier="http://dobbse.net/thinair/2002/10/000055.html"
+    dc:subject="Technology"
+    dc:description="&lt;a href=&quot;http://radio.weblogs.com/0112098/2002/10/12.html#a171&quot;&gt;James points&lt;/a&gt; to &lt;a href=&quot;http://marc.theaimsgroup.com/?l=jakarta-general&amp;m=103424570300773&amp;w=2&quot;&gt;this interesting conversation&lt;/a&gt; between Craig and Santiago about open source project management, software integration, and balancing commercial interests with open source.
+
+I think software development is evolving into something like the traditional professions: architecture, medicine, law, finance, etc."
+    dc:creator="eric"
+    dc:date="2002-10-1613:46:41-07:00" />
+</rdf:RDF>
+
+
+</head>
+
+<body>
+
+<div id="banner">
+<table>
+<tr>
+<td>thinair</td>
+<td><span class="description">Eric Dobbs' commentary on the Net, OSS, Jakarta, agile and XP, and other geekage</span></td>
+</tr>
+</table>
+</div>
+
+
+<div id="container">
+
+<div class="blog">
+
+<div id="menu">
+
+<a href="http://dobbse.net/thinair/2002/10/000043.html">&laquo; Naming conventions</a> |
+
+<a href="http://dobbse.net/">Main</a>
+
+</div>
+
+</div>
+
+
+<div class="blog">
+
+<div class="date">October 16, 2002</div>	
+
+<div class="blogbody">
+
+<span class="title">OSS & Future of Software Development</span>
+
+<p><em>that title is a little too grandiose.  ah well...</em></p>
+
+<p><a href="http://radio.weblogs.com/0112098/2002/10/12.html#a171">James points</a> to <a href="http://marc.theaimsgroup.com/?l=jakarta-general&m=103424570300773&w=2">this interesting conversation</a> between Craig and Santiago about open source project management, software integration, and balancing commercial interests with open source.<br />
+<blockquote><br />
+<em><br />
+Internet communications and Open Source is changing all the software engineering processes, like the press changed th intellectual production processes a while ago. Pure in-house or contracted developments are disapearing from the market, and integration on top of Open Source is leading/will lead the way in the future.</p>
+
+<p><snip></p>
+
+<p>Once you get used to the fact that you "can" understand the inner working of your base tools and modify and debug them (more or less) freely, you will never want to use a non-free equivalent again. And I'm speaking as a system integrator here.<br />
+</em><br />
+</blockquote></p>
+
+<p>I think software development is evolving into something like the traditional professions.  Any two architects practice the same design.  Not that they design the same things, but they are engaged in the same practice.  Both are constrained by their building materials, budget, zoning, and context.  Similarly doctors practice the same medicine, lawyers the same law, bankers the same finance.  The professions are fundamentally about providing services.  When you pay a lawer to review a contract, you are paying for their expertise and knowledge of contract law.  You're not paying for the law itself.  Similarly, you don't pay your doctors for the medical research that forms the basis of their evaluations of your medical condition.</p>
+
+<p>The profession of software development will become dominated by integration of open source components with limited development to satisfy unique requirements of specialized applications.  The common general requirements will be met by open source components.  Some developers will specialize into specific areas of development, where others will be "general &#65279;practitioners".  Developers will make their money lending to their customers their expertise and mastery of available open source components and services to solve technical problems for the customer.  It's only a question of time.  But I'll know I was right when you have to pass a certification exam before you can call yourself a software developer.  :-)<br />
+</p>
+
+<a name="more"></a>
+
+
+<span class="posted">Posted by eric at October 16, 2002 01:46 PM
+
+| <a href="http://dobbse.net/dobbse-cgi-bin/mt/mt-tb.cgi?__mode=view&entry_id=55" onclick="OpenTrackback(this.href); return false">TrackBack</a>
+
+<br /></span>
+
+</div>
+
+
+
+</div>
+</div>
+</div>
+</body>
+</html>

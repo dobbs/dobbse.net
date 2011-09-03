@@ -1,0 +1,241 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+
+<title>thinair: Scaffolding and Architecture</title>
+
+<link rel="stylesheet" href="http://dobbse.net//styles-site.css" type="text/css" />
+<link rel="alternate" type="application/rss+xml" title="RSS" href="http://dobbse.net/index.rdf" />
+
+<link rel="start" href="http://dobbse.net/" title="Home" />
+<link rel="prev" href="http://dobbse.net/thinair/2003/09/malware-market-share.html" title="Sobig.F and Blaster rekindle the OS wars" />
+
+<link rel="next" href="http://dobbse.net/thinair/2003/09/000137.html" title="Somber Sunshine" />
+
+
+<script type="text/javascript" language="javascript">
+<!--
+
+function OpenTrackback (c) {
+    window.open(c,
+                    'trackback',
+                    'width=480,height=480,scrollbars=yes,status=yes');
+}
+
+var HOST = 'dobbse.net';
+
+// Copyright (c) 1996-1997 Athenia Associates.
+// http://www.webreference.com/js/
+// License is granted if and only if this entire
+// copyright notice is included. By Tomer Shiran.
+
+function setCookie (name, value, expires, path, domain, secure) {
+    var curCookie = name + "=" + escape(value) + ((expires) ? "; expires=" + expires.toGMTString() : "") + ((path) ? "; path=" + path : "") + ((domain) ? "; domain=" + domain : "") + ((secure) ? "; secure" : "");
+    document.cookie = curCookie;
+}
+
+function getCookie (name) {
+    var prefix = name + '=';
+    var c = document.cookie;
+    var nullstring = '';
+    var cookieStartIndex = c.indexOf(prefix);
+    if (cookieStartIndex == -1)
+        return nullstring;
+    var cookieEndIndex = c.indexOf(";", cookieStartIndex + prefix.length);
+    if (cookieEndIndex == -1)
+        cookieEndIndex = c.length;
+    return unescape(c.substring(cookieStartIndex + prefix.length, cookieEndIndex));
+}
+
+function deleteCookie (name, path, domain) {
+    if (getCookie(name))
+        document.cookie = name + "=" + ((path) ? "; path=" + path : "") + ((domain) ? "; domain=" + domain : "") + "; expires=Thu, 01-Jan-70 00:00:01 GMT";
+}
+
+function fixDate (date) {
+    var base = new Date(0);
+    var skew = base.getTime();
+    if (skew > 0)
+        date.setTime(date.getTime() - skew);
+}
+
+function rememberMe (f) {
+    var now = new Date();
+    fixDate(now);
+    now.setTime(now.getTime() + 365 * 24 * 60 * 60 * 1000);
+    setCookie('mtcmtauth', f.author.value, now, '', HOST, '');
+    setCookie('mtcmtmail', f.email.value, now, '', HOST, '');
+    setCookie('mtcmthome', f.url.value, now, '', HOST, '');
+}
+
+function forgetMe (f) {
+    deleteCookie('mtcmtmail', '', HOST);
+    deleteCookie('mtcmthome', '', HOST);
+    deleteCookie('mtcmtauth', '', HOST);
+    f.email.value = '';
+    f.author.value = '';
+    f.url.value = '';
+}
+
+//-->
+</script>
+
+<!--
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/"
+         xmlns:dc="http://purl.org/dc/elements/1.1/">
+<rdf:Description
+    rdf:about="http://dobbse.net/thinair/2003/09/000136.html"
+    trackback:ping="http://dobbse.net/dobbse-cgi-bin/mt/mt-tb.cgi/126"
+    dc:title="Scaffolding and Architecture"
+    dc:identifier="http://dobbse.net/thinair/2003/09/000136.html"
+    dc:subject="Technology"
+    dc:description="<![CDATA[Grady Booch spoke at Denver Java Users Group tonight. When I mentioned that to Sarah she laughed out loud. &quot;His name is Grady Booch?&quot; she exclaimed and then laughed again! Heartfelt, joyous laughter. Sorry, Grady. You may be one of The Three Amigos, but I guess you&#39;re not a household name. I did explain that he was introduced as one of the few people in our industry who could be called a rock star. Sarah thinks he&#39;s got a really funny name. She laughed again a few minutes later when I said his name another time. His presentation was entitled...]]>"
+    dc:creator="eric"
+    dc:date="2003-09-11T00:12:05-07:00" />
+</rdf:RDF>
+-->
+
+
+</head>
+
+<body>
+
+<div id="banner">
+<h1>thinair<span>views of various geekage from 1,655 meters (5,430 feet) above sea level</span></h1>
+</div>
+
+
+<div id="container">
+
+<div class="blog">
+
+<div id="menu">
+<a href="http://dobbse.net/thinair/2003/09/malware-market-share.html">&laquo; Sobig.F and Blaster rekindle the OS wars</a> |
+
+<a href="http://dobbse.net/">Main</a>
+| <a href="http://dobbse.net/thinair/2003/09/000137.html">Somber Sunshine &raquo;</a>
+
+</div>
+
+</div>
+
+
+<div class="blog">
+
+<div class="date">September 11, 2003</div>	
+
+<div class="blogbody">
+
+<h1 class="title">Scaffolding and Architecture</h1>
+
+<p>Grady Booch spoke at <a href="http://denverjug.org">Denver Java Users Group</a> tonight.  When I mentioned that to Sarah she laughed out loud.  &quot;His name is Grady Booch?&quot; she exclaimed and then laughed again!  Heartfelt, joyous laughter.  Sorry, Grady.  You may be one of The Three Amigos, but I guess you&#39;re not a household name.</p>
+
+<p>I did explain that he was introduced as one of the few people in our industry who could be called a rock star.  Sarah thinks he&#39;s got a really funny name.  She laughed again a few minutes later when I said his name another time.</p>
+
+<p>His presentation was entitled &quot;The Architecture of Unusual Things.&quot;  It was a fun presentation with many interesting anecdotes.  I enjoyed his stories and sense of humor.  You can <a href="http://www.denverjug.org/presentations/index.html">get the slides from DJUG&#39;s web site</a> if you&#39;d like the details.  One of his conclusions was that architecture is a living, breathing thing which must grow or die.  It reminded me of a few of my travels in Europe.</p>
+
+<p>I didn&#39;t get to see the Pantheon when I was in Rome.  It was quite a disappointment.  In one of my classes in college I created a three dimensional model of the interior of the dome including the coffered ceiling.  The rendering came out quite nicely, but I wanted to see what the lighting looked like in the real thing.  Unfortunately it was <a href="http://babelfish.altavista.com/babelfish/tr?urltext=chiuso+per+restauro&amp;lp=it_en">chiuso per restauro</a> .</p>
+
+<p>Quite a few things were <em>chiuso per restauro</em> while I was in Italy.  I became quite fond of scaffolding.  I was particularly struck by the scaffolding at what I think was the chapel of St. Damian [1], a chapel which St. Francis built himself.  Around the chapel I visited had been built a baroque monstrosity.  The chapel was contained within it, below the dome at the crossing.  Those who built the big church around the little chapel seem to have completely missed St. Francis&#39; point.  Anyway, at the time I visited there were extensive repairs underway on the dome and a vast pile of scaffolding had been constructed below the dome.  They used really beautiful black struts with substantial brass-colored joints assembled in an octet-tetra truss completely surrounding the modest jewel of a chapel.  The scaffolding was beautiful in its own right, but even more so for protecting the chapel from the dome above, indeed protecting it from the entire containing church.  I found it truly beautiful and profoundly symbolic.</p>
+
+<p>In later travels I kept noticing the scaffolding inside or outside so many places we visited, none of it as beautiful or powerful.  Nevertheless, I imagined a time-lapse film of each of these sites, watching the scaffolding crawl spider-like around the building -- an architectural enzyme continually repairing some part of structure or facade or interior.</p>
+
+<p>Although it is not exactly what Grady Booch was talking about, I can only agree that Architecture is a living, breathing thing.</p>
+
+<p><strong>Update:</strong> [1] It may also have been Santa Maria de Los Angeles as my friend Jim notes in his comment.</p>
+
+<p><strong>Update:</strong> Tim Bray knows what I&#39;m talking about.  While talking about <a href="http://www.tbray.org/ongoing/When/200x/2003/09/17/MovingDowntown">Antarctica&#39;s move to downtown Vancouver</a> he mentions:</p>
+
+<blockquote><p>Yaletown was all brick buildings and fashion victims. Down here, it all happens faster and everything&#39;s under construction; oh, the geometry!</p></blockquote>
+
+<p>He also includes a nice picture of a building under repair and the structure of the crane involved is a variation of an octet-tetra truss.  Geometry indeed.</p>
+
+<a name="more"></a>
+
+
+<span class="posted">Posted 12:12 AM
+| <a href="http://dobbse.net/dobbse-cgi-bin/mt/mt-tb.cgi?__mode=view&entry_id=136" onclick="OpenTrackback(this.href); return false">TrackBack (0)</a>
+
+<br /></span>
+
+</div>
+
+<div id="links">
+&nbsp;
+</div>
+
+
+<div class="comments-head"><a name="comments"></a>Comments</div>
+
+<div class="comments-body">
+<p>Eric,</p>
+
+<p>   The church in Assisi that enshrines Francis' church is Santa Maria de Los Angeles.  (Those familiar with California geography will recognize Los Angeles, Santa Clara (St. Clair) and San Francisco as references to the Franciscan roots of the first Spanish missionaries)</p>
+
+<p>   Speaking of chiuso per restauro. . .  The story of the beginning of Francis' ministry is that he was in church at San Damiano when the cross spoke to him.  It told him that "My church is broken.  You must rebuild my church."  So he left his life in Italian society and built that little church in the valley.  </p>
+
+<p>   What strikes me about this story is that for Francis it was always aprasi per restauro.  That the entire Franciscan mission in the world is the transformation of the broken church, qua people.  It does not close for restoration it is perpetually open for it.  THAT is the living breathing architecture of the (Francis') church.</p>
+
+<p>         $0.02,<br />
+         Jim</p>
+<span class="comments-post">Posted by: <a href="mailto&#58;boydj&#64;theosci&#46;org">Jim</a> on September 13, 2003 04:51 PM</span>
+</div>
+
+
+<div class="comments-head">Email a comment</div>
+<div class="comments-body">
+<p>The comment form is <a href="http://dobbse.net/thinair/2005/02/comments-broken.html">broken</a>.  Please email your comments to <a href="mailto:blog-comment@dobbse.net?subject=http://dobbse.net/thinair/2003/09/000136.html">blog-comment@dobbse.net</a>.</p>
+</div>
+
+<!-- comments are broken as of 02/14/2005
+<div class="comments-head">Post a comment</div>
+
+<div class="comments-body">
+<p>All comments are moderated. <a href="http://dobbse.net/thinair/2004/03/comments-moderated.html">How and Why?</a></p>
+
+<form method="post" action="http://dobbse.net/dobbse-cgi-bin/mt/mt-comments.cgi" name="comments_form" onsubmit="if (this.bakecookie.checked) rememberMe(this)">
+<input type="hidden" name="static" value="1" />
+<input type="hidden" name="entry_id" value="136" />
+
+Name:<br />
+<input name="author" /><br /><br />
+
+Email Address:<br />
+<input name="email" /><br /><br />
+
+URL:<br />
+<input name="url" /><br /><br />
+
+Comments:<br />
+<textarea name="text" rows="10" cols="50"></textarea><br /><br />
+
+<input type="checkbox" name="bakecookie" />Remember info?<br /><br />
+
+<input type="submit" name="preview" value="&nbsp;PREVIEW&nbsp;" />
+<input type="submit" name="post" value="&nbsp;POST&nbsp;" /><br /><br />
+
+<input type="button" onclick="forgetMe(this.form)" value="FORGET PERSONAL INFORMATION" />
+</form>
+-->
+
+<!-- comments broken <script type="text/javascript" language="javascript"> -->
+<!--
+document.comments_form.email.value = getCookie("mtcmtmail");
+document.comments_form.author.value = getCookie("mtcmtauth");
+document.comments_form.url.value = getCookie("mtcmthome");
+//-->
+<!-- comments broken </script> -->
+
+<!-- comments broken </div> -->
+
+</div>
+</div>
+<div id="copyright">
+All content &copy; 2002-2010  Eric Dobbs unless otherwise noted.  All rights reserved.
+</div>
+
+</body>
+</html>

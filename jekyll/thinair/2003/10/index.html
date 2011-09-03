@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>October 2003 (thinair)</title>
+<link rel="alternate" type="application/rss+xml" title="thinair feed" href="http://dobbse.net/index.rdf" />
+<link rel="stylesheet" href="http://dobbse.net/style.css" type="text/css" />
+<link rel="start" href="http://dobbse.net/" title="Home" />
+<link rel="prev" href="http://dobbse.net/thinair/2003/09/index.html" title="September 2003" />
+
+<link rel="next" href="http://dobbse.net/thinair/2003/11/index.html" title="November 2003" />
+
+</head>
+<body>	
+
+<div class="header">
+<h1><a href="/">thinair</a></h1>
+<div class="hgroup">
+<h2 class="first">Boulder, Colorado</h2>
+<h2>elevation 5400 feet</h2>
+<h2>your guide: Eric Dobbs</h2>
+</div>
+</div>
+
+
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2003/10/expose-and-alt-tab.html">Expos&eacute; and Alt-tab</a></h1>
+<div class="time 2003-10-27T14:10:31 pubdate meta">Monday 27 October 2003 at 14:10 </div>
+<p>This behavior is described in <a href="http://www.apple.com/macosx/features/expose/">Apple&#39;s pitch about Expos&eacute;</a> but I didn&#39;t catch it until after I&#39;d seen it in action.  I think it deserves a little more attention.</p>
+
+<p>At some point, when you have a bunch of windows open in a bunch of applications, hit <span class="caps">F9</span> to activate expos&eacute;.  Then use Alt-tab.  Expos&eacute; remains active but the windows displayed narrow to only those for the application you&#39;ve just tabbed to.  Now tab to a different application and watch that app&#39;s windows take center stage.  Nice touch, Apple!</p>
+
+<p>Looks like I may no longer need the screen grooming habits that I&#39;ve developed over the years.  :)</p>
+
+</div>
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2003/10/fsm-jsf-and-bop.html">State Machines, JavaServer Faces, bOP, and Rethinking the V in MVC</a></h1>
+<div class="time 2003-10-11T10:41:24 pubdate meta">Saturday 11 October 2003 at 10:41 </div>
+<p><a href="http://dobbse.net/thinair/2003/09/000140.html">State machines</a> part six</p>
+
+<p><a href="http://www.denverjug.org/events/oct2003.html">David Geary presented an overview of JavaServer Faces at DJUG</a> on Wednesday.  I have to agree with his assessment that JavaServer Faces will be The Next Big Thing in java web app development.  Interestingly, it looks like <span class="caps">JSF</span> will be notably similar to bOP.</p>
+
+<p><span class="caps">JSF</span> will be Java&#39;s answer to .NET and especially VisualStudio.  Some of the big players in the Java world are going to put a lot of marketing muscle behind it.  David mentioned that his book is going to be competing with a stunning number of <span class="caps">JSF</span> offerings.  Many vendors want to sell you their <span class="caps">ID</span>Es.  It seems the diversity in java&#39;s web framework ecosystem deters them from making web app magic happen in their tools.  &quot;Which framework should we support?&quot; they ask.  By blessing one framework the <span class="caps">IDE</span> vendors can focus their development resources on &quot;The Standard&quot;.  Just as the 1.4 logging <span class="caps">AP</span>Is threaten to replace log4j, so will <span class="caps">JSF</span> threaten <a href="http://jakarta.apache.org/struts/">Struts</a>, and all the rest of the java frameworks for that matter.  Brace yourself for a tsunami of <span class="caps">JSF</span> hype.</p>
+
+<p>In spite of the coming marketing storm, David showed off some good stuff.  I welcome one change in particular.  They borrow heavily from Struts, but have separated the concerns of site navigation from actions which change the state of the Model.  Whereas, both of these things are handled with Action configurations in Struts, in <span class="caps">JSF</span> they are separated.  In fact, the navigation configuration is yet another state transition table which will <em>declare</em> the flow through the application.  The Actions get to focus just on changes in the state of the Model.  This is one thing that I have missed from Turbine -- the navigation is separate from the actions which effect the model.  That exact separation of concerns is also present in bOP.</p>
+
+<p>David mentioned that there are places to declare the connection between a form and an object in the model.  If he actually showed us that detail, I missed it.  But he did mention repeatedly that <span class="caps">JSF</span> uses much more declarative programming.  <a href="http://www.bivio.biz/hm/csci7818-bop-intro/what-is-bop">bivio brags about being declarative too</a>.</p>
+
+<p>What about the View?</p>
+
+<p><span class="caps">JSF</span> adds several stages in the life-cycle of a request.  Some of those stages are specifically added  to allow page widgets to trigger events.  It allows you to &quot;attach&quot; server-side event listeners to those page widgets.  They&#39;ve done some pretty clever things to simulate a Swing-like event model while staying within the limits of <span class="caps">HTTP.  I</span>&#39;m sad to report that <span class="caps">JSP</span> still plays a central role.  Taglibs provide some of the important hooks that help maintain the Swing-like look in the code.   It looks like it will be hard to use other templating options with <span class="caps">JSF </span>-- the functionality provided by tag libraries for <span class="caps">JSP</span> would have to be replicated in <a href="http://jakarta.apache.org/velocity/">Velocity</a> or similar tools.</p>
+
+<p>I&#39;m not sure what to make of the move to Swingishness.  See, I&#39;ve drunk deeply from the templating kool-aid.  I prefer <a href="http://jakarta.apache.org/velocity/">Velocity</a> to <span class="caps">JSP</span> for various reasons I won&#39;t go into here.  When <a href="http://dobbse.net/thinair/2003/09/000138.html">I wrote a little controller in perl for New Millennium</a>, one of the key ingredients was <span class="caps">HTML</span>::Template -- it&#39;s not as cool as Velocity, but it let me separate the <span class="caps">HTML</span> from the controller.</p>
+
+<p>Rob observes that templates make the same mistakes that old green screens did: mixing display codes with business logic and data.  At first blush that sounds like <span class="caps">JSP</span> scriptlets.  But I think Rob&#39;s assertion was more sweeping.  Whether you&#39;re writing servlets with println()s or <span class="caps">JS</span>Ps with scriptlets or concealing the scriptlets with tag libraries, there&#39;s a mixing &quot;screen control characters&quot; with logic and data.  Velocity macros don&#39;t change that mix.</p>
+
+<p><a href="http://www.bivio.biz/vs/site_root/hm/index">In bOP they use a Tk like language</a> for defining the web pages.  To the extent that Tk and Swing are similar, so is bOP&#39;s view language similar to <span class="caps">JSF</span>&#39;s stuff.  Looking at David&#39;s examples for <span class="caps">JSF</span> helped me get my head around bOPs stuff a little more. bOP views assemble <span class="caps">UI</span> widgets into a hierarchy.  I presume that <a href="http://www.bivio.biz/hm/csci7818-bop-intro/why-is-bop-cool">bOP&#39;s facades</a> are basically implementations of the language which render those widgets into <span class="caps">HTML.  I</span>&#39;m making educated guesses about what&#39;s going on behind the scenes.  But I&#39;m fascinated by the parallel development going on in <span class="caps">JSF.</span></p>
+
+<p>My feelings are still mixed.  Rob&#39;s point about green screens is persuasive.  But I&#39;m just not quite ready to give up templating.  Interestingly, bOP and <span class="caps">JSF</span> both seem to bring the web user interface back under the auspices of software development, perhaps taking it back from web designers.  Maybe that&#39;s appropriate for web <em>applications</em>.  It also seems like a natural progression for web apps.  The <span class="caps">GUI</span> developers have worked through a lot of <span class="caps">UI</span> and usability issues in the past twenty years.  Their toolkits look like Swing and Tk.</p>
+
+</div>
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2003/10/fsm-bop.html">State Machines and bOP</a></h1>
+<div class="time 2003-10-10T07:28:28 pubdate meta">Friday 10 October 2003 at 07:28 </div>
+<p><a href="http://dobbse.net/thinair/2003/09/000140.html">State machines</a> part five</p>
+
+<p>At the September meeting of <a href="http://www.frameworks-boulder.org/">frameworks-boulder</a> Tom Vilot, an artist and a geek, presented <a href="http://www.bivio.biz/hm/download-bOP">bOP</a>.   Rob Nagler, President of <a href="http://bivio.biz/">bivio</a> also showed up.  <a href="http://vilot.com/category-list?s=1">Tom&#39;s personal website</a> has interesting artwork. (I feel obliged to mention that there&#39;s some nudity -- exercise caution if you or anyone with a view of your screen is likely to be offended.)  <a href="http://PaintedSnapshot.com/">Tom&#39;s also got an interesting business</a> that you might check out.  I enjoyed his presentation of bOP.</p>
+
+<p>The conversation with Rob afterwards was interesting enough that I ended up missing <a href="http://boulderjug.org/">BJUG</a>.  Tom had explained that &quot;bOP is written in very lispish perl&quot;.  Rob added that it makes heavy use of closures which is part of what makes it lispish.  I also saw some use of anonymous subroutines (lambdas in lisp) in the task configuration[1].  While talking about lisp and perl Rob asked if I&#39;d read <em>On Lisp</em>?  <a href="http://dobbse.net/thinair/2003/10/000148.html">I&#39;ve been reading it slowly for the past few months</a>.  Interesting timing.  Most relevant for this conversation,  a bOP application centers around a task configuration which happens to be a state transition table.</p>
+
+<p>My intuition is ringing pretty loudly about this framework.  I haven&#39;t worked with it at all, but while I&#39;ve been looking more closely, everything I&#39;ve seen aligns with all of this state machinery.  Here&#39;s part of the example <a href="http://petshop.bivio.biz/src?s=Bivio::PetShop::Agent::TaskId">bOP Pet Store task configuration</a>.</p>
+
+<pre>
+sub get_delegate_info {
+    my($proto) = @_;
+    return $proto-&gt;merge_task_info($proto-&gt;SUPER::get_delegate_info, [
+	...
+	[qw(
+	    PRODUCTS
+	    500
+	    GENERAL
+	    ANYBODY
+	    Model.ProductList-&gt;execute_load_all_with_query
+	    View.products
+	)],
+	[qw(
+	    ITEM_SEARCH
+	    501
+	    GENERAL
+	    ANYBODY
+	    Model.ItemSearchList-&gt;execute_load_page
+            Model.ItemSearchListForm
+	    View.search
+            next=CART
+	)],
+	[qw(
+	    ITEMS
+	    502
+	    GENERAL
+	    ANYBODY
+	    Model.ItemList-&gt;execute_load_all_with_query
+	    Model.ItemListForm
+	    View.items
+	    next=CART
+	)],
+	[qw(
+	    ITEM_DETAIL
+	    503
+	    GENERAL
+	    ANYBODY
+	    Model.Item-&gt;execute_load_parent
+	    Model.Inventory-&gt;execute_load_parent
+	    Model.ItemForm
+	    View.item
+	    next=CART
+	)],
+	[qw(
+	    CART
+	    504
+	    GENERAL
+	    ANYBODY
+	    Model.CartItemList-&gt;execute_load_all
+	    Model.CartItemListForm
+	    View.cart
+	    next=CART
+	    want_query=0
+	)],
+	[qw(
+	    CHECKOUT
+	    505
+	    GENERAL
+	    ANYBODY
+	    Model.CartItemList-&gt;execute_load_all
+	    View.checkout
+	)],
+</pre><p>I don&#39;t know the mechanics behind it, but I&#39;m really interested in the lines that declare a relationship between Model and View and a given state.  It looks related to parts of <a href="http://research.sun.com/projects/ace/samples/NameTool/Nametool.aum">the Ace Application Usage Specification</a>.  Both appear to be declaring relationships between the state machine and the Model, though Ace is quite a bit more verbose.  Also, Ace is speculative research whereas bOP has been in production since 1999.</p>
+
+<p>When I read <a href="http://dobbse.net/thinair/2003/10/000145.html">Bob Martin&#39;s chapter on the state pattern</a>, I immediately started imagining how that could be connected to a web app framework so I could get back to <a href="http://dobbse.net/thinair/2003/10/000142.html">thinking about web apps like I used to with Tango</a>.  By all initial inspection, it&#39;s already implemented in bOP, and bivio&#39;s taken further steps to make the model and security connections also declarative.  In fact, while explaining <a href="http://www.bivio.biz/hm/why-bOP">why you should consider bOP</a> bivio uses language similar to what I was saying about Tango:</p>
+
+<blockquote><p>bOP&#39;s primary advantage is as an alternative model for web development. Application servers promote a page-centric model.  bOP&#39;s task-centric model allows you to think in terms of operations, not output (results).</p></blockquote>
+
+<p>[1] anonymous subs are how you do closures in perl so these are probably the same thing.</p>
+
+</div>
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2003/10/fsm-on-lisp.html">On Lisp</a></h1>
+<div class="time 2003-10-08T23:57:03 pubdate meta">Wednesday 08 October 2003 at 23:57 </div>
+<p>slight diversion from <a href="http://dobbse.net/thinair/2003/09/000140.html">State machines</a></p>
+
+<p>For my undergraduate research project I tried to create some tools to generate three dimensional computer models of buildings (or whatever) from photographs.  I used AutoLISP and let AutoCAD&#39;s graphics engine manage the user input and the display.  My mentor was <a href="http://faculty.washington.edu/mdgross/">Mark Gross</a> who among other things was an accomplished lisp hacker.  I was hoping to teach myself Common Lisp after graduation, but was discouraged when Mark observed that languages, even programming languages, are grounded in a community.  He said it would be hard to learn lisp in the absence of a lisp community.  He was right.  Before I finally admitted defeat I had bought <a href="http://allconsuming.net/item.cgi?isbn=1555580416">CLTL2</a>, Mark&#39;s suggestion, and <a href="http://allconsuming.net/item.cgi?isbn=0130305529">On Lisp</a> which I found for myself in the Fall of 1994.</p>
+
+<p>Both books have collected dust on my bookshelf in the many years since.  Every time I&#39;ve moved since then I&#39;ve considered getting rid of them, but each time I&#39;ve felt my stomach uncomfortably tighten up.  I couldn&#39;t do it.  For just less than a decade I have been moving them and their dust from one place to the next.</p>
+
+<p>My recent exploration of <a href="http://roughingit.subtlehints.net/pyblosxom/">PyBlosxom</a> has rekindled my interest in lisp because of the lambdas in its callback chain.   I have been wanting to reconnect with what I used to know about functional programming, but had still not made the time.  Then I blog-hopped my way to Paul Graham&#39;s article <a href="http://www.paulgraham.com/hp.html">Hackers and Painters</a>.</p>
+
+<p>There on his site I found his page about <a href="http://www.paulgraham.com/onlisp.html">On Lisp</a> .  The reviews quoted there are glowing.  I went to Amazon to get other opinions which were even more glowing.  I&#39;m glad my intuition wouldn&#39;t let me get rid of it.  In the past month I&#39;ve finally cracked it open and have been slowly ploughing my way through it.</p>
+
+<p>It&#39;s a fairly short book, but quite dense.  I&#39;m sure Paul would consider that flattery because he suggests that code should have just those qualities, short but dense.  The reading is slow going.  Most of the prose is brief explanations of what a code example is doing, or why you might want a utility to do that.  But understanding the code and connecting it with the prose takes time and attention.  And it&#39;s been a long time since I parsed parentheses.</p>
+
+<p>Macros, creating languages, and other meta-programming.  The discussion of closures and functions that return functions are quite illuminating.  I&#39;ve understood the <em>what</em> of closures for a long time.  <a href="http://allconsuming.net/item.cgi?isbn=0596000278">The Camel book</a> explains them pretty clearly.  But only now do I think I understand the <em>why bother</em> of closures.  They&#39;re akin to lightweight objects with only one method.  The variables closed within are encapsulated properties of the object.  Lightweight and encapsulation are Good Things.  Paul emphasizes how lisp invites the programmer to extend the language into their problem domain.  Functions and macros that generate functions and macros are powerful tools.  Another recent bloghopping session led me to <a href="http://research.sun.com/research/jtech/pubs/98-oopsla-growing.ps">Guy Steele&#39;s OOPSLA &#39;98 inspired presentation on Growing a Language</a>.  Mark said something similar at the Sundance Lab in the early 90&#39;s: &quot;sooner or later all programs want to become their own language.&quot;</p>
+
+<p>All those lisp hackers have been pointing me in this direction, but only with some experience under my belt can I understand the wisdom.  AutoLISP was trying to guide me in that direction too.  Toward the end of my time working with Kim Veltman, the animation tools I had developed were becoming a language.  I wasn&#39;t doing that in any intentional way.  I was just gradually removing some of the repetition in creating the animations.  As I sharpened my tools, there began to emerge an animation scripting language.</p>
+
+<p>While developing Envoy, we were conscious of the force pulling towards a  language.  In fact we resisted that force, trying to expressly <em>not</em> write a language.  But the requirements were really begging for it.  Envoy administrators would create <em>macros</em> (think Excel macros, not lisp macros) to munge <span class="caps">CAD</span> data.  There were pre-processing macros, format conversion macros, post-processing macros, and delivery macros.  (I thought we needed a composite pattern -- macros of macros -- but was accused of more pattern zealotry).  In spite of our efforts to avoid it we joked sarcastically that we had created a not-exactly-visual, distributed batch file system, about as impoverished a language as <span class="caps">DOS.  </span>In spite of our sarcasm, it was actually pretty fun to build.  Good lessons in concurrency and messaging among other things.</p>
+
+<p>Is all programming meta-programming, just that some things are more obviously meta- than others?  When test-firsting I write programs to test programs.  It&#39;s not quite like functions that return functions, but there&#39;s something meta- about it.  Test-driving often leads quickly to interfaces each of which is an <span class="caps">API </span>-- a micro language for communicating with an object.  That&#39;s what Guy Steele&#39;s presentation was getting at, that good programming languages encourage growth in the language.  The Ace project web site remarks that we don&#39;t write ones and zeros anymore, and very few write assembly.  It boasts of being the next logical step in that progression of abstracting away another layer of implementation details.  When <a href="http://www.denverjug.org/events/sep2003.html">Grady Booch spoke at DJUG</a> he called it increasing layers of abstraction.</p>
+
+<p>On Lisp&#39;s theme of <em>bottom-up programming</em> is a metaphor for the profession as a whole.  Programmers grow their tools from the root elements of lisp toward a domain specific language at the same time that the system is being decomposed from high level requirements into appropriately digestible chunks.  Similarly, the programming&#39;s progression has been inside-out recursion.  Instead of working in from the outer lists down to the atoms, those who went before wrote in atoms and in each decade those elements have been wrapped it in a higher level list.</p>
+
+<p>Heh heh heh.  I&#39;m not even half-way through this book and I&#39;ve already connected it to the programming profession as a whole.  Consider that another strong recommendation.  :)</p>
+
+</div>
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2003/10/plate-o-shrimp.html">Intuition and Coincidence</a></h1>
+<div class="time 2003-10-07T08:07:58 pubdate meta">Tuesday 07 October 2003 at 08:07 </div>
+<p>The <em>plate &#39;o shrimp</em> phenomenon from <a href="http://www.imdb.com/title/tt0087995/quotes">Repo Man</a></p>
+
+<blockquote><p>Miller : A lot o&#39; people don&#39;t realize what&#39;s really going on. They view life as a bunch o&#39; unconnected incidents &#39;n things. They don&#39;t realize that there&#39;s this, like, lattice o&#39; coincidence that lays on top o&#39; everything. Give you an example; show you what I mean: suppose you&#39;re thinkin&#39; about a plate o&#39; shrimp. Suddenly someone&#39;ll say, like, plate, or shrimp, or plate o&#39; shrimp out of the blue, no explanation. No point in lookin&#39; for one, either. It&#39;s all part of a cosmic unconsciousness. <br />
+ <br />
+Otto : You eat a lot of acid, Miller, back in the hippie days?</p></blockquote>
+
+<p>I like to pay attention to coincidence.  If I notice a connection between otherwise random events, then there&#39;s something in that connection to examine more closely.  Not necessarily because of a cosmic unconsciousness, it&#39;s probably all just randomness.  But if my brain draws a connection, then there&#39;s something inside me that establishes a relationship between those events.  It&#39;s like a window into my subconscious.  For me, coincidence, d&eacute;ja vu, and intuitive zaps are all things that make me examine my experience more closely to see what pattern my brain is trying to draw to my attention.  I have never been disappointed by the results of such reflection.  And if there does happen to be a lattice &#39;o coincidence that lays on top o&#39; everything, at least I&#39;ll be paying attention to what&#39;s really going on.  ;)</p>
+
+<p>I first saw Repo Man as a class requirement for &quot;Psychology of Architecture&quot; (pronounced &quot;psycho architecture&quot;) which had earned a reputation for aggressive mind games (hence the pronunciation).  I thrived in that class and came back as a teaching assistant for a couple semesters.  Among the other required movies were <a href="http://us.imdb.com/title/tt0076299/">The Last Wave</a> , <a href="http://us.imdb.com/title/tt0096895/">Batman</a> , <a href="http://us.imdb.com/title/tt0092117/">True Stories</a> , <a href="http://us.imdb.com/title/tt0083658/">Blade Runner</a> , and the 1984 colorized restoration of <a href="http://us.imdb.com/title/tt0017136/">Metropolis</a> .  That collection of movies was part of the appeal of the class for me.</p>
+
+</div>
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2003/10/fsm-ace.html">State Machines and Ace</a></h1>
+<div class="time 2003-10-04T16:09:35 pubdate meta">Saturday 04 October 2003 at 16:09 </div>
+<p><a href="http://dobbse.net/thinair/2003/09/000140.html">State Machines</a> part four</p>
+
+<p>A couple weeks ago John mentioned that Craig Larman is one of his favorite authors.  A link on <a href="http://www.craiglarman.com/">Larman&#39;s site</a>  caught my eye:  James Gosling has been working on <a href="http://research.sun.com/features/ace/">the Ace project</a>.  No particular reason for that to get my attention, but it did.  Trusting intuition I followed the link.  After lots of effusive hype about how Ace is going to make programming easier (and maybe wash your dishes too :), the page briefly explains the <em>how</em> of it:</p>
+
+<blockquote><p>The key to the Ace technology is its mechanism for application specification.  This Ace specification has been formulated to capture the precise and complete intent of the desired application while simultaneously excluding or hiding all of the possible implementation details.</p></blockquote>
+
+<p>I quote that paragraph mostly because it highlights that this is &quot;the key to the Ace technology&quot; and because hiding implementation details sounds remarkably similar to my description of Bob Martin&#39;s state machine compiler.  The quote goes on:</p>
+
+<blockquote><p>The first half of an Ace specification is a description of the data which the application will manipulate, that is, its set of business objects. These business objects and their relationships are represented visually in a diagram. ...<br />
+ <br />
+The second half of an Ace specification is a description of how the application will manipulate that data, that is, its business process tasks. These business process tasks and their sequencing are represented visually in another diagram.</p></blockquote>
+
+<p><a href="http://research.sun.com/features/ace/images/ace_graphic2_lg.jpg">The business process diagram for the PurchaseOrder application</a> is an unmistakable state transition diagram.</p>
+
+<p>Given all the state machines on my brain I had to take a closer look.  <a href="http://research.sun.com/projects/ace/">Sun Labs Ace Project</a> has a more technical spin.  Have a look at this <a href="http://research.sun.com/projects/ace/samples/NameTool/Nametool.aum">Ace example code for an Application Usage Specification</a> and compare that with Bob Martin&#39;s <a href="http://dobbse.net/thinair/2003/10/000145.html">state machine compiler configuration</a>.</p>
+
+</div>
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2003/10/fsm-agile-software-development.html">State Machines and Agile Software Development</a></h1>
+<div class="time 2003-10-02T21:02:02 pubdate meta">Thursday 02 October 2003 at 21:02 </div>
+<p><a href="http://dobbse.net/thinair/2003/09/000140.html">State Machines</a> part three</p>
+
+<p>I&#39;ve recently finished reading <a href="http://allconsuming.net/item.cgi?isbn=0135974445">Agile Software Development</a> cover to cover.  I learned a ton.  I can&#39;t recommend this book strongly enough.  This goes on my list of must-haves along side <a href="http://allconsuming.net/item.cgi?isbn=0201633612">Design Patterns</a> , and <a href="http://allconsuming.net/item.cgi?isbn=0201485672">Refactoring</a> , and <a href="http://allconsuming.net/item.cgi?isbn=0201310058">Effective Java</a> .</p>
+
+<p>Bob Martin Introduces the state pattern on page 419:</p>
+
+<blockquote><p>Finite state automata are among the most useful abstractions in the software arsenal.  They provide a simple and elegant way to explore and define the behavior of a complex system.  They also provide a powerful implementation strategy that is easy to understand and easy to modify.  I use them at all levels of a system, from controlling the high-level <span class="caps">GUI</span> to the lowest-level communication protocols.  They are almost universally applicable.</p></blockquote>
+
+<p>That dispelled any <a href="http://dobbse.net/thinair/2003/09/000141.html">doubts I had about all those workflows</a> .  And it gave me insight about what made <a href="http://dobbse.net/thinair/2003/10/000142.html">that Tango outline</a> effective.  Despite some tendency toward self-doubt, I trust my intuition when it gets insistent.  But confirmation by external authorities gives me a warm, fuzzy feeling inside.  :-)</p>
+
+<p>Just as I was settling a little too deeply into my self-satisfaction, Bob mentioned his <a href="http://www.objectmentor.com/resources/downloads/index">state machine compiler, available for free at Object Mentor</a> .  It humbled me.  Create a state transition table and let the compiler pop out a bunch of state machine gears and cogs.  What an excellent example of meta-programming (about which I&#39;ll have more to say).  Moreover, a state transition table is an excellent way to think about the state pattern.  The compiler allows me to work with the state machine at a conceptual level without having to get lost in the state pattern minutia.  This is the kind of trick I just know is going to change the way I approach problems.  This is leverage.</p>
+
+<p><em>By the way, Larry, who recommended Agile Software Development to me, has just commented about <a href="http://radio.weblogs.com/0120174/categories/javaAndObjectOrientation/2003/10/01.html#a24">using state charts to design user interfaces</a> .</em></p>
+
+<p><ins>Update:</ins>  Thought I should include an example of the <span class="caps">SMC</span> config file.  This is the state transition table for a turnstyle from the <span class="caps">SMC</span> distribution.  I think you can see at a glance how it spares you the state machine minutia.</p>
+
+<pre>
+Context Turnstylecontext     // The Name Of The Context Class
+Fsmname Turnstyle            // The Name Of The Fsm To Create
+Initial Locked               // The Name Of The Initial State
+                             // For C++ Output
+Pragma Header  Tscontext.H   // The Header File Name For The Context Class
+{
+    Locked
+    {
+        Coin     Unlocked    Unlock
+        Pass     Locked      Alarm
+    }
+    Unlocked
+    {
+	    Coin    Unlocked    Thankyou
+	    Pass    Locked      Lock
+    }
+}
+</pre>
+
+</div>
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2003/10/rss-data-xml-data.html">RSS-Data/XML-Data</a></h1>
+<div class="time 2003-10-02T20:44:15 pubdate meta">Thursday 02 October 2003 at 20:44 </div>
+<p>Jeremy Allaire has stirred up some buzz.  There&#39;s one point about this <span class="caps">RSS</span>-Data I don&#39;t think has been made.</p>
+
+<p>There&#39;s all sorts of hype and excitement about other applications for <span class="caps">RSS,</span> but what we have right now is mostly vaporware.  The blogsphere certainly proves the utility of <span class="caps">RSS,</span> but other applications are at most speculative.  Introducing a low-threshold format for publish-subscribe exchanges of objects could be just the ticket to get some real application development rolling.  As real applications appear and crystalize, then schemas can be formalized for those applications.</p>
+
+<p>If you haven&#39;t already been following the discussion here&#39;s what I&#39;ve read:</p>
+
+<ul><li><a href="http://radio.weblogs.com/0113297/2003/10/01.html#a236">RSS-Data: A Proposed Format</a> and <a href="http://radiocomments.userland.com/comments?u=113297&amp;p=236&amp;link=http%3A%2F%2Fradio.weblogs.com%2F0113297%2F2003%2F10%2F01.html%23a236">the comments</a></li>
+<li><a href="http://radio.weblogs.com/0113297/2003/10/01.html#a237">More discussion on RSS/XML-Data</a> and <a href="http://radiocomments.userland.com/comments?u=113297&amp;p=237&amp;link=http%3A%2F%2Fradio.weblogs.com%2F0113297%2F2003%2F10%2F01.html%23a237">the comments</a></li>
+<li><a href="http://www.decafbad.com/blog/tech/rss_data_versus_namespace.html">Les Orchard&#39;s example of an RSS 2.0 namespace versus RSS-Data usage</a> and <a href="http://www.decafbad.com/blog/tech/rss_data_versus_namespace_2.html">his first impressions</a></li>
+</ul>
+
+<p>Les&#39; examples are good for discussion.  On the surface it looks like solid argument against Jeremy&#39;s suggestion.  But despite the verbosity, I think the ability to get on with the applications is the important part.  I think Jeremy&#39;s idea will grease those wheels.</p>
+
+</div>
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2003/10/visionlink-business-lessons.html">Business lessons I learned from VisionLink after I left</a></h1>
+<div class="time 2003-10-01T22:52:40 pubdate meta">Wednesday 01 October 2003 at 22:52 </div>
+<p>I pushed really hard to get <a href="http://www.visionlink.org">VisionLink</a> to move off of FileMaker Pro and onto PostgreSQL, though any <span class="caps">SQL</span> database would have made me happier.  After a lot of back an forth it became clear that they were not going to budge.  It also became clear that I couldn&#39;t stand to work with FileMaker Pro any longer.  That&#39;s ultimately why I left in the Spring of 2000.  I was convinced that they were using the wrong technology and I was tired of having to work around it.  More importantly I felt stifled and claustrophobic in my professional development.  It was a pretty hard choice to make because I really liked my coworkers and really believed in the company and in the products.  I still do, actually.</p>
+
+<p>The job with Spacial (later PlanetCAD) was all that I could have asked for professionally.  Right off the bat I was thrown into a project using <span class="caps">PHP</span> and MySQL on a linux box.  I did my development in emacs.  I introduced the use of version control for web apps.  I also spent some time helping to automate the importation of an <span class="caps">XML</span> news feed.  A little bit of cron, perl, <span class="caps">XSLT,</span> and a python module for zope.  And then they decided to move everything we were working on to Java and Oracle.  That led to <a href="http://jakarta.apache.org/turbine/">Turbine</a> and other Jakarta goodies.  I couldn&#39;t ask for more...</p>
+
+<p>... except for the fact that the company was in an irrecoverable tailspin.  In addition to all the cool technical things I learned along the way I learned many negative examples about business.  PlanetCAD had the right technology.  But it completely failed as a business.  Every decision was a foolish gamble striving to recover ten-to-one returns for the investors to make up for what they had been loosing.  Over the same period .coms were crashing all over the place.  The wreckage was profound.</p>
+
+<p>VisionLink powered right along.  Part of that has to do with their customers.  The non-profit business ecosystem runs under different cycles than the commercial world.  I&#39;ll take a fair bit of credit for some of the technical suggestions they did adopt.  They agreed to move to an <span class="caps">ASP</span> business model.  When I started, a significant chunk of my work was managing the servers which were installed remotely at the client&#39;s <span class="caps">IS</span>Ps.  Before we began gradually pulling them back into our own house there were probably twenty-five servers I was managing through Timbuktu.  At the same time we were replacing the remote servers with our local server farm, we modified the code to work under virtual hosting -- supporting more than one community on a single piece of hardware.  With all the servers relocated it was easy to throw hardware at the problem when a community outgrew their little slice of a server.  The communities that outgrew their systems would get moved onto dedicated and spiffy new hardware.</p>
+
+<p>But given the lessons at PlanetCAD and the accompanying hail of dot bombs, the lion&#39;s share of VisionLink&#39;s success has to go to their business savvy.  They paid careful attention to maintaining excellent customer support and building relationships with their customers.  That was a real business priority and not just rhetoric or marketing.  They kept expanding the revenue stream in sensible ways and made sure those revenues covered salaries, rent, long distance phone bills, the expense of the new hardware, and so on.  And they made exactly the right decision to not change technology when I pushed so hard for it.  The revenue stream wouldn&#39;t have supported the complete overhaul I was suggesting.  And the customers were served just fine with FileMaker Pro on the back-end and regularly expanded hardware.</p>
+
+<p>It&#39;s too bad that my professional development needs didn&#39;t match with VisionLink&#39;s business needs.  But I&#39;m glad we finally figured that out and went our separate ways.  I&#39;m pretty sure we are both better off for the change.  And I&#39;m happy for their continued success.  If you happen to be involved in workforce development efforts or education reform you should look at the tools and services they offer.  You can most definitely trust that you will be well served, and you can trust them to manage their business and not drive it into the ground.  They will definitely be there as you grow.</p>
+
+</div>
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2003/10/fsm-tango.html">State Machines and Tango</a></h1>
+<div class="time 2003-10-01T22:33:12 pubdate meta">Wednesday 01 October 2003 at 22:33 </div>
+<p><a href="http://dobbse.net/thinair/2003/09/000140.html">State Machines</a> part two</p>
+
+<p>My life as a network administrator ended and life as a professional software developer started in 1997 when I moved back to Colorado and got a job with <a href="http://visionlink.org">VisionLink</a> .  At the time, VisionLink used Tango and FileMaker Pro on PowerMac <span class="caps">G3</span>&#39;s for their web application (there was only one at the time).  Tango has changed hands a number of times and now goes by the name <a href="http://www.witango.com/">WiTango</a> .</p>
+
+<p>Since leaving VisionLink I&#39;ve worked with many other web application tools.  <span class="caps">PHP, </span>Zope, the ArsDigita Community Server, perl and python cgis, Turbine, Velocity, Struts, <span class="caps">JSP.  </span>Tango had one thing that all of those other technologies lack.  The development tools encouraged you to think in terms of what the whole application was going to be doing rather than thinking one page at a time.  I miss that way of thinking about web applications.  It was like having an outline of the application up front.  You still had to put the individual pages together but every page was inherently created in the context of the rest of the application.  It was easy to see the relationship of the forrest and the trees.</p>
+
+<p>Few people have even heard of Tango, much less developed an application of any complexity with it.  It&#39;s hard to explain why it&#39;s a better way to think about the apps.  Perhaps it&#39;s similar to making the leap from simple functional programming to recursive programming, or from procedural to object programming.  Or the leap to using patterns.  (I&#39;m sure that aspect oriented programming will open up still more options if I can ever make the time for it.)  It&#39;s all programming, but different modes of thinking about problems open up different solutions.  For a given problem some modes of thinking are more effective than others.  I think Tango had a better fit for thinking about web applications.</p>
+
+<p>I have just recently learned to think of that &quot;outline&quot; as an application-level state machine.</p>
+
+<p><ins>Update:</ins>  Looks like <a href="http://www.witango.com/productinfo/guide/studio.thtml">the WiTango Development Studio</a> hasn&#39;t changed radically since my Tango days.  There&#39;s a picture of the outline I&#39;ve been talking about on that page.  It&#39;s a tree widget with if...else branches and such.  Those branches are at the application level, not the page level.  <em>If the user isn&#39;t logged in</em> ... <em>if action=save</em> ... and so on.  As opposed to <em>if user has x permission then show y widget</em> or other page logic.</p>
+
+</div>
+
+
+<div class="nav">
+<ol>
+<li>Archives
+  <ol>
+    <li><a href="http://dobbse.net/thinair/2011/01/index.html">January 2011</a></li>
+    <li><a href="http://dobbse.net/thinair/2010/12/index.html">December 2010</a></li>
+    <li><a href="http://dobbse.net/thinair/2010/09/index.html">September 2010</a></li>
+    <li><a href="http://dobbse.net/thinair/2010/08/index.html">August 2010</a></li>
+    <li><a href="http://dobbse.net/thinair/2010/06/index.html">June 2010</a></li>
+    <li><a href="http://dobbse.net/thinair/2010/02/index.html">February 2010</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/10/index.html">October 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/09/index.html">September 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/07/index.html">July 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/05/index.html">May 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/03/index.html">March 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/02/index.html">February 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/01/index.html">January 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2008/12/index.html">December 2008</a></li>
+    <li><a href="http://dobbse.net/thinair/2008/09/index.html">September 2008</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/10/index.html">October 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/09/index.html">September 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/08/index.html">August 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/06/index.html">June 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/04/index.html">April 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/03/index.html">March 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/01/index.html">January 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/12/index.html">December 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/11/index.html">November 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/10/index.html">October 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/09/index.html">September 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/08/index.html">August 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/07/index.html">July 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/06/index.html">June 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/04/index.html">April 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/02/index.html">February 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/12/index.html">December 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/10/index.html">October 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/06/index.html">June 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/05/index.html">May 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/04/index.html">April 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/03/index.html">March 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/02/index.html">February 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/12/index.html">December 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/11/index.html">November 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/10/index.html">October 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/09/index.html">September 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/08/index.html">August 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/07/index.html">July 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/06/index.html">June 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/05/index.html">May 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/04/index.html">April 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/03/index.html">March 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/02/index.html">February 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/01/index.html">January 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/12/index.html">December 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/11/index.html">November 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/10/index.html">October 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/09/index.html">September 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/08/index.html">August 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/07/index.html">July 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/06/index.html">June 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/05/index.html">May 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/04/index.html">April 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/03/index.html">March 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/02/index.html">February 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/01/index.html">January 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2002/12/index.html">December 2002</a></li>
+    <li><a href="http://dobbse.net/thinair/2002/11/index.html">November 2002</a></li>
+    <li><a href="http://dobbse.net/thinair/2002/10/index.html">October 2002</a></li>
+    <li><a href="http://dobbse.net/thinair/2002/09/index.html">September 2002</a></li>
+    <li><a href="http://dobbse.net/thinair/2001/01/index.html">January 2001</a></li>
+
+  </ol>
+</li>
+
+<li>Around
+  <ol class="wide">
+    <li><a href="http://dobbse.net/thinair/2003/09/index.html">&laquo; September 2003</a></li>
+
+    <li><a href="http://dobbse.net/thinair/2003/11/index.html">&raquo; November 2003</a></li>
+
+  </ol>
+</li>
+
+</ol>
+</div>
+<div class="footer meta">
+All content &copy; 2001-2011  Eric Dobbs unless otherwise noted.  All rights reserved.
+</div>
+
+</body>
+</html>

@@ -1,0 +1,17 @@
+<rss version="0.91"><channel>
+<title>Mostly Unstarted Projects</title>
+<link>http://dobbse.net/reflection/2002/09/000057.html</link>
+<description>I've always got a list of projects simmering in the back of my mind.  Regrettably few of them ever make it to the foreground.  This is a list of most interesting of them.</description>
+<language>en-us</language>
+<item>
+<title>Just doing it</title>
+<link>http://dobbse.net/thinair/2002/11/000072.html</link>
+<description>I&apos;ve been doing some math while Sarah has been writing, and hacking a little test driven python code when she&apos;s at her internship. I was inspired by Chris Winters&apos; recent post, Getting good, and decided to just start somewhere on SVG animations. I also...</description>
+</item>
+<item>
+<title>Applications for Werkflow</title>
+<link>http://dobbse.net/thinair/2002/10/000060.html</link>
+<description>Werkflow ideas: Turbine 3 valves, and graceful &amp;#65279;degradation of service under increasing load</description>
+</item>
+</channel>
+</rss>

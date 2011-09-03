@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>April 2003 (thinair)</title>
+<link rel="alternate" type="application/rss+xml" title="thinair feed" href="http://dobbse.net/index.rdf" />
+<link rel="stylesheet" href="http://dobbse.net/style.css" type="text/css" />
+<link rel="start" href="http://dobbse.net/" title="Home" />
+<link rel="prev" href="http://dobbse.net/thinair/2003/03/index.html" title="March 2003" />
+
+<link rel="next" href="http://dobbse.net/thinair/2003/05/index.html" title="May 2003" />
+
+</head>
+<body>	
+
+<div class="header">
+<h1><a href="/">thinair</a></h1>
+<div class="hgroup">
+<h2 class="first">Boulder, Colorado</h2>
+<h2>elevation 5400 feet</h2>
+<h2>your guide: Eric Dobbs</h2>
+</div>
+</div>
+
+
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2003/04/pda-dev.html">PDA development quick links</a></h1>
+<div class="time 2003-04-25T14:56:46 pubdate meta">Friday 25 April 2003 at 14:56 </div>
+<p>A collection of links I want to explore in more detail:<br />
+* <a href="http://prc-tools.sourceforge.net/">prc-tools.sf.net</a><br />
+* <a href="http://sidewww.epfl.ch/~crivelli/prctools-osx/">PRC-Tools on Mac OS X</a><br />
+* <a href="http://www.palmos.com/dev/tools/emulator/">Palm OS Emulator</a><br />
+* <a href="http://developer.apple.com/macosx/rendezvous/">Rendezvous developer info</a><br />
+* <a href="http://jabberbeans.jabberstudio.org/index.php?page=download.php">JabberBeans</a></p>
+
+</div>
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2003/04/000109.html">blog changes tonight</a></h1>
+<div class="time 2003-04-24T19:16:29 pubdate meta">Thursday 24 April 2003 at 19:16 </div>
+<p>Ladies and gentlemen, the captain has turned on the fasten seat belt sign.  We expect a little turbulence this evening.  We&#39;ll see if we can find some smoother air, but in the meantime, please return to your seats.</p>
+
+<p><ins>Update: Ladies and gentlemen, the captain has turned off the fasten seat belt sign.  Feel free to move about the cabin.  If you look out the right side of the aircraft, you&#39;ll notice a few changes in the landscape, most notably excerpts from Reflection in the sidebar.  For our frequent flyers this means you will start to see the less geeky stuff posted there.</ins></p>
+
+</div>
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2003/04/000108.html">Commuting, not coding</a></h1>
+<div class="time 2003-04-21T22:44:51 pubdate meta">Monday 21 April 2003 at 22:44 </div>
+<p>I live on the north side of Boulder.  The new contract is in Denver.  Not too far from downtown, but not easy to get to by bus.  The commute is taking an hour an a half to two hours each way.  I have been using that time to write blog entries in my PDA, but I haven't got a smooth path from PDA to blog yet.  More importantly, my recreational coding time has all but vanished.  I don't have time to blaze the trail from my PDA to blog.  Frustrating.</p>
+
+</div>
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2003/04/insurance-die-die-die.html">The Insurance System Sucks</a></h1>
+<div class="time 2003-04-21T18:00:39 pubdate meta">Monday 21 April 2003 at 18:00 </div>
+<p>I have been under four different health insurance policies in the last twelve months.  Now I'm officially angry.  Last week I found out my allergist isn't part of the new plan and they won't pay for my current prescription.  Today I found out my dentist isn't part of the new dental plan.</p>
+
+<p>The notion of managed care is swell, until a change in plan changes your physicians.  Those changes are determined by the employer and not by the patient.</p>
+
+<p>I want health care that's decoupled from employment.  The current system is interfering with my healthcare.</p>
+
+<p>I would prefer to be part of a city-wide policy because my doctors and I are all very likely to remain in the same city.  Whereas changes in employers are like the changes in the weather.  Colorado small businesses have repeatedly asked for help with the cost of providing health insurance to their employees.  I would love to see something which solves both problems.</p>
+
+</div>
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2003/04/duplication-in-test-driven-sql.html">Test-driven code duplication</a></h1>
+<div class="time 2003-04-18T14:59:29 pubdate meta">Friday 18 April 2003 at 14:59 </div>
+<p>Thursday, I was test driving a <span class="caps">DAO.  </span>At the moment it&#39;s almost entirely pseudo implementation -- no actual <span class="caps">SQL.  </span>The interface is already designed, I get to write the <span class="caps">SQL.</span></p>
+
+<p>Unit testing the <span class="caps">SQL</span> is causing code duplication.  I&#39;m using <a href="http://www.easymock.org">EasyMock</a> objects for the Connection, Statement, PrepairedStatement, and ResultSet.  I end up basically writing the implementation in the test and then writing it again in the <span class="caps">DAO.  </span>Something stinks.  I think it has to do with the way EasyMock sets expectations.  It would look differently if I used MockObjects, or if I rolled my own mocks.  But EasyMock saves me the extra work of writing and maintaining the mock objects.</p>
+
+<p>I want these tests to be independent of the database.</p>
+
+</div>
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2003/04/test-driving-idea.html">Test driving IDEA </a></h1>
+<div class="time 2003-04-17T13:37:23 pubdate meta">Thursday 17 April 2003 at 13:37 </div>
+<p>The pun is intentional.  While I have been getting acquainted with the code I am taking over for my new contract, I have also taken advantage of the the trial license for <span class="caps">IDEA.  </span>The app is using Struts in JBoss, both of which are new to me.  You can expect to see some Struts-Turbine comparisons as I get more familiar.</p>
+
+<p>Today I started <a href="http://c2.com/cgi/wiki?TestDrivenProgramming">test-driving</a> some new code in the data access object.</p>
+
+<p>My very first impression of Struts this week was frustrating.  Hunting from the struts-config.xml to the objects and <span class="caps">JS</span>Ps annoyed me.  At some point I will probably grok the need for the extra layers of indirection.  This week it just bugged me.  And then I installed <span class="caps">IDEA.</span></p>
+
+<p>I learned regular expressions from <span class="caps">BB</span>Edit and quickly became an evangelist for both.  In the past three years, I have become an emacs junkie.  I&#39;ve never been impressed with any <span class="caps">IDE,</span> always returning to the comfort of the all-mighty text editor.  I&#39;ve read plenty of accolades for <span class="caps">IDEA,</span> but remained skeptical.  In the first ten minutes, after setting up the project, I was ready to spend the money.</p>
+
+<p>Setting up the project was intuitive.  I didn&#39;t read the docs at all -- and didn&#39;t even notice that until I started writing about it today.  I read through a few tips-du-jour and left it on.  <span class="caps">I </span><em>never</em> do that!  The tips are entirely relevant.</p>
+
+<p>What I noticed first was the todos extracted from the comments in the code.  Not a wiz-bang thing, but incredibly and immediately useful.  (Contrast that with the <span class="caps">MS </span>Paperclip.)</p>
+
+<p>Next I noticed the local version control.  I first used <span class="caps">CVS</span> for a safety net in my hobby projects.  I have missed that since I joined Turbine and learned to never commit if it doesn&#39;t compile.  In the back of my mind I have occasionally toyed with trying a local repository in conjunction with the real thing, I have chosen to just do without.  I had forgotten about it until I saw the feature in <span class="caps">IDEA.  I</span> immediately had to see the diff and rollbacks in action.  How totally excellent!</p>
+
+<p>Most importantly, in these few days I haven&#39;t found any annoyances.  That never happens!  Preferences have been easy to find.  Keyboard access for everything is excellent.  Ubiquitous name completion and JUnit integration are also excellent.  I love having the &quot;grammar checker&quot; warn me about the syntax errors <em>before</em> I compile.  My only challenge is training my fingers new keystrokes.</p>
+
+<p>Back to Struts, <span class="caps">IDEA</span> was immediately useful in loading classes by name while looking at struts-config.xml.  It took away the nuisance of the indirection.  I realize now that this is one of the critical services offered by an <span class="caps">IDE</span>:  making layers of indirection easy to navigate.</p>
+
+<p>I know the refactoring goodies are cool, but fluidly navigating the code is what facilitates the understanding that comes before code changes.</p>
+
+<p><span class="caps">IDEA</span> rocks!</p>
+
+</div>
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2003/04/server-side-spam-filters.html">Server side spam filters</a></h1>
+<div class="time 2003-04-14T18:24:37 pubdate meta">Monday 14 April 2003 at 18:24 </div>
+<p>I started my new life as an independent contractor today which is very good news.  The bad news is I don't have Mail.app's spam filter at work.  I was wading through junk mail today.  It's enough to make email completely unusable.  Time to go find a procmail solution.</p>
+
+<p>I am going to miss the ease of the Junk button.</p>
+
+</div>
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2003/04/serpico.html">Serpico</a></h1>
+<div class="time 2003-04-09T17:13:00 pubdate meta">Wednesday 09 April 2003 at 17:13 </div>
+<p><a href="http://us.imdb.com/Title?0070666">This movie</a> has been kinda haunting me for the past week.  Sarah and I rented it several weekends ago.  It is based on the true story of Frank Serpico, a cop of remarkable integrity who blew the whistle on rampant corruption in NYPD in 1970.  The movie portrays NYPD like the mob, spending most of their time shaking down criminals for hush money.</p>
+
+<p>It's an excellent movie, but it is the real story which I find sobering.  As recently as 1970 the integrity of the NYPD was thoroughly compromised by payoffs.  Even the highest ranking public officials turned a blind eye to the problem rather than risk the damage to the image of the department.  Image was preferred over substance.  It's now obvious to me that I've been deeply naive about police work.  It has made corruption into something real for me, not just speculation.</p>
+
+<p>A couple years ago this country was agitated about chads and ballots in Florida.  And until the war drums started beating there was a ton of press about Enron and WorldCom.  I first noticed the war drums around this time last year, the same time that questions were asked about business practices at the former companies of Bush and Cheney.  I sarcastically predicted to Sarah that we would be at war with Iraq in time for the elections.  I was progressively more disturbed by how close I was to being right.  Then I was shocked and frustrated by how well the war drums effected the elections.</p>
+
+<p>It's all frustratingly conspicuous, but more frustrating because, like any good conspiracy theory, it's completely unverifiable.  All suspicion, all circumstance, all compelling but vaporous.</p>
+
+<p>Serpico doesn't have anything to do with all of this.  It's an excellent movie that I happened to see when too much of my attention was wrapped up in a war and in my mistrust of the Administration that started it.</p>
+
+</div>
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2003/04/prefer-non-violence.html">Reservations about this tipping point in Iraq</a></h1>
+<div class="time 2003-04-09T14:14:36 pubdate meta">Wednesday 09 April 2003 at 14:14 </div>
+<p>I'm sincerely happy for the Iraqi people <a href="http://www.guardian.co.uk/Iraq/Story/0,2763,932957,00.html">who are celebrating in Baghdad today</a>.  This war has gripped me with very mixed emotions.  Even as I have opposed US military action, I have been unable to imagine a convincing non-violent way to remove Saddam Hussein from power.  I don't object to the ends, but I do object to the means.  I wish Gandhi could comment on it.</p>
+
+<p>Google pointed me to some quotes from Gandhi that articulate my concerns about the use of violence even for as noble a cause as liberation from tyranny.  Both quotes are from Gandhi's thoughts on <a href="http://www.mkgandhi.org/nonviolence/phil7.htm">violence and terrorism</a></p>
+
+<blockquote cite="http://www.mkgandhi.org/nonviolence/phil7.htm"> I object to violence because, when it appears to do good, the good is only temporary; the evil it does is permanent.</blockquote>
+
+<p>A perfect example of long-term consequences of violence, this war was precipitated by the US support for Iraq in their war with Iran, who were supported by the Soviets.  The US and USSR waged war with each other through these middle eastern countries.  Iraq and Iran had their own animosity, but their conflict was fueled by the super powers.  In our fear of communism we armed Iraq with the very weapons which originally motivated our present invasion.  The Iraqi blood Saddam has spilled is also on our hands, not Saddam's alone.  Perhaps this is a long overdue correction to the imbalances created in our protracted cold war with the Soviets.  But that isn't the spin we get from the White House.  Instead we get a Hollywood-style spin, ironically, with the US wearing white hats and Saddam and his sons in black hats. Good propaganda is true, but simplistic and one-sided.  Even as the Iraqi's celebrate, I believe strongly that violent solutions create as many problems as they solve.</p>
+
+<blockquote cite="http://www.mkgandhi.org/nonviolence/phil7.htm"> It is an unshakable faith with me that a cause suffers exactly to the extent that it is supported by violence. I say this in spite of appearances to the contrary. If I kill a man who obstructs me, I may experience a sense of false security. But the security will be short-lived. For I shall not have dealt with the root cause. In due course, other men will surely rise to obstruct me. My business, therefore, is not to kill the man or men who obstruct me, but to discover the cause that impels them to obstruct me and deal with it.</blockquote>
+
+<p>More conflicting emotions.  I'm sincerely happy for the Iraqi people and optimistic about their future.  But I wonder about the repercussions of preemptive and violent overthrow of a foreign dictator.  It's like a code smell that I can't quite identify.  I'm fairly sure the violence has something to do with it.  It's a <a href="http://c2.com/cgi-bin/wiki?BigBallOfMud">big ball of mud</a> that I don't know how to refactor.</p>
+
+<ins><p>Update:  My earlier <a href="http://dobbse.net/thinair/2003/03/000091.html">letter to the White House</a> provoked an interesting conversation on this subject</p></ins>
+
+</div>
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2003/04/spam-evolution-and-breeding.html">Mail.app spam filter, evolution and breeding</a></h1>
+<div class="time 2003-04-07T16:19:42 pubdate meta">Monday 07 April 2003 at 16:19 </div>
+<p>Charles <a href="http://fishbowl.pastiche.org/archives/001289.html">reports</a> that Mail.app only catches 20% of his spam.  It catches about 80% of mine.  Maybe the filtering database has gotten fowled somehow.</p>
+
+<p>The success rate varies for me.  For a while base64 encoded html attachments were getting through.  But I dutifully flagged them as junk and Mail seems to be catching them more consistently.  In some recent mutations spammers are *M *E *S *S *I *N *G with words in the subject line and adding random noise fdxciqwea.</p>
+
+<p>The virus mutates.  The new strain is virulent until the antibodies in the population develop and correct the imbalance.  The pattern is the same whether the virus is SARS, or CodeRed, or <a href="http://www.npr.org/about/sponsors/myth.html">the NPR funding hoax</a>.</p>
+
+<p>The first Mail.app preference I turned off was 'Display images and embedded objects in HTML messages'.  Hit counts for links to images provide spammers with immediate feedback about which mutations are surviving spam filters in the wild.  Unfortunately, there are enough mail clients providing that feedback that the spammers can breed the mutations which are most effective at evading filters.</p>
+
+<p>Now if only I could get a bayesian filter installed on my snail-mailbox.</p>
+
+</div>
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2003/04/lossage.html">Damn web browsers!  Damn web applications!  Damn XEmacs!</a></h1>
+<div class="time 2003-04-07T16:13:57 pubdate meta">Monday 07 April 2003 at 16:13 </div>
+<p>I don't know who to cuss at!  I was working merrily away on a reply to Charles Miller's post about the Mail.app spam filter.  I was nearly done, just editing for brevity when BAM!  The window disappears.  "What did I just do?"  I checked through all open windows.  Nope.  My reply to Charles was gone.  Data lossage always sucks.  But what did I do?  (Please find the link to Charles' post in my <a href="http://dobbse.net/thinair/2003/04/000101.html">rewritten reply</a>.  Grumble.)</p>
+
+<p>I was typing into a &lt;textarea> in Safari in Movable Type's New Entry form.  One thing I like about Safari is I no longer have to cut-and-paste in order to check my spelling.</p>
+
+<p>But then I hit the keystroke to copy some text.  You know the one.  Command-W.</p>
+
+<p>The mac user asks  "doncha mean Command-C?"   The emacs user asks "doncha mean Meta-W?"  If you use both, maybe you know my pain.</p>
+
+<p>For those of you who don't:  The Quartz window manager maps the Command key to Meta.  So the Meta-W keystroke, which copies a block of text in XEmacs, is Command-W on an Apple keyboard.  And Command-W is the keystroke which closes windows in MacOS.  My fingers don't always make the transition from XEmacs key bindings to MacOS key bindings when I switch between apps.</p>
+
+<p>If I had been using any text editor instead of a damn web browser to compose my reply I would have been prompted to save my work before closing it.  But Safari merrily closed the damn window when I told it to.</p>
+
+<p>I think I'll file that as a feature request:  please make Safari smart enough to recognize a web form.  Identify the window as unsaved if text is edited in any of the fields.  Prompt the user for confirmation before closing a window containing an unsaved form.</p>
+
+<p>But I will probably also go back to composing my blog entries in emacs and cut-and-paste them into Movable Type's form.  If I get really ambitious I'll write an emacs module to submit new entries.  Naw.  Who am I kidding?  It would be easier to switch to blosxom and just upload the entries.</p>
+
+</div>
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2003/04/nexts-best-thing.html">Welcome to NeXT's best thing, James</a></h1>
+<div class="time 2003-04-02T11:26:59 pubdate meta">Wednesday 02 April 2003 at 11:26 </div>
+<p><a href="http://radio.weblogs.com/0112098/2003/04/02.html#a367">Why didn't they make OSX years ago?</a>  They did.  Almost fifteen years ago.  But they lacked an important bit of market penetration until their stealth takeover of Apple in December 1996.  So they also lacked useful commercial software.  I jumped on the bandwagon four years later, but I've <a href="http://dobbse.net/thinair/2002/11/000065.html">already blogged</a> the nostalgia of my little silver cube.</p>
+
+<p>I found a nice article from October 2000 while confirming the important dates.  Fun review of Apple and NeXT history.  <a href="http://www.vnunet.com/Features/1112630">NeXT Computer: when cool wasn't enough</a></p>
+
+</div>
+
+
+<div class="nav">
+<ol>
+<li>Archives
+  <ol>
+    <li><a href="http://dobbse.net/thinair/2011/01/index.html">January 2011</a></li>
+    <li><a href="http://dobbse.net/thinair/2010/12/index.html">December 2010</a></li>
+    <li><a href="http://dobbse.net/thinair/2010/09/index.html">September 2010</a></li>
+    <li><a href="http://dobbse.net/thinair/2010/08/index.html">August 2010</a></li>
+    <li><a href="http://dobbse.net/thinair/2010/06/index.html">June 2010</a></li>
+    <li><a href="http://dobbse.net/thinair/2010/02/index.html">February 2010</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/10/index.html">October 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/09/index.html">September 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/07/index.html">July 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/05/index.html">May 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/03/index.html">March 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/02/index.html">February 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/01/index.html">January 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2008/12/index.html">December 2008</a></li>
+    <li><a href="http://dobbse.net/thinair/2008/09/index.html">September 2008</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/10/index.html">October 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/09/index.html">September 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/08/index.html">August 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/06/index.html">June 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/04/index.html">April 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/03/index.html">March 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/01/index.html">January 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/12/index.html">December 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/11/index.html">November 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/10/index.html">October 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/09/index.html">September 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/08/index.html">August 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/07/index.html">July 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/06/index.html">June 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/04/index.html">April 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/02/index.html">February 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/12/index.html">December 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/10/index.html">October 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/06/index.html">June 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/05/index.html">May 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/04/index.html">April 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/03/index.html">March 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/02/index.html">February 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/12/index.html">December 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/11/index.html">November 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/10/index.html">October 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/09/index.html">September 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/08/index.html">August 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/07/index.html">July 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/06/index.html">June 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/05/index.html">May 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/04/index.html">April 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/03/index.html">March 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/02/index.html">February 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/01/index.html">January 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/12/index.html">December 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/11/index.html">November 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/10/index.html">October 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/09/index.html">September 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/08/index.html">August 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/07/index.html">July 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/06/index.html">June 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/05/index.html">May 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/04/index.html">April 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/03/index.html">March 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/02/index.html">February 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/01/index.html">January 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2002/12/index.html">December 2002</a></li>
+    <li><a href="http://dobbse.net/thinair/2002/11/index.html">November 2002</a></li>
+    <li><a href="http://dobbse.net/thinair/2002/10/index.html">October 2002</a></li>
+    <li><a href="http://dobbse.net/thinair/2002/09/index.html">September 2002</a></li>
+    <li><a href="http://dobbse.net/thinair/2001/01/index.html">January 2001</a></li>
+
+  </ol>
+</li>
+
+<li>Around
+  <ol class="wide">
+    <li><a href="http://dobbse.net/thinair/2003/03/index.html">&laquo; March 2003</a></li>
+
+    <li><a href="http://dobbse.net/thinair/2003/05/index.html">&raquo; May 2003</a></li>
+
+  </ol>
+</li>
+
+</ol>
+</div>
+<div class="footer meta">
+All content &copy; 2001-2011  Eric Dobbs unless otherwise noted.  All rights reserved.
+</div>
+
+</body>
+</html>

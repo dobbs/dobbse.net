@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Mac OS X Preview doesn't display Acrobat Forms (thinair)</title>
+<link rel="alternate" type="application/rss+xml" title="thinair feed" href="http://dobbse.net/index.rdf" />
+<link rel="stylesheet" href="http://dobbse.net/style.css" type="text/css" />
+<link rel="start" href="http://dobbse.net/" title="Home" />
+<link rel="prev" href="http://dobbse.net/thinair/2004/02/lisp.html" title="Lisp blazed the trail, (code generation and dynamic languages)" />
+
+<link rel="next" href="http://dobbse.net/thinair/2004/02/pdf-pot-luck.html" title="Hacking PDF forms with iText, jython, perl, and emacs" />
+
+</head>
+<body>
+
+<div class="header">
+<h1><a href="/">thinair</a></h1>
+<div class="hgroup">
+<h2 class="first">Boulder, Colorado</h2>
+<h2>elevation 5400 feet</h2>
+<h2>your guide: Eric Dobbs</h2>
+</div>
+</div>
+
+
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2004/02/pdf-default.html">Mac OS X Preview doesn't display Acrobat Forms</a></h1>
+<div class="time 2004-02-19T21:56:50 pubdate meta">Thursday 19 February 2004 at 21:56 </div>
+<p>The complaint: &quot;Clicking on <span class="caps">PDF</span> links in Safari doesn&#39;t work.&quot;</p>
+
+<p>The problem is that Apple&#39;s built-in viewer, Preview, doesn&#39;t display the contents of Acrobat Forms.  In our (bivio&#39;s) case, the <span class="caps">PDF</span> forms in question are supplied by the <span class="caps">IRS</span> and filled-in by our software.  In Preview, you can see the empty form but none of the data filled-in.  You have to use <a href="http://www.adobe.com/products/acrobat/readstep2.html">Adobe Reader</a>.  Moreover, if you want Safari to open the files in Adobe Reader by default instead of Preview you must set the default application for <span class="caps">PD</span>Fs in the Finder.</p>
+
+<p>These instructions were tested with Mac <span class="caps">OS X 10.3.2.  </span>Other versions of <span class="caps">OS X</span> may differ slightly, but the general idea should still apply.</p>
+
+<p>The short story is &#39;Get Info&#39; for any <span class="caps">PDF</span> file, change the &#39;Open With&#39; settings from Preview to Adobe Acrobat, and then &#39;Change All...&#39; to make all <span class="caps">PDF</span> files open with Acrobat.</p>
+
+<p>Once you&#39;ve done that, Safari will honor that setting and any <span class="caps">PDF</span> files downloaded will be opened with Reader instead of Preview.</p>
+
+<p>Here is the play-by-play in case you need more detailed instructions:</p>
+
+<p>1. Switch to the the Finder, (click the smiley icon in the Dock).</p>
+
+<p>2. Locate any file whose name ends with .pdf. [1]</p>
+
+<p>3. Select the file (click <span class="caps">ONCE</span> on it to highlight it).</p>
+
+<p>4. In the File menu, select &#39;Get Info&#39; (you can also use the keyboard shortcut Command-I) [2]</p>
+
+<p>5. Reveal the &#39;Open with:&#39; section of the window.  (The Info window is divided into several sections which can be revealed or hidden using the triangle widget on the left hand side of the window.  Use the triangle to make sure the &#39;Open with:&#39; section is shown.) [3]</p>
+
+<p>6. Change the &#39;Open with:&#39; pop-up menu from Preview to Acrobat Reader</p>
+
+<p>7. Click the &#39;Change All...&#39; button, and click the &#39;Continue&#39; button when you are prompted to confirm the change.</p>
+
+<p>I personally prefer to leave Preview my default because it is much faster and the <span class="caps">PDF</span> files I usually read are not <em>forms</em>.  I keep a copy of Adobe Reader around for the few times when I do need to deal with forms.</p>
+
+<p>[1, 2, 3]  It is hard to know where to draw the line in providing step-by-step written instructions.  In this case I&#39;m willing to assume you know how to navigate your computer with the Finder.  I&#39;ll also assume that if you&#39;re interested in keyboard shortcuts, you probably don&#39;t need a description of Apple&#39;s command key.   Somehow the triangle widget in the Info window crosses the threshold and demands a little explanation.</p>
+
+</div>
+
+<div class="section comments"><a name="comments"></a>
+<div class="article comment">
+<div class="comment-author"><h2><a href="mailto&#58;boydj&#64;theosci&#46;org">Jim</a> commented</h2></div>
+<div class="time 2004-03-02T11:57:27 pubdate meta">02 March 2004 at 11:57</div>
+<p>I appreciate that this is a solution, but I am frustrated by it.  I prefer Preview to Adobe for most reading because it is thin.  It loads quickly and renders quickly.  Adobe is BIG.  I create PDF forms and so I needed to make Acrobat (full version) my default app not even the slightly smaller (but still way too bloated) Acrobat Reader. </p>
+
+<p>Changing this default, btw, also changes the preview mode in the print menu.</p>
+
+<p>Where is openwith data stored?  In the file itself or somewhere else?  I know, for instance, that if you save a JPG in Photoshop, it opens in Photoshop by default.  The same image tweaked by Graphic Converter opens there.  Can we as creators of .ps content point to Preview unless there are forms?  I know my adding that info won't override your default settings, but it could mine. </p>
+
+<p>Do you have to set a default?  Can it prompt you every time?</p>
+</div>
+<div class="article comment">
+<div class="comment-author"><h2><a target="_blank" href="http://dobbse.net/">eric</a> commented</h2></div>
+<div class="time 2004-03-02T15:10:14 pubdate meta">02 March 2004 at 15:10</div>
+<p>We're completely agreed on the benefits of Preview, especially considering print previews -- most unpleasant to have to wait for Acrobat there.  That's even more reason to keep my default set to Preview.</p>
+
+<p>I don't know where Mac OS stores these preferences, but my guess is that it's somewhere in ~/Library/Preferences.  I assume one user's prefs won't effect another's.  My casual search in there didn't turn up the exact location.</p>
+
+<p>From my previous testing, it is possible to set the default application for individual files.  If you skip the 'Change All...' step, the change will effect only the specific file and not set the default for all PDFs.  But I see no simple way to configure the system to use Preview unless there's forms.</p>
+
+<p>One could hack it by naming the formed pdfs differently, using a fdf suffix or something.  Naming conventions can solve lots of problems. :-)  But old-school Mac users will cringe at the need to use suffixes to distinguish the files.</p>
+
+<p>Another trick that occurs to me would be more work.  The java iText library I wrote about in another post could be used to test a pdf file for the presence of form data.  Then one could compose a shell script or unix alias or perhaps a Java thingy which would open the pdf in the appropriate application.  That Java thingy could probably be set as the default.  Not a pretty solution in any case.</p>
+</div>
+<div class="article comment">
+<div class="comment-author"><h2><a href="mailto&#58;karthik_becs&#64;yahoo&#46;co&#46;in">karthikeyan</a> commented</h2></div>
+<div class="time 2004-05-09T23:55:54 pubdate meta">09 May 2004 at 23:55</div>
+<p>Hello sir</p>
+
+<p>  I created a link from a PDF to a "destination" in another PDF(in windows).It is working fine in windows . But in any of the MAC OS I could not reach the exact destination point when I click the Link.Could you please suggest me on this. </p>
+</div>
+<div class="article comment">
+<div class="comment-author"><h2><a target="_blank" href="http://dobbse.net/">eric</a> commented</h2></div>
+<div class="time 2004-05-10T08:12:42 pubdate meta">10 May 2004 at 08:12</div>
+<p>karthikeyan, I haven't ever worked with links in PDF files and I don't have any linked PDFs for experimenting, so I don't know if I'll be much use to you for this particular problem.</p>
+
+<p>My best guess is about file names.  I know very little about PDF links, but if you can link from one PDF file to another PDF file somehow the first PDF must store information about the second one, especially the filename.  I know that Windows and Mac's have different filename conventions.  Windows uses \ for it's path separator, Mac OS 9 and earlier use : and the unix family (including Mac OS X) use / for separating paths.  Anyway, if the filename stored in the file contains the Windows path separators, it will almost certainly break links to those documents on non-windows platforms.</p>
+
+<p>One other thought comes to mind.  I have noticed on occasion that page numbers in PDF files often don't behave the way I would expect.  In longer documents where there's a cover page and a table of contents and so on, there's a mismatch between the page numbers according to the PDF viewer and the page numbers in the table of contents.  The PDF viewer seems to start counting with the cover page, whereas the numbers in the table of contents often start a few pages after that.  So it may be that the link between the documents works okay, but the page numbering is off by a few.  Maybe the Acrobat Reader on Windows handles this mismatch better than the Mac versions.</p>
+
+<p>If you are at all inclined toward programming, my other post about hacking PDFs with iText and jython might help you track down the problem, but it might also be more trouble than its worth.  A quick browse through google turned up a few promising places to start in the iText javadocs:</p>
+
+<p><a href="http://www.google.com/search?q=site:itext.sourceforge.net+link">http://www.google.com/search?q=site:itext.sourceforge.net+link</a></p>
+
+<p><a href="http://itext.sourceforge.net/docs/com/lowagie/text/Anchor.html">http://itext.sourceforge.net/docs/com/lowagie/text/Anchor.html</a></p>
+
+<p><a href="http://itext.sourceforge.net/docs/com/lowagie/text/pdf/PdfAction.html">http://itext.sourceforge.net/docs/com/lowagie/text/pdf/PdfAction.html</a></p>
+
+<p>Hope all of that speculation helps.<br />
+-Eric</p>
+</div>
+
+</div>
+
+
+<div class="nav">
+<ol>
+<li>Archives
+  <ol>
+    <li><a href="http://dobbse.net/thinair/2011/01/index.html">January 2011</a></li>
+    <li><a href="http://dobbse.net/thinair/2010/12/index.html">December 2010</a></li>
+    <li><a href="http://dobbse.net/thinair/2010/09/index.html">September 2010</a></li>
+    <li><a href="http://dobbse.net/thinair/2010/08/index.html">August 2010</a></li>
+    <li><a href="http://dobbse.net/thinair/2010/06/index.html">June 2010</a></li>
+    <li><a href="http://dobbse.net/thinair/2010/02/index.html">February 2010</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/10/index.html">October 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/09/index.html">September 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/07/index.html">July 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/05/index.html">May 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/03/index.html">March 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/02/index.html">February 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/01/index.html">January 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2008/12/index.html">December 2008</a></li>
+    <li><a href="http://dobbse.net/thinair/2008/09/index.html">September 2008</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/10/index.html">October 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/09/index.html">September 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/08/index.html">August 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/06/index.html">June 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/04/index.html">April 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/03/index.html">March 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/01/index.html">January 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/12/index.html">December 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/11/index.html">November 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/10/index.html">October 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/09/index.html">September 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/08/index.html">August 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/07/index.html">July 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/06/index.html">June 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/04/index.html">April 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/02/index.html">February 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/12/index.html">December 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/10/index.html">October 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/06/index.html">June 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/05/index.html">May 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/04/index.html">April 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/03/index.html">March 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/02/index.html">February 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/12/index.html">December 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/11/index.html">November 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/10/index.html">October 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/09/index.html">September 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/08/index.html">August 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/07/index.html">July 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/06/index.html">June 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/05/index.html">May 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/04/index.html">April 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/03/index.html">March 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/02/index.html">February 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/01/index.html">January 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/12/index.html">December 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/11/index.html">November 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/10/index.html">October 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/09/index.html">September 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/08/index.html">August 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/07/index.html">July 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/06/index.html">June 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/05/index.html">May 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/04/index.html">April 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/03/index.html">March 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/02/index.html">February 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/01/index.html">January 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2002/12/index.html">December 2002</a></li>
+    <li><a href="http://dobbse.net/thinair/2002/11/index.html">November 2002</a></li>
+    <li><a href="http://dobbse.net/thinair/2002/10/index.html">October 2002</a></li>
+    <li><a href="http://dobbse.net/thinair/2002/09/index.html">September 2002</a></li>
+    <li><a href="http://dobbse.net/thinair/2001/01/index.html">January 2001</a></li>
+
+  </ol>
+</li>
+
+<li>Around
+  <ol class="wide">
+    <li><a href="http://dobbse.net/thinair/2004/02/lisp.html">&laquo; Lisp blazed the trail, (code generation and dynamic languages)</a></li>
+
+    <li><a href="http://dobbse.net/thinair/2004/02/pdf-pot-luck.html">&raquo; Hacking PDF forms with iText, jython, perl, and emacs</a></li>
+
+  </ol>
+</li>
+
+</ol>
+</div>
+<div class="footer meta">
+All content &copy; 2001-2011  Eric Dobbs unless otherwise noted.  All rights reserved.
+</div>
+
+</body>
+</html>

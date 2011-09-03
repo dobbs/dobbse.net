@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Perl state machine to scrape HTML (thinair)</title>
+<link rel="alternate" type="application/rss+xml" title="thinair feed" href="http://dobbse.net/index.rdf" />
+<link rel="stylesheet" href="http://dobbse.net/style.css" type="text/css" />
+<link rel="start" href="http://dobbse.net/" title="Home" />
+<link rel="prev" href="http://dobbse.net/thinair/2004/08/state-machine-example.html" title="State Machines described and a few examples" />
+
+<link rel="next" href="http://dobbse.net/thinair/2004/09/java5.html" title="Java 5 is better, but I still prefer perl, python, and lisp" />
+
+</head>
+<body>
+
+<div class="header">
+<h1><a href="/">thinair</a></h1>
+<div class="hgroup">
+<h2 class="first">Boulder, Colorado</h2>
+<h2>elevation 5400 feet</h2>
+<h2>your guide: Eric Dobbs</h2>
+</div>
+</div>
+
+
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2004/08/perl-fsm.html">Perl state machine to scrape HTML</a></h1>
+<div class="time 2004-08-29T21:54:29 pubdate meta">Sunday 29 August 2004 at 21:54 </div>
+<p><a href="http://dobbse.net/thinair/2003/09/000140.html">State machines</a> part ten</p>
+
+<p>I finally had an occasion to roll my own state machine earlier this month.</p>
+
+<p>My problem was to integrate a little piece of our application with a foreign web application.  Jon Udell taught me to look at all web applications as web services in <a href="http://allconsuming.net/item.cgi?isbn=1565925378">Practical Internet Groupware</a>.  The short story is I needed to scrape some lightly-tag-soup-style <span class="caps">HTML.  </span>It&#39;s a parsing problem.  <a href="http://dobbse.net/thinair/2004/08/state-machine-example.html">Bob Martin&#39;s example of using a state machine to parse code comments</a> came to mind.  <span class="caps">HTTP</span>::Parser gets me part of the way.  It&#39;ll scrape the angle brackets and give me a stream of four specific events: start-tag, end-tag, text, and comment.  If the other app were using validated <span class="caps">XHTML I</span> might be able to do this more simply with XPath.  But these apps don&#39;t live in the ideal web-services bubble.  They live on today&#39;s web, warts and all.</p>
+
+<pre>
+&lt;FONT FACE=&quot;Arial&quot;&gt;
+&lt;H3&gt;FLINTSTONE , FRED&lt;/H3&gt;
+&lt;/FONT&gt;
+&lt;DIR&gt;&lt;DIR&gt;
+&lt;TABLE  BORDER=0 CELLPADDING=0&gt;
+&lt;TR&gt;
+&lt;TD ALIGN=&quot;LEFT&quot; VALIGN=&quot;TOP&quot;&gt;&lt;STRONG&gt;Business Address&lt;/STRONG&gt;&lt;/TD&gt;
+&lt;TD&gt;&amp;nbsp;&lt;/TD&gt;
+&lt;TD&gt;12 W SLATE QUARRY RD&lt;BR&gt;BRONTOSAURUS 3&lt;BR&gt;BEDROCK, PG 00004&lt;/TD&gt;
+&lt;/TR&gt;
+&lt;TR&gt;
+&lt;TD&gt;&lt;STRONG&gt;Phone Number&lt;/STRONG&gt;&lt;/TD&gt;
+&lt;TD&gt;&amp;nbsp;&lt;/TD&gt;
+&lt;TD&gt;(888) 555-1212&lt;/TD&gt;
+&lt;/TR&gt;
+...
+</pre><p>While I was thinking through the states needed to digest this html, I remembered a couple other useful ideas.  Bob&#39;s state machine compiler lets you work on your state machine through the more concise structure of a state transition table.  You let his compiler transform the table into the moving parts of a state machine.  Then I remembered the beautiful example where Paul Graham transforms a list of data and a set of functions into a network of closures which can be directly executed for the same effect.  [<a href="http://paulgraham.com/onlisp.html">On Lisp</a> pp. 76-81]</p>
+
+<p>I ended up with something not quite as elegant as Paul&#39;s example, but more satisfying than what I could have done in Java.  My state transition table is a perl hash of hashes where the values of the inner hashes are closures.  Most of the magic is actually triggered by the _notify() function which uses the current state and the current event to look up the appropriate closure to execute.  Here&#39;s most of the code:</p>
+
+<pre>
+my($_STATE_TABLE) = {
+    begin =&gt; {
+	start =&gt; sub {_change_state(@_, &#39;h3&#39;, &#39;save_name&#39;)},
+    },
+    save_name =&gt; {
+	text =&gt; sub {_save($_[0], {_parse_name(@_)})},
+	end =&gt; sub {_change_state(@_, undef, &#39;street1&#39;)},
+    },
+    street1 =&gt; {
+	text =&gt; sub {_change_state(@_, &#39;Business Address&#39;,
+				   &#39;empty_address_cell&#39;)},
+    },
+    empty_address_cell =&gt; {
+	start =&gt; sub {_change_state(@_, &#39;td&#39;, &#39;skip_empty_address_cell&#39;)},
+    },
+    skip_empty_address_cell =&gt; {
+	start =&gt; sub {_change_state(@_, &#39;td&#39;, &#39;save_address&#39;)},
+    },
+    save_address =&gt; {
+	# /(skip_)?empty_address_cell/ get us inside the &#39;td&#39; that holds the
+	# address.  The only start tag we should see is &#39;br&#39; which will cause
+	# address chunks to be sent in separate text events depending on the
+	# number of &#39;br&#39; tags.  Save whatever part of the address we can match
+	# until we hit the closing &#39;td&#39; tag.
+	text =&gt; sub {
+    	    # if we can find &quot;city, state zip&quot;, then save each of them 
+	    if ($_[1] =~ /^([^,]+)?,\s+([A-Z]{2})\s+(\d{5})?$/) {
+		_save($_[0], {map(defined($_-&gt;[1]) &amp;&amp; $_-&gt;[1]
+				      ? (&#39;Address.&#39;.$_-&gt;[0] =&gt; $_-&gt;[1])
+				      : (),
+				  [city =&gt; ucfirst(lc($1))],
+				  [state =&gt; $2],
+				  [zip =&gt; $3])});
+	    }
+    	    # otherwise, we&#39;re either in street1 or street2
+	    else {
+		_save($_[0], {(!exists($_[0]-&gt;[$_IDI]-&gt;{&#39;Address.street1&#39;})
+				   ? &#39;Address.street1&#39;
+				   : &#39;Address.street2&#39;), $_[1]});
+	    }
+	},
+	end =&gt; sub {_change_state(@_, undef, &#39;phone&#39;)},
+    },
+    phone =&gt; {
+	text =&gt; sub {_change_state(@_, &#39;Phone Number&#39;, &#39;save_phone&#39;)},
+    },
+    save_phone =&gt; {
+	text =&gt; sub {_save($_[0], {&#39;Phone_1.phone&#39;, Bivio::Type::Phone
+				       -&gt;from_literal($_[1])})
+			 unless _is_empty(@_)},
+	end =&gt; sub {_change_state(@_, &#39;tr&#39;, &#39;end&#39;)},
+    },
+    end =&gt; {},
+};
+
+
+# _change_state(self, string actual, string expect, string state)
+# change to &#39;state&#39; unless &#39;actual&#39; ne &#39;expect&#39;, or change to &#39;state&#39;
+# unconditionally if &#39;expect&#39; is undef
+sub _change_state {
+    my($self, $actual, $expect, $state) = @_;
+    return if defined($expect) &amp;&amp; $expect ne $actual;
+    my($fields) = $self-&gt;[$_IDI];
+    $fields-&gt;{state} = $state;
+    return;
+}
+
+# _is_empty(self, string) : boolean
+sub _is_empty {
+    my($self, $value) = @_;
+    return $value =~ /^(\s*|&amp;nbsp;)$/;
+}
+
+# _notify(self, string event, string data)
+# &#39;event&#39; must be one of &#39;start&#39;, &#39;text&#39;, &#39;end&#39;, or &#39;comment&#39;
+# &#39;data&#39; is the tag for &#39;start&#39; and &#39;end&#39;, and the text for &#39;text&#39;
+# and the comment for &#39;comment&#39;
+# Looks up the next action from $_STATE_TABLE using event and data,
+# and if the action exists, it is called with &#39;self&#39; and &#39;data&#39;.
+# The action will either _change_state(), _save(), or ignore the
+# event
+sub _notify {
+    my($self, $event, $data) = @_;
+    my($fields) = $self-&gt;[$_IDI];
+    my($fn) = $_STATE_TABLE-&gt;{$fields-&gt;{&#39;state&#39;}}-&gt;{$event};
+    return $fn-&gt;($self, $data) if defined($fn);
+}
+</pre><p>The actual states and transitions are modeled on Bob&#39;s comment parser.  The comment parser changes state when special characters are found.  It starts in the OutsideCommentState.  In that state a &#39;/&#39; will change to MaybeCommentState.  There another &#39;/&#39; or &#39;*&#39; will change to InsideCommentState.  Anything else would change back to OutsideComment.  Or something to that effect -- don&#39;t have his book at hand as I write this.  My html parser changes states when special tags or text are encountered.</p>
+
+<p>Here&#39;s what this state machine does in English.  The parser starts out in the &#39;begin&#39; state.  <span class="caps">HTML</span>::Parser sends start, end, text, and comment events which are forwarded to _notify().  In the &#39;begin&#39; state all events are ignored until we run into the first &lt;H3&gt; start tag.  That will trigger a change to the &#39;save_name&#39; state.  In the save_name state, the first block of text will be _save()&#39;d as the name.  Then the first end tag will change the state to &#39;street1&#39;.  In the &#39;street1&#39; state we ignore everything until we see the text &#39;Business Address&#39; which triggers a change to &#39;empty_address_cell&#39;.  &#39;street1&#39;, &#39;empty_address_cell&#39;, and &#39;skip_empty_address_cell&#39; work together to skip past the table cell containing the &amp;nbsp; and into the cell that actually contains the address.  The &#39;save_address&#39; state is the most complicated of the bunch and skipping that &amp;nbsp; makes it somewhat less complicated.  Addresses are complicated because in some examples we get a street1, city, state, and zip whereas in other cases we get street1, street2, city, state and zip.  In a few cases we only get city, state, and zip and one case gives only the state.  I won&#39;t go into the details about the regular expression for parsing the city, state, and zip.  Nor will I explain the map().  Those are both worthy of discussion, but not central to the mechanics of the state machine.  The &#39;phone&#39; and &#39;save_phone&#39; states work similarly to the &#39;begin&#39; and &#39;save_name&#39; states.  &#39;phone&#39; ignores all tags until it finds the text &#39;Phone Number&#39; when it changes to &#39;save_phone&#39;.  The closing row tag changes to &#39;end&#39;.  &#39;end&#39; ignores all remaining events.  What the parser ultimately returns is a hash containing the name, address and phone number.</p>
+
+<p>What I find most satisfying about this solution is the concise and declarative structure of the $_STATE_TABLE.  There&#39;s some effort required to understand the mechanics of the notification and the start, text, and end events.  But with that understood, the $_STATE_TABLE is considerably less cluttered than the pile of if ..  elsif .. else blocks it could have been.  The bulk of the state machine is also fits in a single window in emacs whereas in Java I would have a pile of objects in different files to express the same machine.  I think it also provides a nice example of the kind of power and expressiveness you get from having anonymous functions and arrays and hashes built into the language.  Python, Ruby, and Groovy offer similar expressive power, but the proof is left as an exercise for the reader.  :-) For what it&#39;s worth, In Java, I think the Command pattern with a little Dependency Injection could be used to provide something similar to the anonymous functions.</p>
+
+<p>This technique for parsing angle-bracketed data would be equally applicable with <span class="caps">SAX</span> and an <span class="caps">XML</span> data source.</p>
+
+</div>
+
+<div class="section comments"><a name="comments"></a>
+
+</div>
+
+
+<div class="nav">
+<ol>
+<li>Archives
+  <ol>
+    <li><a href="http://dobbse.net/thinair/2011/01/index.html">January 2011</a></li>
+    <li><a href="http://dobbse.net/thinair/2010/12/index.html">December 2010</a></li>
+    <li><a href="http://dobbse.net/thinair/2010/09/index.html">September 2010</a></li>
+    <li><a href="http://dobbse.net/thinair/2010/08/index.html">August 2010</a></li>
+    <li><a href="http://dobbse.net/thinair/2010/06/index.html">June 2010</a></li>
+    <li><a href="http://dobbse.net/thinair/2010/02/index.html">February 2010</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/10/index.html">October 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/09/index.html">September 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/07/index.html">July 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/05/index.html">May 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/03/index.html">March 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/02/index.html">February 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/01/index.html">January 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2008/12/index.html">December 2008</a></li>
+    <li><a href="http://dobbse.net/thinair/2008/09/index.html">September 2008</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/10/index.html">October 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/09/index.html">September 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/08/index.html">August 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/06/index.html">June 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/04/index.html">April 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/03/index.html">March 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/01/index.html">January 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/12/index.html">December 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/11/index.html">November 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/10/index.html">October 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/09/index.html">September 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/08/index.html">August 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/07/index.html">July 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/06/index.html">June 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/04/index.html">April 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/02/index.html">February 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/12/index.html">December 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/10/index.html">October 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/06/index.html">June 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/05/index.html">May 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/04/index.html">April 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/03/index.html">March 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/02/index.html">February 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/12/index.html">December 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/11/index.html">November 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/10/index.html">October 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/09/index.html">September 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/08/index.html">August 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/07/index.html">July 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/06/index.html">June 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/05/index.html">May 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/04/index.html">April 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/03/index.html">March 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/02/index.html">February 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/01/index.html">January 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/12/index.html">December 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/11/index.html">November 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/10/index.html">October 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/09/index.html">September 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/08/index.html">August 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/07/index.html">July 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/06/index.html">June 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/05/index.html">May 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/04/index.html">April 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/03/index.html">March 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/02/index.html">February 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/01/index.html">January 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2002/12/index.html">December 2002</a></li>
+    <li><a href="http://dobbse.net/thinair/2002/11/index.html">November 2002</a></li>
+    <li><a href="http://dobbse.net/thinair/2002/10/index.html">October 2002</a></li>
+    <li><a href="http://dobbse.net/thinair/2002/09/index.html">September 2002</a></li>
+    <li><a href="http://dobbse.net/thinair/2001/01/index.html">January 2001</a></li>
+
+  </ol>
+</li>
+
+<li>Around
+  <ol class="wide">
+    <li><a href="http://dobbse.net/thinair/2004/08/state-machine-example.html">&laquo; State Machines described and a few examples</a></li>
+
+    <li><a href="http://dobbse.net/thinair/2004/09/java5.html">&raquo; Java 5 is better, but I still prefer perl, python, and lisp</a></li>
+
+  </ol>
+</li>
+
+</ol>
+</div>
+<div class="footer meta">
+All content &copy; 2001-2011  Eric Dobbs unless otherwise noted.  All rights reserved.
+</div>
+
+</body>
+</html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>September 2003 (thinair)</title>
+<link rel="alternate" type="application/rss+xml" title="thinair feed" href="http://dobbse.net/index.rdf" />
+<link rel="stylesheet" href="http://dobbse.net/style.css" type="text/css" />
+<link rel="start" href="http://dobbse.net/" title="Home" />
+<link rel="prev" href="http://dobbse.net/thinair/2003/08/index.html" title="August 2003" />
+
+<link rel="next" href="http://dobbse.net/thinair/2003/10/index.html" title="October 2003" />
+
+</head>
+<body>	
+
+<div class="header">
+<h1><a href="/">thinair</a></h1>
+<div class="hgroup">
+<h2 class="first">Boulder, Colorado</h2>
+<h2>elevation 5400 feet</h2>
+<h2>your guide: Eric Dobbs</h2>
+</div>
+</div>
+
+
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2003/09/fsm-planetcad.html">State Machines at PlanetCAD</a></h1>
+<div class="time 2003-09-30T22:40:26 pubdate meta">Tuesday 30 September 2003 at 22:40 </div>
+<p><a href="http://dobbse.net/thinair/2003/09/000140.html">State Machines</a> part one</p>
+
+<p>At the heart of PlanetCAD&#39;s <span class="caps">SCS </span>Envoy was a workflow engine cast as a finite state machine.  It was responsible for managing the automated processing of <span class="caps">CAD</span> models through a farm of job servers.</p>
+
+<p>At the time I wrote that engine I started to see workflow and state machines everywhere.  I spent some time looking at the <a href="http://cvs.apache.org/viewcvs/jakarta-commons-sandbox/workflow/">Jakarta Commons Workflow</a> in the Commons sandbox.  It was structurally similar to Envoy&#39;s workflow engine, but it was intended to operate at a completely different level -- managing multi-page forms (aka wizards) in a web application.  I was also in on some early discussions with <a href="http://blogs.werken.com/people/bob/">Bob McWhirter</a> as he was starting <a href="http://werkflow.codehaus.org/">Werkflow</a> .</p>
+
+<p>Anyway, we were expecting to see Envoy evolve into a system that also structured some of the business workflows.  Think of how paper forms in triplicate flow through a traditional business process.   Many of the organizations which are working with three dimensional models also have heavily structured processes which might lend themselves to electronic augmentation.</p>
+
+<p>At the time I put <em>workflows</em> into three categories.  The automated back-end processing that was happening in Envoy, the wizard interfaces in web applications, and the larger business process itself.</p>
+
+<h3>Pattern Zealotry</h3>
+
+<p>When I was building Envoy&#39;s workflow engine I was finally groking design patterns.  I was razzed by the other developers on the team for trying to find yet another place to use a pattern.  No question, I was intoxicated by patterns and was trying hard to shoehorn them into our system anywhere I could.  They were right to push back against my zealotry so only those patterns with solid rationale would actually make it into the system.</p>
+
+<p>Their razzing made me seriously second guess myself about all the places I was seeing &quot;workflows&quot;.  Was it just youthful enthusiasm?  Or were there really all these different applications for workflow?</p>
+
+</div>
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2003/09/fsm.html">State Machines</a></h1>
+<div class="time 2003-09-30T22:31:15 pubdate meta">Tuesday 30 September 2003 at 22:31 </div>
+<p>For the past couple weeks I&#39;ve been occasionally working on a piece which started out about bunches of state machines.  It has turned into a long and rambling post weaving many threads from my recent and distant past.</p>
+
+<ul><li><a href="http://dobbse.net/thinair/2003/09/000141.html">State Machines at PlanetCAD</a></li>
+<li><a href="http://dobbse.net/thinair/2003/10/000142.html">State Machines and Tango</a></li>
+<li><a href="http://dobbse.net/thinair/2003/10/000145.html">State Machines and Agile Software Development</a></li>
+<li><a href="http://dobbse.net/thinair/2003/10/000146.html">State Machines and Ace</a></li>
+<li><a href="http://dobbse.net/thinair/2003/10/000148.html">On Lisp</a> a slight diversion</li>
+<li><a href="http://dobbse.net/thinair/2003/10/000149.html">State Machines and bOP</a></li>
+<li><a href="http://dobbse.net/thinair/2003/10/000150.html">State Machines, JavaServer Faces, bOP, and Rethinking the V in MVC</a></li>
+<li><a href="http://dobbse.net/thinair/2004/01/000162.html">On Lisp: beyond state machines</a></li>
+<li><a href="http://dobbse.net/thinair/2004/08/state-machine-example.html">State Machines described and a few examples</a></li>
+<li><a href="http://dobbse.net/thinair/2004/08/perl-fsm.html">Perl state machine to scrape HTML</a></li>
+<li><a href="http://dobbse.net/thinair/2004/10/pcd-lessons.html">FSM kitchen sink: workflows, pipelines, asynchrony, SOAs</a></li>
+<li><a href="http://dobbse.net/thinair/2004/10/business-process.html">State Machines and Business Process and Workflow</a></li>
+</ul>
+
+</div>
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2003/09/xpath-in-uris.html">XPath in the URL</a></h1>
+<div class="time 2003-09-16T15:21:10 pubdate meta">Tuesday 16 September 2003 at 15:21 </div>
+<p>I was wondering how long it would be before the dots were connected between <span class="caps">UR</span>Ls and XPaths.  I was thinking it would be a ways off yet given the <a href="http://diveintomark.org/archives/2003/01/13/semantic_obsolescence">well publicized problems with XHTML</a> .  I also expected to see the XPath after the # on the <span class="caps">URL.  </span>It seemed like the XPath should be treated as inside document.</p>
+
+<p>Today <a href="http://weblog.infoworld.com/udell/2003/09/16.html#a797">Jon Udell pointed to Kimbro Staken&#39;s XPath-searchable blog</a></p>
+
+<blockquote><p>I just love this idea of incorporating XPath into <span class="caps">RES</span>Tian <span class="caps">UR</span>Ls. With Kimbro&#39;s approach, you get immediate use of the markup you create -- just the kind of incentive that&#39;s needed.</p></blockquote>
+
+<p><a href="http://www.xmldatabases.org/WK/blog/262?t=item">Kimbro&#39;s post</a> is currently not responding.  Probably slashdotted.  It could be fun to watch the blogsphere elaborate on this idea.  The immediate payback could be just the thing to drive adoption of clean-markup-and-CSS.</p>
+
+<p><ins>Update:  Having now had a chance to browse Kimbro&#39;s post, I can&#39;t wait to see the code behind his site.  I&#39;ve also been looking at PyBlosxom as a potential replacement for Movable Type.  Python, XPath and weblog sounds like a tasty recipe to me.</ins></p>
+
+</div>
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2003/09/0xdecafbad-to-new-millennium.html">bloghopping from 0xDECAFBAD to New Millennium</a></h1>
+<div class="time 2003-09-13T14:09:50 pubdate meta">Saturday 13 September 2003 at 14:09 </div>
+<p>NetNewsWire brought me</p>
+
+<ol><li><a href="http://www.decafbad.com/blog/links/aofcccibof.html">Les Orchard&#39;s Quick Links</a> yesterday which linked to</li>
+<li><a href="http://fsteele.dyndns.org/archive/000446.html">Nicest of the Damned: Xserve minus = iServe</a> which linked to an update</li>
+<li><a href="http://fsteele.dyndns.org/archive/000661.html">Meet the iServe</a> which links to</li>
+<li><a href="http://www.nmci.com/Product_Overview.htm?pid=P740XO6JQ55GDTU38EYS">the New Millennium FileMaker Server</a></li>
+</ol>
+
+<p>I helped write &quot;the New Millennium based security and administration software&quot; that&#39;s mentioned in the product description.  In fact, that&#39;s what I was talking about when I got excited about <a href="http://dobbse.net/thinair/2003/02/000085.html">grokking OO Perl</a> .  I don&#39;t think I really did much more than help make some <span class="caps">HTML,</span> point at a couple web app concepts and give Ben an <span class="caps">OO</span> nudge.  New Millennium is a cool little company.  Ben and Todd are friends from <a href="http://boulder.asu.org">the dojo</a>.  It was a fun short gig.</p>
+
+</div>
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2003/09/to-the-death.html">Somber Sunshine</a></h1>
+<div class="time 2003-09-11T07:03:00 pubdate meta">Thursday 11 September 2003 at 07:03 </div>
+<p>In early August 2001, Sarah went back to Maine to celebrate her brother&#39;s birthday as she often does.  Meg, her very good friend from high school was also visiting.  In addition to her aunts and their families and her grandparents, Sarah&#39;s got many surrogate parents in Maine -- mostly her Mom&#39;s good friends.  That Summer, Sarah and I had been talking about marriage.  As it happens Meg and Joe had been too.  Largely on Meg&#39;s initiative, Sarah and Meg conducted a fairly thorough survey of Sarah&#39;s extended family and surrogate parents about marriage.  She came back with all sorts of advice and perspective.  We kept talking, with much more perspective, but she was really no more decided about the issue than before.</p>
+
+<p>At 7:03am <span class="caps">MDT</span> on September 11, 2001 United Airlines flight 175 hit the south tower of the World Trade Center -- self-evident proof that this atrocity was no accident.</p>
+
+<p>That evening we were cuddling on the couch in fairly stunned silence.  At some point I said &quot;Well, we&#39;ve talked about pretty much everything except death.&quot;</p>
+
+<p>&quot;Okay,&quot; Sarah replied, &quot;what about death?&quot;</p>
+
+<p>&quot;Well...&quot; I really couldn&#39;t think of very much to say.  &quot;I am five years older than you.  ... And a man.  If we do get married and it turns out to be until death do us part, odds are pretty good that I&#39;ll be the first to die.&quot;  As I remember it now, we sat again in silence for quite a while.</p>
+
+<p>Finally Sarah replied: &quot;I don&#39;t want to wait any longer to start our life together.&quot;</p>
+
+<p>I get to enjoy that ray of sunshine on this gloomy day.  Maybe even for the rest of my life.</p>
+
+</div>
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2003/09/scaffolding-and-architecture.html">Scaffolding and Architecture</a></h1>
+<div class="time 2003-09-11T00:12:05 pubdate meta">Thursday 11 September 2003 at 00:12 </div>
+<p>Grady Booch spoke at <a href="http://denverjug.org">Denver Java Users Group</a> tonight.  When I mentioned that to Sarah she laughed out loud.  &quot;His name is Grady Booch?&quot; she exclaimed and then laughed again!  Heartfelt, joyous laughter.  Sorry, Grady.  You may be one of The Three Amigos, but I guess you&#39;re not a household name.</p>
+
+<p>I did explain that he was introduced as one of the few people in our industry who could be called a rock star.  Sarah thinks he&#39;s got a really funny name.  She laughed again a few minutes later when I said his name another time.</p>
+
+<p>His presentation was entitled &quot;The Architecture of Unusual Things.&quot;  It was a fun presentation with many interesting anecdotes.  I enjoyed his stories and sense of humor.  You can <a href="http://www.denverjug.org/presentations/index.html">get the slides from DJUG&#39;s web site</a> if you&#39;d like the details.  One of his conclusions was that architecture is a living, breathing thing which must grow or die.  It reminded me of a few of my travels in Europe.</p>
+
+<p>I didn&#39;t get to see the Pantheon when I was in Rome.  It was quite a disappointment.  In one of my classes in college I created a three dimensional model of the interior of the dome including the coffered ceiling.  The rendering came out quite nicely, but I wanted to see what the lighting looked like in the real thing.  Unfortunately it was <a href="http://babelfish.altavista.com/babelfish/tr?urltext=chiuso+per+restauro&amp;lp=it_en">chiuso per restauro</a> .</p>
+
+<p>Quite a few things were <em>chiuso per restauro</em> while I was in Italy.  I became quite fond of scaffolding.  I was particularly struck by the scaffolding at what I think was the chapel of St. Damian [1], a chapel which St. Francis built himself.  Around the chapel I visited had been built a baroque monstrosity.  The chapel was contained within it, below the dome at the crossing.  Those who built the big church around the little chapel seem to have completely missed St. Francis&#39; point.  Anyway, at the time I visited there were extensive repairs underway on the dome and a vast pile of scaffolding had been constructed below the dome.  They used really beautiful black struts with substantial brass-colored joints assembled in an octet-tetra truss completely surrounding the modest jewel of a chapel.  The scaffolding was beautiful in its own right, but even more so for protecting the chapel from the dome above, indeed protecting it from the entire containing church.  I found it truly beautiful and profoundly symbolic.</p>
+
+<p>In later travels I kept noticing the scaffolding inside or outside so many places we visited, none of it as beautiful or powerful.  Nevertheless, I imagined a time-lapse film of each of these sites, watching the scaffolding crawl spider-like around the building -- an architectural enzyme continually repairing some part of structure or facade or interior.</p>
+
+<p>Although it is not exactly what Grady Booch was talking about, I can only agree that Architecture is a living, breathing thing.</p>
+
+<p><strong>Update:</strong> [1] It may also have been Santa Maria de Los Angeles as my friend Jim notes in his comment.</p>
+
+<p><strong>Update:</strong> Tim Bray knows what I&#39;m talking about.  While talking about <a href="http://www.tbray.org/ongoing/When/200x/2003/09/17/MovingDowntown">Antarctica&#39;s move to downtown Vancouver</a> he mentions:</p>
+
+<blockquote><p>Yaletown was all brick buildings and fashion victims. Down here, it all happens faster and everything&#39;s under construction; oh, the geometry!</p></blockquote>
+
+<p>He also includes a nice picture of a building under repair and the structure of the crane involved is a variation of an octet-tetra truss.  Geometry indeed.</p>
+
+</div>
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2003/09/malware-market-share.html">Sobig.F and Blaster rekindle the OS wars</a></h1>
+<div class="time 2003-09-09T09:09:09 pubdate meta">Tuesday 09 September 2003 at 09:09 </div>
+<p>Jon Udell offers his usual balanced opinion about <a href="http://www.infoworld.com/article/03/09/05/35OPstrategic_1.html">Security blame games.</a>  He also responded to various reactions to this article in <a href="http://weblog.infoworld.com/udell/2003/09/08.html#a793">Monoculture, competition, and security.</a><br />
+I&#39;m not quoted ;-) but many of the sentiments echo <a href="http://dobbse.net/thinair/2003/08/000132.html">my own thoughts on the matter</a>.  For example, Dan Gaters and Aaron Cohen both emphasized the advantages diversity brings to the table.  But there&#39;s one point in the original article I want to respond to.</p>
+
+<blockquote><p>The mess we&#39;re in is largely Microsoft&#39;s fault, to be sure, but any dominant software player would have created a similar mess.</p></blockquote>
+
+<p>Sobig.F and Blaster have rekindled the various Mac vs. <span class="caps">PC</span> debates among my friends.  I&#39;ve heard this point made often in the past few weeks.  Jon is as platform agnostic as they come, so I&#39;m really abusing his comment to launch an attack against my usual pro-Microsoft opponents.  ;-)</p>
+
+<p>My first complaint is that it is a completely unverifiable claim.  We can&#39;t re-run the universe to see how things would be different if Apple held 95% of the desktop market, say.  It seems logically plausible that hackers would be exploiting weaknesses in Mac <span class="caps">OS,</span> but there&#39;s no way to confirm nor deny the claim.  Unverifiable claims quickly descend into religious wars with each party claiming their own unverifiable holy ground.</p>
+
+<p>There is some anecdotal evidence to the contrary, though.  As Jon quoted, Ralph Loader observes:</p>
+
+<blockquote><p>For web serving software, Apache is the dominant player, with Microsoft&#39;s product in a distant minority, but still dominating real life security problems.</p></blockquote>
+
+<p>Even this counterpoint doesn&#39;t quite serve, though.  Apache&#39;s dominance of the web server market does not compare to Microsoft&#39;s dominance of the desktop market.  According to <a href="http://news.netcraft.com/archives/web_server_survey.html">Netcraft</a> Apache has about 65% of the market.  Although that&#39;s a substantial share, it&#39;s isn&#39;t the 95% we hear about for Windows desktops.[1]</p>
+
+<p>Here&#39;s the best I can muster to counter the argument.  The world that we actually live in is not the imaginary world where hackers exploit some other dominant operating system.  We live in the one dominated by Microsoft.  I&#39;ll say it again because it bears repeating.  If you are currently suffering on Windows, you can switch to any other operating system <em>today</em> and live in happy relative isolation from the havoc of these worms and viruses.  I would naturally suggest Mac <span class="caps">OS,</span> but any non-Windows <span class="caps">OS</span> could rescue you from the pain of the Microsoft monoculture.</p>
+
+<p>This brings me to my second point about the argument.  It sounds so self-defeated.  &quot;Yes, we Windows users have to suffer from viruses and so on.  But it wouldn&#39;t be any different if we all changed.&quot;  Who really cares if you &quot; <em>all</em> switch?&quot;  Why are <em>you</em> allowing this imaginary world stop <em>you</em> from switching <em>yourself</em> and enjoying the relative safety today? [2]</p>
+
+<p>[1] Is that figure an urban myth?  I have scrounged Google for a quick summary of the desktop market numbers and haven&#39;t turned up anything as satisfying as Netcraft&#39;s numbers for webservers.  If you know where those numbers are, please post a comment with the url.</p>
+
+<p>[2] To be fair, I should offer the answer I routinely get from my favorite Windows bigot.  Remote Desktop.  My friend, Jeff, is an excellent mostly-windows network admin who&#39;s network was not infected by Sobig.F nor Blaster.  Self-discipline is another viable antidote to the monoculture.  He does his backups and routinely patches the systems on his network and he also raves about Remote Desktop.  <span class="caps">X11</span> users will not be particularly impressed by it.  But there is a certain coolness factor in using a browser to initiate a remote desktop session.  And I can&#39;t dispute the utility it offers Jeff.</p>
+
+</div>
+
+
+<div class="nav">
+<ol>
+<li>Archives
+  <ol>
+    <li><a href="http://dobbse.net/thinair/2011/01/index.html">January 2011</a></li>
+    <li><a href="http://dobbse.net/thinair/2010/12/index.html">December 2010</a></li>
+    <li><a href="http://dobbse.net/thinair/2010/09/index.html">September 2010</a></li>
+    <li><a href="http://dobbse.net/thinair/2010/08/index.html">August 2010</a></li>
+    <li><a href="http://dobbse.net/thinair/2010/06/index.html">June 2010</a></li>
+    <li><a href="http://dobbse.net/thinair/2010/02/index.html">February 2010</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/10/index.html">October 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/09/index.html">September 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/07/index.html">July 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/05/index.html">May 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/03/index.html">March 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/02/index.html">February 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/01/index.html">January 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2008/12/index.html">December 2008</a></li>
+    <li><a href="http://dobbse.net/thinair/2008/09/index.html">September 2008</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/10/index.html">October 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/09/index.html">September 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/08/index.html">August 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/06/index.html">June 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/04/index.html">April 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/03/index.html">March 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/01/index.html">January 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/12/index.html">December 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/11/index.html">November 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/10/index.html">October 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/09/index.html">September 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/08/index.html">August 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/07/index.html">July 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/06/index.html">June 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/04/index.html">April 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/02/index.html">February 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/12/index.html">December 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/10/index.html">October 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/06/index.html">June 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/05/index.html">May 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/04/index.html">April 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/03/index.html">March 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/02/index.html">February 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/12/index.html">December 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/11/index.html">November 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/10/index.html">October 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/09/index.html">September 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/08/index.html">August 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/07/index.html">July 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/06/index.html">June 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/05/index.html">May 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/04/index.html">April 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/03/index.html">March 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/02/index.html">February 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/01/index.html">January 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/12/index.html">December 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/11/index.html">November 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/10/index.html">October 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/09/index.html">September 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/08/index.html">August 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/07/index.html">July 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/06/index.html">June 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/05/index.html">May 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/04/index.html">April 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/03/index.html">March 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/02/index.html">February 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/01/index.html">January 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2002/12/index.html">December 2002</a></li>
+    <li><a href="http://dobbse.net/thinair/2002/11/index.html">November 2002</a></li>
+    <li><a href="http://dobbse.net/thinair/2002/10/index.html">October 2002</a></li>
+    <li><a href="http://dobbse.net/thinair/2002/09/index.html">September 2002</a></li>
+    <li><a href="http://dobbse.net/thinair/2001/01/index.html">January 2001</a></li>
+
+  </ol>
+</li>
+
+<li>Around
+  <ol class="wide">
+    <li><a href="http://dobbse.net/thinair/2003/08/index.html">&laquo; August 2003</a></li>
+
+    <li><a href="http://dobbse.net/thinair/2003/10/index.html">&raquo; October 2003</a></li>
+
+  </ol>
+</li>
+
+</ol>
+</div>
+<div class="footer meta">
+All content &copy; 2001-2011  Eric Dobbs unless otherwise noted.  All rights reserved.
+</div>
+
+</body>
+</html>

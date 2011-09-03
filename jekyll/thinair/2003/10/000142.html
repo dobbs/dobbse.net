@@ -1,0 +1,218 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+
+<title>thinair: State Machines and Tango</title>
+
+<link rel="stylesheet" href="http://dobbse.net//styles-site.css" type="text/css" />
+<link rel="alternate" type="application/rss+xml" title="RSS" href="http://dobbse.net/index.rdf" />
+
+<link rel="start" href="http://dobbse.net/" title="Home" />
+<link rel="prev" href="http://dobbse.net/thinair/2003/09/fsm-planetcad.html" title="State Machines at PlanetCAD" />
+
+<link rel="next" href="http://dobbse.net/thinair/2003/10/000143.html" title="Business lessons I learned from VisionLink after I left" />
+
+
+<script type="text/javascript" language="javascript">
+<!--
+
+function OpenTrackback (c) {
+    window.open(c,
+                    'trackback',
+                    'width=480,height=480,scrollbars=yes,status=yes');
+}
+
+var HOST = 'dobbse.net';
+
+// Copyright (c) 1996-1997 Athenia Associates.
+// http://www.webreference.com/js/
+// License is granted if and only if this entire
+// copyright notice is included. By Tomer Shiran.
+
+function setCookie (name, value, expires, path, domain, secure) {
+    var curCookie = name + "=" + escape(value) + ((expires) ? "; expires=" + expires.toGMTString() : "") + ((path) ? "; path=" + path : "") + ((domain) ? "; domain=" + domain : "") + ((secure) ? "; secure" : "");
+    document.cookie = curCookie;
+}
+
+function getCookie (name) {
+    var prefix = name + '=';
+    var c = document.cookie;
+    var nullstring = '';
+    var cookieStartIndex = c.indexOf(prefix);
+    if (cookieStartIndex == -1)
+        return nullstring;
+    var cookieEndIndex = c.indexOf(";", cookieStartIndex + prefix.length);
+    if (cookieEndIndex == -1)
+        cookieEndIndex = c.length;
+    return unescape(c.substring(cookieStartIndex + prefix.length, cookieEndIndex));
+}
+
+function deleteCookie (name, path, domain) {
+    if (getCookie(name))
+        document.cookie = name + "=" + ((path) ? "; path=" + path : "") + ((domain) ? "; domain=" + domain : "") + "; expires=Thu, 01-Jan-70 00:00:01 GMT";
+}
+
+function fixDate (date) {
+    var base = new Date(0);
+    var skew = base.getTime();
+    if (skew > 0)
+        date.setTime(date.getTime() - skew);
+}
+
+function rememberMe (f) {
+    var now = new Date();
+    fixDate(now);
+    now.setTime(now.getTime() + 365 * 24 * 60 * 60 * 1000);
+    setCookie('mtcmtauth', f.author.value, now, '', HOST, '');
+    setCookie('mtcmtmail', f.email.value, now, '', HOST, '');
+    setCookie('mtcmthome', f.url.value, now, '', HOST, '');
+}
+
+function forgetMe (f) {
+    deleteCookie('mtcmtmail', '', HOST);
+    deleteCookie('mtcmthome', '', HOST);
+    deleteCookie('mtcmtauth', '', HOST);
+    f.email.value = '';
+    f.author.value = '';
+    f.url.value = '';
+}
+
+//-->
+</script>
+
+<!--
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/"
+         xmlns:dc="http://purl.org/dc/elements/1.1/">
+<rdf:Description
+    rdf:about="http://dobbse.net/thinair/2003/10/000142.html"
+    trackback:ping="http://dobbse.net/dobbse-cgi-bin/mt/mt-tb.cgi/132"
+    dc:title="State Machines and Tango"
+    dc:identifier="http://dobbse.net/thinair/2003/10/000142.html"
+    dc:subject="Technology"
+    dc:description="State Machines part two My life as a network administrator ended and life as a professional software developer started in 1997 when I moved back to Colorado and got a job with VisionLink . At the time, VisionLink used Tango and FileMaker Pro on PowerMac G3&amp;#39;s for their web application (there was only one at the time). Tango has changed hands a number of times and now goes by the name WiTango . Since leaving VisionLink I&amp;#39;ve worked with many other web application tools. PHP, Zope, the ArsDigita Community Server, perl and python cgis, Turbine, Velocity, Struts, JSP. Tango had..."
+    dc:creator="eric"
+    dc:date="2003-10-01T22:33:12-07:00" />
+</rdf:RDF>
+-->
+
+
+</head>
+
+<body>
+
+<div id="banner">
+<h1>thinair<span>views of various geekage from 1,655 meters (5,430 feet) above sea level</span></h1>
+</div>
+
+
+<div id="container">
+
+<div class="blog">
+
+<div id="menu">
+<a href="http://dobbse.net/thinair/2003/09/fsm-planetcad.html">&laquo; State Machines at PlanetCAD</a> |
+
+<a href="http://dobbse.net/">Main</a>
+| <a href="http://dobbse.net/thinair/2003/10/000143.html">Business lessons I learned from VisionLink after I left &raquo;</a>
+
+</div>
+
+</div>
+
+
+<div class="blog">
+
+<div class="date">October 01, 2003</div>	
+
+<div class="blogbody">
+
+<h1 class="title">State Machines and Tango</h1>
+
+<p><a href="http://dobbse.net/thinair/2003/09/000140.html">State Machines</a> part two</p>
+
+<p>My life as a network administrator ended and life as a professional software developer started in 1997 when I moved back to Colorado and got a job with <a href="http://visionlink.org">VisionLink</a> .  At the time, VisionLink used Tango and FileMaker Pro on PowerMac <span class="caps">G3</span>&#39;s for their web application (there was only one at the time).  Tango has changed hands a number of times and now goes by the name <a href="http://www.witango.com/">WiTango</a> .</p>
+
+<p>Since leaving VisionLink I&#39;ve worked with many other web application tools.  <span class="caps">PHP, </span>Zope, the ArsDigita Community Server, perl and python cgis, Turbine, Velocity, Struts, <span class="caps">JSP.  </span>Tango had one thing that all of those other technologies lack.  The development tools encouraged you to think in terms of what the whole application was going to be doing rather than thinking one page at a time.  I miss that way of thinking about web applications.  It was like having an outline of the application up front.  You still had to put the individual pages together but every page was inherently created in the context of the rest of the application.  It was easy to see the relationship of the forrest and the trees.</p>
+
+<p>Few people have even heard of Tango, much less developed an application of any complexity with it.  It&#39;s hard to explain why it&#39;s a better way to think about the apps.  Perhaps it&#39;s similar to making the leap from simple functional programming to recursive programming, or from procedural to object programming.  Or the leap to using patterns.  (I&#39;m sure that aspect oriented programming will open up still more options if I can ever make the time for it.)  It&#39;s all programming, but different modes of thinking about problems open up different solutions.  For a given problem some modes of thinking are more effective than others.  I think Tango had a better fit for thinking about web applications.</p>
+
+<p>I have just recently learned to think of that &quot;outline&quot; as an application-level state machine.</p>
+
+<p><ins>Update:</ins>  Looks like <a href="http://www.witango.com/productinfo/guide/studio.thtml">the WiTango Development Studio</a> hasn&#39;t changed radically since my Tango days.  There&#39;s a picture of the outline I&#39;ve been talking about on that page.  It&#39;s a tree widget with if...else branches and such.  Those branches are at the application level, not the page level.  <em>If the user isn&#39;t logged in</em> ... <em>if action=save</em> ... and so on.  As opposed to <em>if user has x permission then show y widget</em> or other page logic.</p>
+
+<a name="more"></a>
+
+
+<span class="posted">Posted 10:33 PM
+| <a href="http://dobbse.net/dobbse-cgi-bin/mt/mt-tb.cgi?__mode=view&entry_id=142" onclick="OpenTrackback(this.href); return false">TrackBack (0)</a>
+
+<br /></span>
+
+</div>
+
+<div id="links">
+&nbsp;
+</div>
+
+
+<div class="comments-head"><a name="comments"></a>Comments</div>
+
+
+
+<div class="comments-head">Email a comment</div>
+<div class="comments-body">
+<p>The comment form is <a href="http://dobbse.net/thinair/2005/02/comments-broken.html">broken</a>.  Please email your comments to <a href="mailto:blog-comment@dobbse.net?subject=http://dobbse.net/thinair/2003/10/000142.html">blog-comment@dobbse.net</a>.</p>
+</div>
+
+<!-- comments are broken as of 02/14/2005
+<div class="comments-head">Post a comment</div>
+
+<div class="comments-body">
+<p>All comments are moderated. <a href="http://dobbse.net/thinair/2004/03/comments-moderated.html">How and Why?</a></p>
+
+<form method="post" action="http://dobbse.net/dobbse-cgi-bin/mt/mt-comments.cgi" name="comments_form" onsubmit="if (this.bakecookie.checked) rememberMe(this)">
+<input type="hidden" name="static" value="1" />
+<input type="hidden" name="entry_id" value="142" />
+
+Name:<br />
+<input name="author" /><br /><br />
+
+Email Address:<br />
+<input name="email" /><br /><br />
+
+URL:<br />
+<input name="url" /><br /><br />
+
+Comments:<br />
+<textarea name="text" rows="10" cols="50"></textarea><br /><br />
+
+<input type="checkbox" name="bakecookie" />Remember info?<br /><br />
+
+<input type="submit" name="preview" value="&nbsp;PREVIEW&nbsp;" />
+<input type="submit" name="post" value="&nbsp;POST&nbsp;" /><br /><br />
+
+<input type="button" onclick="forgetMe(this.form)" value="FORGET PERSONAL INFORMATION" />
+</form>
+-->
+
+<!-- comments broken <script type="text/javascript" language="javascript"> -->
+<!--
+document.comments_form.email.value = getCookie("mtcmtmail");
+document.comments_form.author.value = getCookie("mtcmtauth");
+document.comments_form.url.value = getCookie("mtcmthome");
+//-->
+<!-- comments broken </script> -->
+
+<!-- comments broken </div> -->
+
+</div>
+</div>
+<div id="copyright">
+All content &copy; 2002-2010  Eric Dobbs unless otherwise noted.  All rights reserved.
+</div>
+
+</body>
+</html>
