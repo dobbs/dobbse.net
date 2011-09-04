@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-mkdir -p ~/workspace/dobbse.net/jekyll/_posts-iso-8859-1
-cp $(ls ~/workspace/new.dobbse.net/_posts/* | tail -30) ~/workspace/dobbse.net/jekyll/_posts-iso-8859-1
