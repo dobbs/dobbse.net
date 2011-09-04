@@ -1,3 +1,0 @@
-User-agent: *
-Disallow: /dobbse-cgi-bin/
-Disallow: /mt-static/
