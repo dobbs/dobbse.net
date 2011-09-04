@@ -107,8 +107,12 @@ end
 
 desc "generate site with jekyll"
 task :jekyll do
-  chdir "jekyll"
-  sh "jekyll"
-  chdir ".."
+  chdir "jekyll" do
+    sh "jekyll"
+  end
   cp 'imported/.htaccess', 'jekyll/_site'
+  chdir 'jekyll/_site/resume' do
+    ln_s 'eric-dobbs.pdf', 'eric_dobbs.pdf' unless File.symlink? 'eric_dobbs.pdf'
+    ln_s 'eric-dobbs.html', 'index.html' unless File.symlink? 'index.html'
+  end
 end
