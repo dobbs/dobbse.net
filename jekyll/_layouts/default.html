@@ -4,6 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset={% if page.charset %}{{ page.charset }}{% else %}{{ site.charset }}{% endif %}" />
 <title>{% if page.fulltitle %}{{ page.fulltitle }} - {% endif %}thinair</title>
 <link rel="stylesheet" href="http://dobbse.net/style.css" type="text/css" />
+<link rel="alternate" type="application/atom+xml" title="thinair" href="http://dobbse.net/feed.atom" />
 </head>
 <body>
 
@@ -38,7 +39,7 @@
 <li>Below the fold
   <ol class="wide">
 {% for post in site.posts limit:20 offset:10 %}
-    <li><a href="{{ post.url }}">{{ post.title }}</a></li>
+    <li><a href="{{ post.url }}">{{ post.fulltitle }}</a></li>
 {% endfor %}
   </ol>
 </li>
