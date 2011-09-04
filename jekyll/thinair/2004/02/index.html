@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>February 2004 (thinair)</title>
+<link rel="alternate" type="application/rss+xml" title="thinair feed" href="http://dobbse.net/index.rdf" />
+<link rel="stylesheet" href="http://dobbse.net/style.css" type="text/css" />
+<link rel="start" href="http://dobbse.net/" title="Home" />
+<link rel="prev" href="http://dobbse.net/thinair/2004/01/index.html" title="January 2004" />
+
+<link rel="next" href="http://dobbse.net/thinair/2004/03/index.html" title="March 2004" />
+
+</head>
+<body>	
+
+<div class="header">
+<h1><a href="/">thinair</a></h1>
+<div class="hgroup">
+<h2 class="first">Boulder, Colorado</h2>
+<h2>elevation 5400 feet</h2>
+<h2>your guide: Eric Dobbs</h2>
+</div>
+</div>
+
+
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2004/02/pdf-pot-luck.html">Hacking PDF forms with iText, jython, perl, and emacs</a></h1>
+<div class="time 2004-02-27T22:12:00 pubdate meta">Friday 27 February 2004 at 22:12 </div>
+<p><ins>Update:</ins> <em>This page seems to draw a fair bit of traffic from Google.  In addition to the body of this post, there are some Java samples in the comments.  Have a look there too.</em></p>
+
+<p>For one problem last week I had two tricks to figure out: how to concatenate <span class="caps">PDF</span> forms and how to fill in some <span class="caps">PDF</span> form fields.  With Acrobat people can create <span class="caps">PDF</span> forms which you can complete with Reader.  In our case these are multi-page tax forms.  The <span class="caps">IRS</span> defined the forms -- they&#39;re not under our control.  <a href="http://www.lowagie.com/iText/">iText</a> was the tool of choice, but I didn&#39;t know the <span class="caps">API.  </span>The <a href="http://www.lowagie.com/iText/tutorial/ch13.html">concat_pdf</a> tool put the forms together well enough, but it trashed the data in the forms.</p>
+
+<p>I used <a href="http://www.jython.org/">jython</a> to experiment with the <span class="caps">API</span> and diagnose the problem.  It turns out that the names of the form fields on several of the forms were the same.  It was a simple problem of name collisions.  Jython was entirely great for diagnosing the problem.  I could interrogate the forms before and after concatenation to find out their field names and values.  I tried and tried and failed and failed to get Jython and iText to change the names of those fields.  I spent entirely too much time in trial and error (and error) failing to bend the iText <span class="caps">API</span> to my task.  Attempts to create subclasses or delegates around the <span class="caps">API</span> met with various limits -- crucial methods that were protected or whatever.  There&#39;s a separate story here about recognizing when you&#39;re on the wrong path or using the wrong tools.  I find myself down that dead end more often than I&#39;d like to admit.  But this is a different story, so I won&#39;t go there now.</p>
+
+<p>At some point I remembered Rob&#39;s story about a colleague who spent a long time implementing the <span class="caps">PDF</span> spec to generate correct <span class="caps">PD</span>Fs that nevertheless wouldn&#39;t work with Acrobat.  It seems the spec and the implementations differ.  (When has that ever happened?)  The point of the story was that they eventually threw out the carefully crafted tool and used perl string replacement on existing files created with Acrobat.  So I turned my attention to seeing if I could find a useful pattern in the field names that would yield to perl&#39;s regular expression prowess.</p>
+
+<p>Jython again came in handy for extracting all the field names.  All the time walking down dead ends had left me well enough acquainted with <span class="caps">PDF</span> internals to see the boundaries of the pattern.  Emacs had been in the background of all of these tasks, but it came front and center as I tested my theory about the name collisions and about the pattern.  Sure enough, once I ensured that all the fields were uniquely named, the concatenation worked quite smoothly.  Quickly enough I had a perl solution to renaming the fields that was really fast.</p>
+
+<p><span class="caps">PD</span>Fs are pretty on the display and printing side of things, but pretty ugly on the inside.  Paul ended up throwing out my solution too.  He found things in <a href="http://itextpdf.sourceforge.net/">the beta versions of iText</a> that allow <span class="caps">PDF</span> forms to be &quot;flattened&quot;.  Then the form field names aren&#39;t an issue and the files are smaller too.  So all I have to show for my work is a little unwanted knowledge about <span class="caps">PDF</span> internals and a story for my blog about technical-pot-luck problem solving.  That said, I&#39;ll include a little code here in case the string replacement trick for enforcing unique field names helps someone else from avoiding dead-ends.</p>
+
+<pre>
+    my $ax = &#39;aa&#39;;
+    foreach my $file (@pdf_files) {
+      $file =~ s{\(([cf]\d-[a-z0-9]+)\)}{($ax-$1)}g;
+      $ax++;
+      # save the files to disk
+    }
+</pre><p>The key part is that field names are delimited with parenthesis.  In my case the field names themselves were fairly predictable.  They looked like this: (f1-04) or in some cases (c4-alpha).  I don&#39;t think you can just count on finding parentheses -- <span class="caps">PD</span>Fs are more complex than that.  (The <code>$ax = &#39;aa&#39;; $ax++</code> thing is a fun perl trick.  Perl will increment the string alphanumerically thusly: aa, ab, ac ...)</p>
+
+<p>iText and Jython make it easy to get the field names from a <span class="caps">PDF </span>(assuming you&#39;re not in control of those field names).  Here&#39;s how:</p>
+
+<pre>
+    % env CLASSPATH=./iText.jar jython
+    &gt;&gt;&gt; from com.lowagie.text.pdf import PdfReader
+    &gt;&gt;&gt; reader = PdfReader(&#39;path/to/your.pdf&#39;)
+    &gt;&gt;&gt; [f.name for f in reader.acroForm.fields]
+</pre><p>Then you can analyze the results and figure out your own replacement pattern.</p>
+
+</div>
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2004/02/pdf-default.html">Mac OS X Preview doesn't display Acrobat Forms</a></h1>
+<div class="time 2004-02-19T21:56:50 pubdate meta">Thursday 19 February 2004 at 21:56 </div>
+<p>The complaint: &quot;Clicking on <span class="caps">PDF</span> links in Safari doesn&#39;t work.&quot;</p>
+
+<p>The problem is that Apple&#39;s built-in viewer, Preview, doesn&#39;t display the contents of Acrobat Forms.  In our (bivio&#39;s) case, the <span class="caps">PDF</span> forms in question are supplied by the <span class="caps">IRS</span> and filled-in by our software.  In Preview, you can see the empty form but none of the data filled-in.  You have to use <a href="http://www.adobe.com/products/acrobat/readstep2.html">Adobe Reader</a>.  Moreover, if you want Safari to open the files in Adobe Reader by default instead of Preview you must set the default application for <span class="caps">PD</span>Fs in the Finder.</p>
+
+<p>These instructions were tested with Mac <span class="caps">OS X 10.3.2.  </span>Other versions of <span class="caps">OS X</span> may differ slightly, but the general idea should still apply.</p>
+
+<p>The short story is &#39;Get Info&#39; for any <span class="caps">PDF</span> file, change the &#39;Open With&#39; settings from Preview to Adobe Acrobat, and then &#39;Change All...&#39; to make all <span class="caps">PDF</span> files open with Acrobat.</p>
+
+<p>Once you&#39;ve done that, Safari will honor that setting and any <span class="caps">PDF</span> files downloaded will be opened with Reader instead of Preview.</p>
+
+<p>Here is the play-by-play in case you need more detailed instructions:</p>
+
+<p>1. Switch to the the Finder, (click the smiley icon in the Dock).</p>
+
+<p>2. Locate any file whose name ends with .pdf. [1]</p>
+
+<p>3. Select the file (click <span class="caps">ONCE</span> on it to highlight it).</p>
+
+<p>4. In the File menu, select &#39;Get Info&#39; (you can also use the keyboard shortcut Command-I) [2]</p>
+
+<p>5. Reveal the &#39;Open with:&#39; section of the window.  (The Info window is divided into several sections which can be revealed or hidden using the triangle widget on the left hand side of the window.  Use the triangle to make sure the &#39;Open with:&#39; section is shown.) [3]</p>
+
+<p>6. Change the &#39;Open with:&#39; pop-up menu from Preview to Acrobat Reader</p>
+
+<p>7. Click the &#39;Change All...&#39; button, and click the &#39;Continue&#39; button when you are prompted to confirm the change.</p>
+
+<p>I personally prefer to leave Preview my default because it is much faster and the <span class="caps">PDF</span> files I usually read are not <em>forms</em>.  I keep a copy of Adobe Reader around for the few times when I do need to deal with forms.</p>
+
+<p>[1, 2, 3]  It is hard to know where to draw the line in providing step-by-step written instructions.  In this case I&#39;m willing to assume you know how to navigate your computer with the Finder.  I&#39;ll also assume that if you&#39;re interested in keyboard shortcuts, you probably don&#39;t need a description of Apple&#39;s command key.   Somehow the triangle widget in the Info window crosses the threshold and demands a little explanation.</p>
+
+</div>
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2004/02/lisp.html">Lisp blazed the trail, (code generation and dynamic languages)</a></h1>
+<div class="time 2004-02-11T23:02:14 pubdate meta">Wednesday 11 February 2004 at 23:02 </div>
+<p>Three posts in today&#39;s <span class="caps">RSS</span> feeds mentioned code generation.  My first exposure to code generation was in contributions to <a href="http://db.apache.org/torque/">Torque</a> (which also made me a <a href="http://jakarta.apache.org/turbine/">Turbine</a> committer).</p>
+
+<p><a href="http://www.cwinters.com/News/show/?news_id=1157">While talking about Spring, Chris mentioned a new code generation system he&#39;s written</a>.</p>
+
+<p><a href="http://simon.incutio.com/archive/2004/02/11/codeGeneration">Simon prefers data driven programming to code generation</a>.</p>
+
+<blockquote><p>We considered using code generators for our current major project at work, and picked up Jack Herrington&#39;s <a href="http://www.codegeneration.net/cgia/">book</a> on the subject. Reading through it, it became clear that many of the problems that code generators solve can be tackled instead using <a href="http://simon.incutio.com/archive/2003/12/05/dataDriven">data driven programming</a> techniques made possible by dynamic languages. Since we had already settled on Python as our implementation language the need for code generation became far less apparent, and we ended up avoiding it entirely with the exception of a command line tool for passvely generating basic templates for our admin interface.</p></blockquote>
+
+<p><a href="http://weblog.infoworld.com/udell/2004/02/11.html#a915">Jon endorses dynamic languages while discussing Programs That Write Programs</a>.</p>
+
+<blockquote><p>We&#39;ve always known that dynamic languages are a great way to create &quot;little languages&quot; for specific tasks. But we don&#39;t yet fully appreciate that all programming is a continuous process of language invention. And we don&#39;t (yet) evaluate programming-language productivity on those terms. ....  We are linguistic animals endowed with a protean ability to generate language. Naturally we&#39;ll want that same generative power in our programming languages.</p></blockquote>
+
+<p>Jon has written a perfect description of lisp.  Guy Steele shared this wisdom in his inspired presentation at <span class="caps">OOPSLA 1998 </span><a href="http://research.sun.com/research/jtech/pubs/98-oopsla-growing.ps">Growing a Language</a>. (140K PostScript)  Paul Graham calls it bottom-up programming.  I&#39;m still slowly working my way through <a href="http://www.paulgraham.com/onlisp.html">On Lisp</a>.  Lisp macros are code generators -- programs that write programs.  Code generation is baked into the language.  Although, <a href="http://www.paulgraham.com/paulgraham/avg.html">Paul says macros make lisp more powerful than other languages</a>, he also observes &quot;macros are harder to write than ordinary Lisp functions, and it&#39;s considered to be bad style to use them when they&#39;re not necessary.&quot;</p>
+
+<p>Lisp is the mother of dynamic languages.  Its secret power is in the ease with which it can be extended into custom &quot;little languages&quot; which match the domain of the program under development.  But code generation is only a part of that power.  Functions and lexical closures are also quite powerful.</p>
+
+<p>I&#39;ve been programming in perl since I joined as an apprentice to <a href="http://www.bivio.biz/">bivio Software Artisans</a>.  In 1999 <a href="http://www.bivio.biz/hm/csci7818-bop-intro/why-bop">perl [was chosen] for [its] Lispishness, ubiquity and reliability</a>.  Though python and ruby are more fashionable, perl is still quite capable and lispish.  It&#39;s fun applying lessons from On Lisp to my daily perl hacking.  It&#39;s also fun learning to grow a language.</p>
+
+<p>The future is here, just not evenly distributed.  Lisp programmers understand about the process of continuous language invention.  It&#39;s the rest of us who have yet to fully embrace that wisdom.  The bad news is that it&#39;s hard work expanding your programming mind set, judging by the time it&#39;s taking me to digest On Lisp.  The good news is the lisp hackers have been blazing this trail for over 40 years and there are good travel guides if you ever decide to set out in that direction.</p>
+
+</div>
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2004/02/worms.html">MyDoom, NovaRG, Worms and Mac OS X</a></h1>
+<div class="time 2004-02-06T18:41:44 pubdate meta">Friday 06 February 2004 at 18:41 </div>
+<p>The <a href="http://comug.com">COMUG</a> mailing list brought this article to my attention: <a href="http://www.businessweek.com/technology/content/feb2004/tc2004025_4265_tc056.htm">Can Apple Keep the Worms Out?</a> My reply to the thread got long enough that I thought I&#39;d keep it here for posterity.  I&#39;ve elaborated on my comments from the last pair of rampaging worms: <a href="http://dobbse.net/thinair/2003/09/000135.html">Sobig and Blaster rekindle the OS Wars</a></p>
+
+<p>The article presents a fairly balanced story, but I have to take issue with the conclusion.</p>
+
+<blockquote><p> The standard Mac gloat ... goes something like this: I didn&#39;t get this virus because I have a Mac. In fact, I never get viruses. Never have, never will.<br />
+ <br />
+The standard Windows community reply: The reason you don&#39;t get viruses is because so few people have Macs. In fact, hackers think Macs are so marginal they don&#39;t even bother with figuring out ways to break into them or infect them with viruses. If 95% of the world used Macs, you can bet they would catch viruses all the time.<br />
+ <br />
+....<br />
+ <br />
+Now that Apple has Unix under the hood, ... the argument that Apple is safer because of its marginal place in computing&#39;s cosmos no longer applies. With its embrace of Unix, Apple has joined a big family -- and it keeps growing, thanks to Linux and other open-source versions of Unix.</p></blockquote>
+
+<p>I disagree about the &quot;no longer applies&quot; business.</p>
+
+<p>While it is true that unix is a big family -- much bigger than <span class="caps">OS 9</span> and earlier, it is also a remarkably diverse family.  The Windows operating systems are all the product of a single company.  When vulnerabilities are discovered within one version of windows, they are frequently also present in other versions.</p>
+
+<p>By contrast <span class="caps">UNIX</span> has been developed separately by many different organizations: <span class="caps">AT</span>&amp;T, <span class="caps">UC </span>Berkely, Free Software Foundation, Sun, <span class="caps">HP, </span>Novell, <span class="caps">SCO, IBM, </span>Silicon Graphics, NeXT, RedHat, Suse, Apple, and many others.  <span class="caps">HPUX</span> vulnerabilities are likely to be quite different from the vulnerabilities in <span class="caps">IRIX,</span> or Solaris, or Linux.  Each will undoubtedly have vulnerabilities, but few vulnerabilities will effect all of that diverse family.  Moreover, there&#39;s a habit among the unix culture of compiling software locally to ensure the most important tools are optimized for local needs.  That adds another layer of diversity between systems.  All of that diversity makes it much harder for a cracker to create a worm that will have the same impact among the <span class="caps">UNIX</span> family as they can among the Windows family.</p>
+
+<p>Another important distinction is that <span class="caps">UNIX</span> grew up connected to the Internet whereas Windows didn&#39;t.  <a href="http://www.ietf.org/rfc/rfc1135.txt">The Great Worm was unleashed in November 1988</a>.  It effected 6000 Sun and <span class="caps">VAX</span> systems but left the rest of the unix family untouched.  There are two points to emphasize: it illustrates the fact that it&#39;s hard to make one worm effect all of the unix family.  Second, the Great Worm revealed the need for network security to unix developers fifteen years ago.  For that reason there&#39;s deeper security knowledge in the unix developer community than in the windows developer community.</p>
+
+<p>But here&#39;s the more important point.  It doesn&#39;t really matter if Macs would have more viruses if they were the dominant <span class="caps">OS.  </span>Whether or not that claim is true, that world is a fantasy.  The world we live in is the one where Windows is the dominant <span class="caps">OS.  </span>And the viruses and worms in the real world breed and feed in the Windows ecosystem.  That reality is unlikely to change for the foreseeable future, say the next five years or maybe ten.</p>
+
+<p>There are going to continue to be many, many old windows computers out there connected by broadband to the &#39;Net.  Even if Microsoft is cleaning up their act and making security a priority for <span class="caps">XP</span> and longhorn, there are still going to be many easy targets out there for the crackers to abuse.  The crackers are predators and will prefer the easy targets as all predators do.  Windows will continue to be an easier target than <span class="caps">UNIX.</span></p>
+
+<p>This doesn&#39;t mean we Mac geeks (or other unix geeks) can ignore worms.  But we will get to enjoy our position of relative security for a long time to come.</p>
+
+</div>
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2004/02/waves.html">Wave patterns in animal locomotion</a></h1>
+<div class="time 2004-02-04T22:24:49 pubdate meta">Wednesday 04 February 2004 at 22:24 </div>
+<p>For this collection of observations, I wish I could quickly collect some video fragments to illustrate the point instead of just writing about it, or that I could easily animate some examples.  Neither of those are practical at the moment so words alone will have to do.</p>
+
+<p>Snakes are the place to start with this pattern.  Snakes move their bodies in a wave like motion which propels them forward along the ground.  Alligators (or is it crocodiles -- maybe both) have legs which stick out from the sides of their torso, as opposed to the way mammals have legs underneath their torso.  You can see a more subdued wave pattern along the spine of alligators when they move.  I think the same is mostly true of how small lizards and geckos move, but they move quickly enough that I can&#39;t quite see it with my own eyes.  Obviously the legs and feet provide some valuable traction and leverage, but the movement of the torso still exhibits the wave.  The same wave is also pretty evident in the way sharks (and other fish) swim.  Swimming snakes slither through water much as they do over land -- eels too.</p>
+
+<p>As a kid I was fascinated that dolphins had the same sort of wave, but up and down instead of side to side.  I even had a personal kind of classification of the good guys vs bad guys in the animal kingdom based on which way their wave went.  Whales and dolphins and sea lions and otters all wave up and down, whereas sharks and eels and barracudas wave side to side.  As I try to visualize it now, I&#39;m not entirely convinced that sea lions and otters and walruses wave up and down -- I&#39;ll have to look for that next time I&#39;m sitting in front of a nature show on the subject.  Thinking of the shape of their hind flippers reinforces the notion, but it&#39;s been a long time since I actually looked for it.</p>
+
+<p>Last year while walking our dog, Ellie, I noticed with great surprise that she&#39;s got a slight side-to-side wave in her spine when she walks or trots.  I can&#39;t keep my eyes on her spine long enough to know if it&#39;s also the case when she runs, though it seems likely.</p>
+
+<p>A few months ago, Sarah and I rented <a href="http://www.imdb.com/title/tt0301727/">Winged Migration</a>.  I&#39;ve been meaning to mention it in my blog ever since.  <a href="http://dobbse.net/reflection/2002/10/000044.html">I&#39;m interested in the way birds fly and I wish I knew more about migration patterns</a>, so I was naturally fascinated by the film.  I was struck by the close-ups of flying geese.  Their shoulders move up and down while their heads and tails seem to stay in place.  In fact it looks somewhat like watching an accomplished athlete swim the butterfly stroke -- up and down waves.</p>
+
+<p>At park in Toronto, I once noticed that seagulls appear to row through the air.  I&#39;ve tried to see that in other seagulls on other occasions.  I can&#39;t spot it very consistently.  In that park it was quite pronounced.</p>
+
+<p>Segmentation is one of the earliest evolutionary organizations to emerge.  This notion is suggested by the many examples spread broadly throughout the animal kingdom.  You can see it in earthworms, and in insects.  In larger creatures segmentation is most apparent in the spine and rib cage.  It&#39;s especially apparent in snakes and eels &#39;cos they&#39;re all spine.  My casual observations suggest that the more segmentation in the critter, the more apparent the wave in their motion.  I think these waves emerge from the segmentation in the anatomy.</p>
+
+</div>
+
+
+<div class="nav">
+<ol>
+<li>Archives
+  <ol>
+    <li><a href="http://dobbse.net/thinair/2011/01/index.html">January 2011</a></li>
+    <li><a href="http://dobbse.net/thinair/2010/12/index.html">December 2010</a></li>
+    <li><a href="http://dobbse.net/thinair/2010/09/index.html">September 2010</a></li>
+    <li><a href="http://dobbse.net/thinair/2010/08/index.html">August 2010</a></li>
+    <li><a href="http://dobbse.net/thinair/2010/06/index.html">June 2010</a></li>
+    <li><a href="http://dobbse.net/thinair/2010/02/index.html">February 2010</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/10/index.html">October 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/09/index.html">September 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/07/index.html">July 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/05/index.html">May 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/03/index.html">March 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/02/index.html">February 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/01/index.html">January 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2008/12/index.html">December 2008</a></li>
+    <li><a href="http://dobbse.net/thinair/2008/09/index.html">September 2008</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/10/index.html">October 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/09/index.html">September 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/08/index.html">August 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/06/index.html">June 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/04/index.html">April 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/03/index.html">March 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/01/index.html">January 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/12/index.html">December 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/11/index.html">November 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/10/index.html">October 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/09/index.html">September 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/08/index.html">August 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/07/index.html">July 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/06/index.html">June 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/04/index.html">April 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/02/index.html">February 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/12/index.html">December 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/10/index.html">October 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/06/index.html">June 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/05/index.html">May 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/04/index.html">April 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/03/index.html">March 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/02/index.html">February 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/12/index.html">December 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/11/index.html">November 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/10/index.html">October 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/09/index.html">September 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/08/index.html">August 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/07/index.html">July 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/06/index.html">June 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/05/index.html">May 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/04/index.html">April 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/03/index.html">March 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/02/index.html">February 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/01/index.html">January 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/12/index.html">December 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/11/index.html">November 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/10/index.html">October 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/09/index.html">September 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/08/index.html">August 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/07/index.html">July 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/06/index.html">June 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/05/index.html">May 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/04/index.html">April 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/03/index.html">March 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/02/index.html">February 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/01/index.html">January 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2002/12/index.html">December 2002</a></li>
+    <li><a href="http://dobbse.net/thinair/2002/11/index.html">November 2002</a></li>
+    <li><a href="http://dobbse.net/thinair/2002/10/index.html">October 2002</a></li>
+    <li><a href="http://dobbse.net/thinair/2002/09/index.html">September 2002</a></li>
+    <li><a href="http://dobbse.net/thinair/2001/01/index.html">January 2001</a></li>
+
+  </ol>
+</li>
+
+<li>Around
+  <ol class="wide">
+    <li><a href="http://dobbse.net/thinair/2004/01/index.html">&laquo; January 2004</a></li>
+
+    <li><a href="http://dobbse.net/thinair/2004/03/index.html">&raquo; March 2004</a></li>
+
+  </ol>
+</li>
+
+</ol>
+</div>
+<div class="footer meta">
+All content &copy; 2001-2011  Eric Dobbs unless otherwise noted.  All rights reserved.
+</div>
+
+</body>
+</html>

@@ -1,0 +1,28 @@
+--- 
+layout: default
+charset: UTF-8
+fulltitle: Java 5 is better, but I still prefer perl, python, and lisp
+posted: 2004-09-06T22:49:34
+---
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2004/09/java5.html">Java 5 is better, but I still prefer perl, python, and lisp</a></h1>
+<div class="time 2004-09-06T22:49:34 pubdate meta">Monday 06 September 2004 at 22:49 </div>
+<p>Josh Bloch and Neal Gafter spoke at both <a href="http://www.denverjug.org/meetings/archives.jsp">Denver JUG</a> and <a href="http://www.boulderjug.org/archive.html">Boulder JUG</a> last month.  They gave a fairly thorough run-down of the features in Java 5 (that&#39;s what they&#39;re calling it now).  If their show comes to your town and you want a quick boost into the Java 5 features, you won&#39;t be disappointed.  There was plenty of code to give a flavor of how the new features improve your programming life.</p>
+
+<p>It was interesting to look at Java 5 features after having programmed in perl and with <a href="http://www.bivio.biz/hm/download-bOP">bOP</a> for the past eight months.  I&#39;ll say out loud that I think they have made many improvements.  They seemed rightfully proud of what they have created.  But there&#39;s clerly a fundamental difference in values.  Josh and Neal really appreciate the compiler and want it to do more work for the programmer.  Whereas I&#39;m getting much more value from tests these days.  I suppose I shouldn&#39;t dis&#39; compilers.  Dynamic languages need &#39;em too.  But in my experience with perl and python, the compiler is just the first set of runtime errors. :-)</p>
+
+<p>Letting the &#39;for&#39; loop also behave like &#39;foreach&#39; is a great improvement.  Coupled with type-safe collections you will have to do radically less casting.  But I&#39;ve also grown quite attached to perl&#39;s map and grep, and python&#39;s list comprehensions.  These are related to foreach, but in many cases even more useful.  Java still doesn&#39;t have them nor the first-class functions and closures needed to really appreciate what these language constructs can do.</p>
+
+<p>Josh and Neal were quite excited about the new enumerations.  Until I began work with bivio, I had never used enums.  It was very nice to hear someone explain again when to use enumerations and why bother.  I have been using enums for months now and implicitly know when to use them, but I don&#39;t know if I could have explained it until now.  In case you are like I was, here&#39;s how I understand it.  Enums are a collection of things that you might store in a table in a database except that you don&#39;t need to change the list of items at runtime.  The example Josh offered was menus in your application.  They&#39;re a group of related things that behave similarly, but you only change them with new releases of the software.</p>
+
+<p>What Josh and Neal were excited about was that enums are full blown objects, not just integers with names as in <span class="caps">C.  </span>That means you can add methods to them.  Exciting if you&#39;re coming from a C or Java background.  But Rob and Paul and David wouldn&#39;t be so impressed.  bOP&#39;s enums have had methods for years.</p>
+
+<p>I won&#39;t do any more blow-by-blow comparison of new java features with perl or python or bOP.  My own experience looking at these new language features just validates <a href="http://www.paulgraham.com/icad.html">Paul Graham&#39;s assertion that programming languages vary in power</a>.  So Java 5 is more powerful than 1.4, but not quite as powerful yet as perl and python.  bOP adds some very useful things to perl.  And we&#39;d all be better, faster, and stronger in lisp.</p>
+
+</div>
+
+<div class="section comments"><a name="comments"></a>
+
+</div>
+
+

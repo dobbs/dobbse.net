@@ -10,24 +10,29 @@ class FSM
     self
   end
   def parse
-    File.foreach(@source, external_encoding: "ISO-8859-1") do |line|
-      @currentline = line
-      self.send(@state)
+    linenumber = 1;
+    begin
+      File.open(@source, 'r:ISO-8859-1').each_line do |line|
+        linenumber += 1
+        @currentline = line
+        self.send(@state)
+      end
+    rescue => e
+      puts "error parsing #{@source}:#{linenumber}\n#{e}\n"
     end
     self
   end
-  def write 
+  def save 
+    unless @destination
+      puts "skipped #{@source}"
+      return self 
+    end
+    require 'yaml'
     File.open(@destination, 'w') do |file|
-      file.puts "---".encode("UTF-8")
-      @yaml.each do|key_value|
-        k, v = key_value
-        v = "\"#{v}\"" if v =~ /[:.]/
-        file.puts(("%s: %s" % [k, v]).encode("UTF-8"))
-      end
+      file.puts(YAML.dump(@yaml).encode("UTF-8"))
       file.puts "---".encode("UTF-8")
       @savedlines.each {|line| file.puts line.encode("UTF-8")}
     end
-    puts @destination
     self
   end
   private
@@ -39,11 +44,12 @@ class FSM
   end
   def head
     case @currentline
+    when /<\!DOCTYPE html PUBLIC/i
+      nextstate(:ignore)
     when /<meta http-equiv="Content-Type" .*charset=([\w\-]+)/i
-      @yaml['charset'] = $1
-
+      @yaml['charset'] = 'UTF-8'
     when %r{<title>(.*) .thinair.</title>}
-      @yaml['title'] = $1
+      @yaml['fulltitle'] = $1
     when /<div class="article">/
       saveline
       nextstate(:savepubdate)
@@ -72,10 +78,10 @@ task :import do
 end
 
 desc "create jekyll-named posts from html files in imported directory"
-task :write_posts do
+task :save_posts do
   FileList['imported/thinair/*/*/*html']
     .exclude(/\/(index|\d+).html$/).each do |source|
-    FSM.new(file).parse.write
+    FSM.new(source).parse.save
   end
 end
 
@@ -84,8 +90,8 @@ task :copy_static do
   copy_file = proc {|source|
       destination = source.gsub('imported', 'jekyll')
       dir = File.dirname(destination)
-      #mkdir_p directory
-      puts "cp_r #{source}, #{dir}"
+      mkdir_p dir
+      cp_r source, dir
   }
   FileList['imported/thinair/*/*/*'].exclude(/.html$/)
     .add('imported/*')
@@ -103,23 +109,6 @@ desc "generate site with jekyll"
 task :jekyll do
   chdir "jekyll"
   sh "jekyll"
-end
-
-desc "ensure posts are encoded in UTF-8"
-task :encode_utf8 do
-  FileList['jekyll/_posts-iso-8859-1/*html'].each do |source|
-    destination = source.gsub('-iso-8859-1','')
-    content = File.read(source)
-    unless content.valid_encoding?
-      content.force_encoding("ISO-8859-1");
-    end
-    unless content.encoding.name == "UTF-8"
-      content.encode!("UTF-8")
-    end
-    content = content
-      .gsub('charset: iso-8859-1', 'charset: UTF-8')
-      .gsub('title: ', 'fulltitle: ')
-    
-    File.open(destination, 'w').write(content)
-  end
+  chdir ".."
+  cp 'imported/.htaccess', 'jekyll/_site'
 end

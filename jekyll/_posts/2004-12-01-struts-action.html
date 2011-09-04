@@ -1,0 +1,45 @@
+--- 
+layout: default
+charset: UTF-8
+fulltitle: Teasing apart Struts Actions
+posted: 2004-12-01T01:00:46
+---
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2004/12/struts-action.html">Teasing apart Struts Actions</a></h1>
+<div class="time 2004-12-01T01:00:46 pubdate meta">Wednesday 01 December 2004 at 01:00 </div>
+<p><a href="http://struts.apache.org">Struts</a> has huge market share in the web development world.  Most Java web app developers start with Struts.  It shapes the way we think about web applications.  That would be fine except &lt;action-mappings&gt; in struts-config.xml is mixing concerns.  I have whined about this before, but maybe this time I can explain myself.</p>
+
+<p>Credit to Kris Thompson for showing more symptoms of the problem.  In <a href="http://jroller.com/page/quadzilla/20040531#front_page_controller_suggestion">Front Page Controller suggestion</a> he presents two patterns and proposes a combination:</p>
+
+<blockquote><p>This pattern is really a mixture of the two patterns, that being Page Controller and Front Controller. For those familiar with Webwork the Action Tag is a perfect example of it. With the action tag you can call an Action class in a <span class="caps">JSP</span> file instead of having the typical manner of having the Action forward to the <span class="caps">JSP.</span><br />
+ <br />
+This pattern is great for presentation Action classes. Presentation action classes are those classes that exist just to prepare the context (request/session) for the <span class="caps">JSP</span> to load. It is easy to find these types of classes because they usually aren&#39;t called by a form and they only have one expected happy path forward By using this pattern I navigate directly to the <span class="caps">JSP</span> without having to navigate through an Action class. The strength of the Front Controller pattern is dynamic navigation so if you only have one expected positive outcome from a class then where is the need for the <span class="caps">FC</span> pattern?</p></blockquote>
+
+<p>Kris has come up with two names, and proposes a third, to describe different kinds of Actions.  The need for these different names is a symptom of the mixed concerns.  <span class="caps">N. </span>Alex Rupp gets pretty close in his outline of the concerns of a web application in <a href="http://today.java.net/pub/a/today/2004/01/27/wars.html">WARS Architectural Style</a>.</p>
+
+<blockquote><ol><br />
+  <li>Application <em>State</em> components that maintain the incoming data.</li><br />
+  <li><em>Action</em> components that can alter the <em>State</em>.</li><br />
+  <li><em>Workflow</em> components that decide the order in which <em>Action</em> objects execute.</li><br />
+  <li><span class="caps">A </span><em>Representation</em> subsystem to limit the complexity of the State for component developers by restructuring or &quot;pre-chewing&quot; the state to make it more intuitive for component developers.</li><br />
+</ol></blockquote><p>There&#39;s business data that we need to be able to look at in different ways and we need to create, update or delete data over time.  State is a great way to describe this pile of data.  Our application manages the changes in this State.  For the sake of this discussion, I&#39;m going to steer away from using the word &#39;Action&#39;.  Instead, let&#39;s say a Handler encapsulates the behavior which changes the pile of data.  The Workflow maps a key part of the business logic: which changes are allowed under what conditions.</p>
+
+<p>Put another way, our application is a state machine.  The Workflow maps constraints in the business model, and Handlers are the transitions from one State to the next.</p>
+
+<p>But there are actually two Workflows and I&#39;m going to need another term to distinguish them.  The Representation has a workflow of its own.  Here&#39;s an example.  Browsing the local library&#39;s online catalog, I search for books by title.  The results are a list of books with titles similar to my search criteria.  I click on the author of one book and get a list of the books by that author.  I click on the column headings to sort the books by publication date or by title.  All of these things fit within a workflow of sorts but do not change the state of the data in the catalog.  I haven&#39;t created, updated, nor deleted any books in the catalog, I&#39;ve only looked at different slices of that catalog.  Let Workflow describe the allowed changes in the data itself, and let Navigation describe the paths I can take through the various views of that data.</p>
+
+<p>In Struts an Action described in &lt;action-mappings&gt; can be Workflow, Navigation, Handler, or some combination thereof.  Then there are Kris&#39; different kinds of Actions which probably overlap some with the concerns I outline.  Many web developers are so accustomed to thinking of Actions that they may not recognize just how many things are going on in there.</p>
+
+<p>One thing <span class="caps">JSF</span> has gotten right is separating the configuration of the Navigation from the configuration of the Workflow, as I mentioned last year in <a href="http://dobbse.net/thinair/2003/10/000150.html">State Machines, JavaServer Faces, bOP, and Rethinking the V in MVC</a>.  For the record, <a href="http://jakarta.apache.org/turbine/">Turbine</a> also gets this right by specifying the template and the action separately in the <span class="caps">URL.</span></p>
+
+<p>I&#39;m not quite satisfied with the breakdown I&#39;ve outlined.  For starters, I&#39;m not entirely sure where I would put form validation.  It&#39;s clearly a crucial aspect of web application development.  It touches Navigation &#39;cos bad input needs to bounce the user back to the form with meaningful error messages.  It touches Handlers and Workflow because I want valid data before I change the data saved in the database.</p>
+
+<p>Even so, &lt;action-mappings&gt; definitely blurs the picture in a bad way.</p>
+
+</div>
+
+<div class="section comments"><a name="comments"></a>
+
+</div>
+
+

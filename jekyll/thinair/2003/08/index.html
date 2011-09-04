@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>August 2003 (thinair)</title>
+<link rel="alternate" type="application/rss+xml" title="thinair feed" href="http://dobbse.net/index.rdf" />
+<link rel="stylesheet" href="http://dobbse.net/style.css" type="text/css" />
+<link rel="start" href="http://dobbse.net/" title="Home" />
+<link rel="prev" href="http://dobbse.net/thinair/2003/07/index.html" title="July 2003" />
+
+<link rel="next" href="http://dobbse.net/thinair/2003/09/index.html" title="September 2003" />
+
+</head>
+<body>	
+
+<div class="header">
+<h1><a href="/">thinair</a></h1>
+<div class="hgroup">
+<h2 class="first">Boulder, Colorado</h2>
+<h2>elevation 5400 feet</h2>
+<h2>your guide: Eric Dobbs</h2>
+</div>
+</div>
+
+
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2003/08/spam-virus-symbiosis.html">Is Sobig your handiwork, you disreputable spammer?</a></h1>
+<div class="time 2003-08-26T21:47:19 pubdate meta">Tuesday 26 August 2003 at 21:47 </div>
+<p>Did <a href="http://dobbse.net/thinair/2003/08/000131.html">You vile spammers</a> create Sobig specifically to enable more spam?  If so <a href="http://asia.cnet.com/newstech/security/0,39001150,39148186,00.htm">the FBI is onto your horrendous, criminal scheme</a></p>
+
+<blockquote><p>The Sobig viruses--the first of which was created in January--are thought to be created as a moneymaker. The viruses turn every infected <span class="caps">PC</span> into an &quot;open proxy,&quot; or a system that can be used to send spam. Security experts believe that the programmers of Sobig sell the list of open proxies to underground bulk e-mailers that need to send anonymous e-mail.</p></blockquote>
+
+</div>
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2003/08/sobig-f.html">How to stop the next mutation of Sobig.F</a></h1>
+<div class="time 2003-08-26T20:02:39 pubdate meta">Tuesday 26 August 2003 at 20:02 </div>
+<p>Mixed in with the spam bounces from <a href="http://dobbse.net/thinair/2003/08/000131.html">some vile spammer</a> I'm also getting bounces originating from Sobig F along with lots of mail with attached .pif files.  I know how to stop it.  (spread the word :-)</p>
+
+<p>According to <a href="http://securityresponse.symantec.com/avcenter/venc/data/w32.sobig.f@mm.html">Symantec's security response for Sobig.F</a>
+
+<blockquote><p>Sobig.F can download arbitrary files to an infected computer and execute them. The author of the worm has used this functionality to steal confidential system information and to set up spam relay servers on infected computers.</p>
+ 
+<p>This functionality may also be used as a worm self-update feature. Under the correct conditions, Sobig.F attempts to contact one of the list of master servers, which the author of the worm controls. Then, the worm retrieves a URL that it uses to determine where to get the Trojan file, downloads the Trojan file to the local computer, and then executes it.</p></blockquote>
+
+<p>There are 20 specific computers on the net which Sobig.F will contact to determine the URL of a file to download.  Last week the antivirus community shutdown the 20 servers before any additional damage could be done.  But it didn't take long for some bad guy to introduce <a href="http://www.infoworld.com/article/03/08/26/Time%20Warner%20Telecom%20may%20be%20next%20Sobig.F%20target%20(IDGNS)_1.html">a variant of Sobig.F</a> which addresses this weakness.</p>
+
+<blockquote><p>The new Sobig.F variant contains an encrypted list of the names of seven servers operated by Time Warner Telecom (TWT)... Two of the servers are SMTP ... servers, ... the other five [are] apparently domain name servers.</p></blockquote>
+
+<p>I substantially snipped that quote to draw attention to the use of SMTP and especially DNS.  The new strain no longer hard-codes the ip addresses of a finite number of servers.  Instead it's hard-coded seven domain names.  It implies there will be secondary attacks where the bad guys will crack DNS servers, or more likely Active Directory servers, so that they can control the IP addresses that are mapped to the Time Warner domain names.</p>
+
+<p>The bad guys are breeding a virus that actively looks for mutations of itself.  That ought to scare the hell out of you.</p>
+
+<p><strong>Here's how to stop it.</strong> Sobig is looking to download and execute code from some server.  The mutations are playing games to allow the bad guys to control where that server is.  Use their own code against them.  Change your DNS servers to point the Time Warner addresses (with my apologies to Time Warner)  to a server you control.  Put a Sobig uninstaller there and let the viruses dutifully remove themselves from the infected systems.<p>
+
+<p><strong>That won't be the end of it.</strong>  Viruses and immune systems evolve together.  Every mutation in one creates selective pressures on the other.  This process will continue indefinitely and we are going to see some truly nasty viruses in the future.  <a href="http://weblog.infoworld.com/udell/2003/08/22.html#a779">Microsoft might now be genuinely concerned about tightening their security</a>, but the world is still going to be suffering the consequences of their many years of monopoly laziness for a long time to come.</p>
+
+<p>The best hope we have to limit the damage future viruses can cause is to rebuild our computer world with diverse operating systems and software.  The Windows mono-culture is enormously vulnerable, both for its size and for Microsoft's past sins.  The more Windows users who switch to any other operating system the better.  We can pretty much count on the fact that not everyone is going to switch.  So there's little danger that some other OS will take Window's place.  Optimistically, if Windows were only 30% of the market with Solaris, Mac OS, Linux, FreeBSD, OpenBSD, and others splitting the rest of the market, we'd be in a much better position as far as viruses are concerned.</p>
+
+<p>Here's an incentive to you reluctant Windows users: you can switch today and live in a much less hostile computing ecosystem.</p>
+
+</div>
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2003/08/vile-spammer.html">You Vile Spammer</a></h1>
+<div class="time 2003-08-22T09:15:54 pubdate meta">Friday 22 August 2003 at 09:15 </div>
+<p>Not only have you imposed your marketing scam on an enormous list of uninterested recipients, you&#39;ve presented yourself as <span class="caps">ME,</span> you slimey, wicked, cowardly impostor!  You are twice despicable for each vulgar message you send: once for your selfish imposition on the recipient and once for the bounced replies to me.  You may evade the direct consequences but you cannot evade the fact of your abusive, devious, shady, swindling character.  You draw to yourself the same that you deal out.  Your own villainy will gnaw you to the marrow of your bones.</p>
+
+</div>
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2003/08/master-apprentice-staff.html">The Master, The Apprentice, and The Staff (whap) "Ouch!"</a></h1>
+<div class="time 2003-08-11T16:13:11 pubdate meta">Monday 11 August 2003 at 16:13 </div>
+<p>Master: What is this I hold before you in my hand?</p>
+
+<p>Apprentice: It is a staff, Master.</p>
+
+<p>Master: Correct.  But wrong.  (whap) <em>hits the apprentice on the arm</em></p>
+
+<p>Apprentice: Ouch!</p>
+
+<p>Master: What is this I hold before you in my hand?</p>
+
+<p>Apprentice: It is four feet long and made of wood, Master.</p>
+
+<p>Master: Correct.  But wrong.  (whap) <em>hits the apprentice on the thigh</em></p>
+
+<p>Apprentice: Ouch!</p>
+
+<p>Master: What is this I hold before you in my hand?</p>
+
+<p>Apprentice: It is a walking stick, carved from the limb of an ancient tree and given to you by your Master.</p>
+
+<p>Master: Correct.  But wrong.  (whap) <em>hits the apprentice on the arm</em></p>
+
+<p>Apprentice: Ouch!</p>
+
+<p>Master: What is this I hold before you in my hand?</p>
+
+<p>Apprentice: It is a collection of molecules, atomic particles, and sub-atomic particles bound together by various energies and wielded as used to aid walking or as a weapon.</p>
+
+<p>Master: Correct.  But wrong.  (whap) <em>sweeps the legs out from under the Apprentice</em> (thud)</p>
+
+<p>Apprentice: Ouch! <em>gets back on his feet</em></p>
+
+<p>Master: What is this I hold before you in my hand?</p>
+
+<p>Apprentice: It is an extension of your body, Master.</p>
+
+<p>Master: Correct.  But wrong.  (whoosh)</p>
+
+<p>Apprentice: <em>ducks the master&#39;s shot to the head</em></p>
+
+<p>Master: Excellent!  What is this I hold before you in my hand?</p>
+
+<p>Apprentice: Painful, Master.</p>
+
+<p>Master: Correct.  But wrong.  (whoosh)</p>
+
+<p>Apprentice: <em>jumps over a sweeping attack at the legs</em></p>
+
+<p>Master: Excellent!  What is this I hold before you in my hand?</p>
+
+<p>Apprentice: I do not know, Master.</p>
+
+<p>Master: Then you must study it more closely.  <em>hands it to the Apprentice and exits</em></p>
+
+<p>No description or label can capture the wholeness of the instrument held in the master&#39;s hand.  Words are a flashlight in a dark cavern.  They illuminate one small spot and cast the rest into shadow.</p>
+
+<p><em>You are in dark.  You are likely to be eaten by a grue.</em></p>
+
+</div>
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2003/08/sarah-has-geek-potential.html">I might have to marry her again</a></h1>
+<div class="time 2003-08-07T22:06:27 pubdate meta">Thursday 07 August 2003 at 22:06 </div>
+<p>A few weeks ago, Sarah and I were talking about our respective days when she suddenly changed the subject.  &quot;Oh!&quot;  By her facial expression I could tell she was remembering something fun.  &quot;What do you think about wikis?&quot;  She asked with a mischievous grin, catching me completely by surprise.  She was pretty proud of herself for springing something unquestionably geeky that she didn&#39;t hear about first from me.  She&#39;d heard <a href="http://discover.npr.org/features/feature.jhtml?wfId=1344426">an article about wikis on All Things Considered</a>.  I told her a little about <a href="http://c2.com/cgi/wiki?WardCunningham">Ward Cunningham</a> and the <a href="http://c2.com/cgi/wiki">c2 wiki</a> and connected a few dots to past conversations about <a href="http://www.extremeprogramming.org/">Extreme Programming</a>.</p>
+
+<p>Last night, I was telling Sarah about a new requirement I learned about at work.  She nodded knowingly and with a gleam said &quot;dontcha just hate scope creep?&quot;  I keep telling her that she&#39;s got geek potential, but she coyly denies it.</p>
+
+<p>This weekend we&#39;re celebrating our first anniversary.  It&#39;s been a turbulent year.  We honeymooned in Nova Scotia. Shortly after our return I was laid off from PlanetCAD. She nearly abandoned but ultimately finished her masters thesis in December, thanks in large part to organizational and motivational help from her friend Emily.  We spent a couple weeks in New Zealand in February with her mom, brother and sister-in-law -- thanks Mom!  It&#39;s hard to believe this is the first I&#39;ve blogged that.  The <span class="caps">US</span> invaded Iraq.  After seven months of unemployment, I landed a contract with the City and County of Denver in April.  Just this month, renewal of that contract has been held up by predictable delays under the city&#39;s new administration.  We&#39;ve just moved back into my condo.  It is really too small for us but radically less expensive than the place we were renting.  Ellie, Sarah&#39;s sweet pit bull, has to move because the home owners association forbids dogs.  They&#39;ve kindly granted a two week exception while we make other arrangements.  Someday soon we&#39;ll be looking for a house with a yard so Ellie can move back.</p>
+
+<p>Happily, through all of these external stresses we&#39;ve nourished each other and our relationship in all sorts of wonderful ways.  How completely blessed I am!</p>
+
+</div>
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2003/08/please-fail-fast.html">LAUNCHcast doesn't work with OS X (aka please fail early)</a></h1>
+<div class="time 2003-08-05T17:34:59 pubdate meta">Tuesday 05 August 2003 at 17:34 </div>
+<p>My brother has been enjoying <a href="http://launch.yahoo.com/">LAUNCHcast</a> since before Yahoo! bought them.  He reminded me about it today.  After <span class="caps">DSL</span> came up I went to check it out.  How truly annoying!</p>
+
+<p>Hello Support at <span class="caps">LAUNC</span>Hcast.</p>
+
+<p>This service is pretty unfriendly to Mac <span class="caps">OS X</span> users.  The form for customizing a radio station cannot be submitted with either Safari 1.0 (v85) or Mozilla Firebird 0.6.  The links to existing stations claim to be &quot;Launching your radio player&quot; and never do anything.  In Internet Explorer 5.2 the custom form can be submitted.  Only with <span class="caps">IE</span> and only after completing the form do I see a message that <span class="caps">OS X</span> is not supported.</p>
+
+<p>I filled out <a href="http://launch.yahoo.com/launchcast/setup.asp">the dang form</a> three times only to learn that I have to pay the Microsoft tax to enjoy your service.  It&#39;s a long form.  At the very least your site should notify <span class="caps">OS X</span> users <em>before they complete the form</em> that you don&#39;t support the platform.  You could also make it self-evident that your service depends on Window Media Player.  The link to the <a href="http://help.yahoo.com/help/us/launch/cast/cast-01.html">LAUNCHcast system requirements</a> it too deeply nested.</p>
+
+<p>Thanks for wasting my time.</p>
+
+<p>ps.  <a href="http://add.yahoo.com/fast/help/us/launch/cgi_feedback">Your feedback form</a> requires that I tell you which Windows Media Player I&#39;m using.  Since I&#39;m not actually using Window Media Player, please disregard that part of my reply.</p>
+
+</div>
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2003/08/indras-net-rocks.html">Ahh... bandwidth.  (thanks Matt and Indra's Net)</a></h1>
+<div class="time 2003-08-05T16:33:39 pubdate meta">Tuesday 05 August 2003 at 16:33 </div>
+<p>This morning I spent some time on the phone with <a href="http://www.indra.com/about/matt.html">Matt</a> at <a href="http://www.indra.com/">Indra&#39;s Net</a> trying to get my <span class="caps">DSL</span> activated.  It didn&#39;t go smoothly, but I&#39;m still very happy with my <span class="caps">ISP.  DSL</span> is up!</p>
+
+<p>I like Indra&#39;s Net.  Real human beings answer the phone -- no voice menu.  Everyone I&#39;ve ever spoken with has been genuinely courteous: not artificially sweetened, and not formulaic, and never rude nor impatient.  In this particular case Qwest had not scheduled my service to be installed until tomorrow.  We would have saved several phone calls if Matt had noticed that detail earlier.  I appreciate that he was honest about that mistake.  He didn&#39;t blame Qwest and didn&#39;t make any other excuses.</p>
+
+<p>A couple hours later he made the extra effort to call me back when he noticed my line come up.  Qwest finished their work early.  Qwest gets credit too, but Matt made a point of calling me back.  In fact, it seems likely that the calls we made to Qwest moved me up their queue.  So it may not have been smooth, but I&#39;ve got bandwidth a day early.</p>
+
+<p>Yippie!</p>
+
+</div>
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2003/08/spam-vs-chain-letters.html">Has spam killed chain mail?</a></h1>
+<div class="time 2003-08-01T09:23:19 pubdate meta">Friday 01 August 2003 at 09:23 </div>
+<p>Just noticed that I haven&#39;t seen a chain letter in months.  No <a href="http://www.npr.org/about/urbanmyth.html">NPR funding myth</a>, no <a href="http://hoaxbusters.ciac.org/HBMalCode.shtml">bogus virus warnings</a>, no warnings to send this to five friends or <a href="http://www.umsl.edu/~rbanis/hoaxes.htm">Bad Things will happen</a>.</p>
+
+<p>I&#39;m not sure I&#39;m happy with the change.  But I think the spam meme has drown the chain letter meme, at least for my inbox.</p>
+
+<p>Please note:  this is <strong>not</strong> an invitation to send me chain letters!</p>
+
+</div>
+
+
+<div class="nav">
+<ol>
+<li>Archives
+  <ol>
+    <li><a href="http://dobbse.net/thinair/2011/01/index.html">January 2011</a></li>
+    <li><a href="http://dobbse.net/thinair/2010/12/index.html">December 2010</a></li>
+    <li><a href="http://dobbse.net/thinair/2010/09/index.html">September 2010</a></li>
+    <li><a href="http://dobbse.net/thinair/2010/08/index.html">August 2010</a></li>
+    <li><a href="http://dobbse.net/thinair/2010/06/index.html">June 2010</a></li>
+    <li><a href="http://dobbse.net/thinair/2010/02/index.html">February 2010</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/10/index.html">October 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/09/index.html">September 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/07/index.html">July 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/05/index.html">May 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/03/index.html">March 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/02/index.html">February 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2009/01/index.html">January 2009</a></li>
+    <li><a href="http://dobbse.net/thinair/2008/12/index.html">December 2008</a></li>
+    <li><a href="http://dobbse.net/thinair/2008/09/index.html">September 2008</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/10/index.html">October 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/09/index.html">September 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/08/index.html">August 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/06/index.html">June 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/04/index.html">April 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/03/index.html">March 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2007/01/index.html">January 2007</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/12/index.html">December 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/11/index.html">November 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/10/index.html">October 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/09/index.html">September 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/08/index.html">August 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/07/index.html">July 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/06/index.html">June 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/04/index.html">April 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2006/02/index.html">February 2006</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/12/index.html">December 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/10/index.html">October 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/06/index.html">June 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/05/index.html">May 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/04/index.html">April 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/03/index.html">March 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2005/02/index.html">February 2005</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/12/index.html">December 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/11/index.html">November 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/10/index.html">October 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/09/index.html">September 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/08/index.html">August 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/07/index.html">July 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/06/index.html">June 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/05/index.html">May 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/04/index.html">April 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/03/index.html">March 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/02/index.html">February 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2004/01/index.html">January 2004</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/12/index.html">December 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/11/index.html">November 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/10/index.html">October 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/09/index.html">September 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/08/index.html">August 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/07/index.html">July 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/06/index.html">June 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/05/index.html">May 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/04/index.html">April 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/03/index.html">March 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/02/index.html">February 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2003/01/index.html">January 2003</a></li>
+    <li><a href="http://dobbse.net/thinair/2002/12/index.html">December 2002</a></li>
+    <li><a href="http://dobbse.net/thinair/2002/11/index.html">November 2002</a></li>
+    <li><a href="http://dobbse.net/thinair/2002/10/index.html">October 2002</a></li>
+    <li><a href="http://dobbse.net/thinair/2002/09/index.html">September 2002</a></li>
+    <li><a href="http://dobbse.net/thinair/2001/01/index.html">January 2001</a></li>
+
+  </ol>
+</li>
+
+<li>Around
+  <ol class="wide">
+    <li><a href="http://dobbse.net/thinair/2003/07/index.html">&laquo; July 2003</a></li>
+
+    <li><a href="http://dobbse.net/thinair/2003/09/index.html">&raquo; September 2003</a></li>
+
+  </ol>
+</li>
+
+</ol>
+</div>
+<div class="footer meta">
+All content &copy; 2001-2011  Eric Dobbs unless otherwise noted.  All rights reserved.
+</div>
+
+</body>
+</html>

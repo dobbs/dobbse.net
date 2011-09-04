@@ -1,0 +1,109 @@
+--- 
+layout: default
+charset: UTF-8
+fulltitle: C++ lessons and Rob's implicit vs. explicit coupling
+posted: 2005-03-23T21:08:34
+---
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2005/03/coupling.html">C++ lessons and Rob's implicit vs. explicit coupling</a></h1>
+<div class="time 2005-03-23T21:08:34 pubdate meta">Wednesday 23 March 2005 at 21:08 </div>
+<p><style type="text/css">pre {padding-left: 2em;}</style></p>
+
+<p>I ranted about build problems earlier: <a href="http://dobbse.net/thinair/2005/02/two-step.html">one step forward, two steps back</a>.  Sometimes taking two steps back can let you see things you couldn&#39;t see when you were standing closer.  Here are few things that seem notable on my little journey into C++.</p>
+
+<p>I found this outline I found helpful in explaining <a href="http://users.actcom.co.il/~choo/lupg/tutorials/c-on-unix/c-on-unix.html#compilation_steps">what a C compiler is doing and why I should have to care about linking</a> at all.  Without linking you don&#39;t get an executable file at all.</p>
+
+<p>Today this notation confused me:</p>
+
+<pre>
+double *data;
+...
+for (i=0; i&lt;3; i++) {
+    for (j=0; j&lt;3; j++) {
+         *(data+i*3+j) = 10*i + j;
+    }
+}
+</pre><p>From the context I knew it was creating a three-by-three matrix.  But the syntactic mechanics were unclear.  In particular:</p>
+
+<pre>
+*(data+i*3+j) = ...
+</pre><p>I pulled one of Rob&#39;s books from the shelves at work, C++ Primer, 2nd Edition by Lippman.  I flipped to the index as I almost always do with computer books.  I learned some things.  *foo is how you dereference a pointer.  A perl analog would be dereferencing a reference: $$foo.  *(expr) lets you treat the result of expr as a pointer.  *(expr) = 10 puts the value 10 into that address in memory.  Somewhat mind-bending, &quot;the pointer and array notation are equivalent.&quot; [Lippman p. 46]</p>
+
+<pre>
+char buf[8] = &quot;abcdefg&quot;;
+buf[0] == *buf == &#39;a&#39;;
+</pre><p>So that&#39;s pointer math.  <code>*(data+i*3+j)</code>.  I&#39;ve heard about pointer math in other contexts and understood it conceptually.  Pointer math is that thing that programmers get wrong more often than not.  It&#39;s considered a virtue of java and perl and many other languages that you can&#39;t do pointer math.  Mistakes in pointer math are exploited by crackers, for example buffer overflow exploits.  Long story short, about everything I&#39;ve heard about pointer math has been shrouded in fear and doom.</p>
+
+<p>Don&#39;t go there.  That&#39;s a really bad part of town.  You&#39;ll probably get hurt.</p>
+
+<p>Now that I&#39;ve got an example to chew on, I think I understand what they mean when they say &quot;C lets you get closer to the metal&quot;.  I&#39;ve always felt these gaps in my knowledge about how computers do what they do.  There&#39;s something very satisfying about having those gaps gradually colored-in.</p>
+
+<p>The <code>*(data+i*3+j)</code> thing was still bugging me.  A two dimensional matrix is supposed to look like this: <code>data[i][j]</code>.  Lippman tells me these two forms are equivalent, but the latter looks two dimensional where the former looks one dimensional.  I drew a little number line, and broke it into three sets of three to convince myself that the two were equivalent.</p>
+
+<pre>
+ 0  1  2  3  4  5  6  7  8
+ +--+--+--+--+--+--+--+--+
+ i=0      i=1      i=2
+</pre><p>Then there was the question of units.  Its multiplying i by 3, but three of what?  Then i remembered about strong typing.  The compiler knows that data points to a double.  The units must doubles.</p>
+
+<p>Although I was sure I had this right, I asked Rob to confirm it.  I&#39;m glad I asked.  I learned a useful visualization trick, some vocabulary, and got another window into one of his pet peeves.</p>
+
+<p>Rob got out a piece of graph paper and drew this:</p>
+
+<pre>
+       +------+------+------+
+   =6  |      |      |      |
+       +------+------+------+
+   =3  |      |      |      |
+       +------+------+------+
+i*3=0  |      |      |      |
+       +------+------+------+
+         j=0      =1     =2
+</pre><p>Then Rob started on a rant. &quot;This is really bad.  There&#39;s all this implicit coupling.  You have to know if it&#39;s row-major or column-major?  And there&#39;s three, three, three.  And the nested for-loops.&quot;  From the context I figured out what row-major and column-major mean.  I thought to myself, &quot;Of course.  If you&#39;re working with these very bare abstractions you need some language to describe the common problems.&quot;  Let&#39;s look at the code again.</p>
+
+<pre>
+    double *data;
+    ...
+    for (i=0; i&lt;3; i++) {
+        for (j=0; j&lt;3; j++) {
+             *(data+i*3+j) = 10*i + j;
+        }
+    }
+</pre><p>Which index gets multiplied by three?  Should it be <code>*(data+i*3+j)</code> or <code>*(data+i+j*3)</code>.  One is row-major and the other is column-major.  But it probably depends on how you label the axes on your graph.  It also depends on how you choose to nest the for-loops.  If you change any one of the threes to something else you have to just know to change the rest of them too.  The for-loops, the variable names, the pointer expression, and the structure in memory are all coupled.  In this little chunk of code these seem like pretty trivial complaints.  But you&#39;re building this data for a reason.  That means there&#39;s some other pile of code that has to have the correct order of the i&#39;s and j&#39;s and has to use threes and has to nest the loops the same way.  Any code that gets passed this structure gets implicitly coupled to all the other code using this structure.</p>
+
+<h3>Implicit vs. Explicit coupling</h3>
+
+<p>To paraphrase Rob&#39;s coupling rant, there is always going to be coupling in your code.  Implicit coupling is always bad.  Explicit coupling may or may not be bad, but at least you know it&#39;s there.</p>
+
+<p>I think Rob would consider the following to be more explicit about it&#39;s coupling.</p>
+
+<pre>
+int MATRIX_ROWS=3, MATRIX_COLS=3;
+double *matrix;
+...
+for (row=0; row&lt;MATRIX_ROWS*MATRIX_COLS; row += MATRIX_COLS) {
+    for (col=0; col&lt;MATRIX_COLS; col++) {
+        *(matrix+row+col) = 10*(row/MATRIX_COLS) + col;
+    }
+}
+</pre><p>Of course, I&#39;d also expect Rob to say something like, &quot;Why don&#39;t you just use perl?  Then you can do this to build your matrix:&quot;</p>
+
+<pre>
+my($matrix) = [
+   [qw( 0  1  2)],
+   [qw(10 11 12)],
+   [qw(20 21 22)],
+];
+</pre><p>And you can index into it like this:</p>
+
+<pre>
+$cell = $matrix[$row][$col];
+</pre><p>Isn&#39;t that a more natural way to express operations on a matrix?</p>
+
+</div>
+
+<div class="section comments"><a name="comments"></a>
+
+</div>
+
+

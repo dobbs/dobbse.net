@@ -1,0 +1,32 @@
+--- 
+layout: default
+charset: UTF-8
+fulltitle: State Machines at PlanetCAD
+posted: 2003-09-30T22:40:26
+---
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2003/09/fsm-planetcad.html">State Machines at PlanetCAD</a></h1>
+<div class="time 2003-09-30T22:40:26 pubdate meta">Tuesday 30 September 2003 at 22:40 </div>
+<p><a href="http://dobbse.net/thinair/2003/09/000140.html">State Machines</a> part one</p>
+
+<p>At the heart of PlanetCAD&#39;s <span class="caps">SCS </span>Envoy was a workflow engine cast as a finite state machine.  It was responsible for managing the automated processing of <span class="caps">CAD</span> models through a farm of job servers.</p>
+
+<p>At the time I wrote that engine I started to see workflow and state machines everywhere.  I spent some time looking at the <a href="http://cvs.apache.org/viewcvs/jakarta-commons-sandbox/workflow/">Jakarta Commons Workflow</a> in the Commons sandbox.  It was structurally similar to Envoy&#39;s workflow engine, but it was intended to operate at a completely different level -- managing multi-page forms (aka wizards) in a web application.  I was also in on some early discussions with <a href="http://blogs.werken.com/people/bob/">Bob McWhirter</a> as he was starting <a href="http://werkflow.codehaus.org/">Werkflow</a> .</p>
+
+<p>Anyway, we were expecting to see Envoy evolve into a system that also structured some of the business workflows.  Think of how paper forms in triplicate flow through a traditional business process.   Many of the organizations which are working with three dimensional models also have heavily structured processes which might lend themselves to electronic augmentation.</p>
+
+<p>At the time I put <em>workflows</em> into three categories.  The automated back-end processing that was happening in Envoy, the wizard interfaces in web applications, and the larger business process itself.</p>
+
+<h3>Pattern Zealotry</h3>
+
+<p>When I was building Envoy&#39;s workflow engine I was finally groking design patterns.  I was razzed by the other developers on the team for trying to find yet another place to use a pattern.  No question, I was intoxicated by patterns and was trying hard to shoehorn them into our system anywhere I could.  They were right to push back against my zealotry so only those patterns with solid rationale would actually make it into the system.</p>
+
+<p>Their razzing made me seriously second guess myself about all the places I was seeing &quot;workflows&quot;.  Was it just youthful enthusiasm?  Or were there really all these different applications for workflow?</p>
+
+</div>
+
+<div class="section comments"><a name="comments"></a>
+
+</div>
+
+

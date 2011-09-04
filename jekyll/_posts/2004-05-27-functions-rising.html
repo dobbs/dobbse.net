@@ -1,0 +1,53 @@
+--- 
+layout: default
+charset: UTF-8
+fulltitle: Functions rising
+posted: 2004-05-27T09:31:00
+---
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2004/05/functions-rising.html">Functions rising</a></h1>
+<div class="time 2004-05-27T09:31:00 pubdate meta">Thursday 27 May 2004 at 09:31 </div>
+<p><em>I begin with three non-sequiturs.</em></p>
+
+<ul><li>The closures meme seems to be spreading thanks in large part to Python, Jython, Ruby, Groovy and JavaScript (<a href="http://www.sitepoint.com/blog-post-view.php?id=171578">Simon&#39;s article on closures in JavaScript</a> and from comments therein, this <a href="http://w3future.com/html/stories/hop.xml">article about functional programming</a> and this <a href="http://w3future.com/html/orgcharts.html">cool example which makes use of closures</a> got me started tonight).</li>
+<li>Am I just more aware of functional programming thanks to <a href="http://dobbse.net/thinair/2004/01/000162.html">my recent study of On Lisp</a>?  Or am I witnessing a fashion shift in popular programming techniques?</li>
+<li><a href="http://www.ai.mit.edu/~gregs/ll1-discuss-archive-html/msg04045.html">Guy Steele recently defended his work on Java</a> &quot;we were after the C++ programmers.  We managed to drag a lot of them about halfway to Lisp.  Aren&#39;t you happy?&quot;</li>
+</ul>
+
+<p><em>Can I weave them into a coherent story?</em></p>
+
+<p>I have an imaginary origin for <a href="http://groovy.codehaus.org/">Groovy</a>, whether or not it actually happened this way in reality.  First, I need to set the stage.  I&#39;ve been lurking around <a href="http://radio.weblogs.com/0112098/">James Strachan</a> and <a href="http://blogs.werken.com/people/bob/">Bob McWhirter</a> since meeting them through <a href="http://blogs.codehaus.org/people/jvanzyl/">Jason van Zyl</a> and <a href="http://jakarta.apache.org/turbine/">Turbine</a> and <a href="http://maven.apache.org/">Maven</a>.  I&#39;ve been subscribed to James&#39; and Bob&#39;s blogs since I started blogging.  In fact, James introduced me to the blogsphere, both because it was his blog I read first and because he was among the first to blogroll mine (thanks, James, on both counts).</p>
+
+<p>When I met James he was developing <a href="http://jakarta.apache.org/commons/jelly/">Jelly</a>.  Around that time Jelly replaced Ant at the heart of Maven.  In those very early days of Maven, I remember Bob complaining somewhat loudly about programming in <span class="caps">XML.  </span>Also at that time Jason was evangelizing <a href="http://avalon.apache.org/">Avalon</a>, Inversion of Control, and also Aspect-Oriented Programming.  Coincidentally I was introduced to Jython at about the same time by <a href="http://www.technicalpursuit.com/company_people.html">Scott Shattuck</a>, with whom I was working at PlanetCAD.  Jython led me to python.  Python and blogs lead to <a href="http://roughingit.subtlehints.net/pyblosxom/">PyBlosxom</a> (<a href="http://roughingit.subtlehints.net/pyblosxom/weblogs/tools/pyblosxom/PyBlosxom_1_0_released_.html">PyBlosxom just released version 1.0</a>) <a href="http://dobbse.net/thinair/2003/10/000148.html">A lambda in PyBlosxom lead me to finally read On Lisp</a>.  Through On Lisp I groked closures.  With closures in JavaScript and <span class="caps">SVG, </span><a href="http://dobbse.net/reflection/2003/12/000157.html">I recreated my animation of a vanishing point</a> and rekindled my interest in an animation language.  Now the circle is complete.</p>
+
+<p>Back to Groovy.  I imagine that it was friction between James&#39; interesting and useful work on Jelly and Bob&#39;s rightful distain of programming in angle brackets which spawned Groovy.  Clearly there&#39;s some Jython, Python, and Ruby mixed in too as evidenced by the excellent use of closures and other functional goodness.</p>
+
+<p>If Java brought C++ programmers half-way to lisp, I think Jython, Python, Ruby, and Groovy are going to take Java programmers another quarter of the way.  <span class="caps">XP</span> and unit testing will help this along because unit tests do more for your code than the compiler and these dynamic languages make programming faster.</p>
+
+<p>Moreover, Aspect Oriented Programming will take Java programmers another eighth of the way to lisp.  <span class="caps">CLOS</span> has a notion of before, after, and around methods which I think map nicely to various things I&#39;ve seen in <span class="caps">AOP.  </span>But I made the assertion at work today that what people are trying to do with aspects in Java would probably be done primarily with macros in lisp.  Of course I&#39;m speaking primarily from my intuition having done vanishing little with either aspects or macros.</p>
+
+<p>I suppose I&#39;m just projecting my own programming growth path onto the Java programming community as a whole.  I only recently groked closures.  Understanding macros and continuations came rather quickly after that, though actually groking those will be a while unless I start doing real work in lisp.</p>
+
+<p>In the past week at work, I&#39;ve been rhetorically asking why not just throw out all this perl code and rewrite it in lisp?  It&#39;s a lot of code to rewrite.  No customers are asking us to program in lisp.  None of our problems specifically demand it.  Perl is a much larger community, therefore there are probably more useful libraries available, broader documentation.  One thing new customers fear is vendor lock-in.  When they don&#39;t know us yet, they don&#39;t trust us yet.  If the code they pay for is in perl, it will be easier for them to find someone else who can work on it than if it were in lisp.</p>
+
+<p>My other imaginary story is that the Java community (and by competitive pressure the <span class="caps">VB</span> and .NET communities too) will collectively learn different ways to think from Groovy and Jython and <span class="caps">AOP.  </span>Those ways of thinking will lift the veils of mystery from lisp and make it into a popular enterprise programming language.  Of course it could work out differently.  Maybe Service Oriented Architectures will teach us all to think in terms of messages like Smalltalk programmers.</p>
+
+</div>
+
+<div class="section comments"><a name="comments"></a>
+<div class="article comment">
+<div class="comment-author"><h2><a target="_blank" href="http://radio.weblogs.com/0112098/">James Strachan</a> commented</h2></div>
+<div class="time 2004-05-27T12:22:39 pubdate meta">27 May 2004 at 12:22</div>
+<p>Hey Eric. Thanks for the mention! You're guesstimate of where Groovy came from is pretty close to the truth :)</p>
+
+<p>Also I agree, we're all getting ever closer to lisp/scheme - especially if/when groovy gets macros - just a slightly different style of lisp with a more popular feel & no parethesis hell :)</p>
+
+<p>I think the one missing ingredient was - I thought it was time to try come up with a language which assumes a JVM / .NET runtime like environment already exists, and layer the language on top - rather than start from some ivory tower (or port an existing designed-in-a-vacuum language) to avoid having leaky abstractions at the language layer as it binds to the underlying platform.</p>
+
+<p>But yes, my experience on Jelly, Ant & Maven tought me the value of scripting without leaving the underlying platform<br />
+</p>
+</div>
+
+</div>
+
+

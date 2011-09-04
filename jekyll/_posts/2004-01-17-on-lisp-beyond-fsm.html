@@ -1,0 +1,34 @@
+--- 
+layout: default
+charset: UTF-8
+fulltitle: "On Lisp: beyond state machines"
+posted: 2004-01-17T22:31:11
+---
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2004/01/on-lisp-beyond-fsm.html">On Lisp: beyond state machines</a></h1>
+<div class="time 2004-01-17T22:31:11 pubdate meta">Saturday 17 January 2004 at 22:31 </div>
+<p><a href="http://dobbse.net/thinair/2003/09/000140.html">State machines</a> part seven.</p>
+
+<p><a href="http://www.paulgraham.com/onlisp.html">On Lisp</a> has a section on non-determinism which illustrates an <a href="http://www.google.com/search?q=%22augmented+transition+network%22">augmented transition network</a> compiler.  There&#39;s definitely some state machine flavors in there, but there&#39;s so much more going on.</p>
+
+<p>The picture (figure 23.6 on page 315) is a directed graph of conditions which map out a simple subset of English grammar.  Sentences which fit the grammar can be represented as paths through that graph of conditions.  Directed graphs, workflows, and state machines are all in the same family.</p>
+
+<p>Last year I would not have understood that last paragraph.  I would have understood the grammar and the language and some of the context, but I would not have grokked it.  I wouldn&#39;t have been able to write it myself.  In fact there were similar sentences in some older documents about <a href="http://werkflow.codehaus.org/">Werkflow</a> and I only partly understood what they were talking about.</p>
+
+<p>The <span class="caps">ATN</span> compiler described in On Lisp generates code to search for a path through the graph which will match a given sentence and return the parse tree of the sentence.  The code will do a depth-first search of the paths through that graph until it finds a match or has exhausted the options that might match.  The code itself is fascinating -- continuations built up from closures building towards a Prolog interpreter.</p>
+
+<p>Among other things, it&#39;s giving me a sense of what&#39;s happening inside a rules engine.  <a href="http://herzberg.ca.sandia.gov/jess/">The Jess rules engine</a> was the first I encountered.  It was being used in some code that we were supposed to integrate with Envoy at PlanetCAD.  <a href="http://drools.codehaus.org/">Drools was the other rules engine</a>.</p>
+
+<p>Prolog is all about searching through collections of rules.  As Paul Graham takes me on a tour through his implementation, I am also learning context to help ground <span class="caps">RDF</span> and <span class="caps">OWL.  I</span> still think that <span class="caps">RDF</span> and <span class="caps">OWL</span> and the Semantic Web smells like a bunch of cool technology looking for a problem to solve.  But, <a href="http://www.sciam.com/article.cfm?articleID=00048144-10D2-1C70-84A9809EC588EF21">the empassioned arguments about how cool the Semantic Web will be</a> make more sense as I understand more about the mechanics of the things that would wander through webs of <span class="caps">RDF</span> assertions.</p>
+
+<p>Reading On Lisp has been an enormously mind-expanding exercise in many directions.  None of what I&#39;ve read so far has had anything to do with objects nor object orientation.  Functional and declarative are the buzzwords, not objects nor encapsulation.  I feel like I&#39;ve been admitted into an elite club where the real programming secrets are shared, or perhaps more accurately, where the <em>other</em> programming secrets are shared.</p>
+
+<p>The world I knew before was mostly about objects and figuring out how best to encapsulate parts of a problem.  Now I see that objects are but an island in a much larger sea.  On another chain of islands are functions and closures.  I traveled among those islands once long ago.  I had forgotten about their charms.  Now that I&#39;ve returned I see larger patterns emerge in that chain of functional islands: continuations and rules engines.  There&#39;s nothing quite like traveling in another land to expand your view of the larger world and its possibilities.</p>
+
+</div>
+
+<div class="section comments"><a name="comments"></a>
+
+</div>
+
+

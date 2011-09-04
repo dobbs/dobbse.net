@@ -1,0 +1,30 @@
+--- 
+layout: default
+charset: UTF-8
+fulltitle: thinair design choices
+posted: 2002-09-18T09:47:42
+---
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2002/09/uri-design.html">thinair design choices</a></h1>
+<div class="time 2002-09-18T09:47:42 pubdate meta">Wednesday 18 September 2002 at 09:47 </div>
+<p>Tim Berners-Lee has persuaded me that <a href="http://www.w3.org/Provider/Style/URI.html">Cool URIs don't change</a>.  He advises that URIs be designed without classification or categoriztion information.  Those groupings are likely to change over time which will work against the goal of stable URIs.  In contrast, in <a href="http://www.oreilly.com/catalog/pracintgr/">Practial Internet Groupware</a>, <a href="http://weblog.infoworld.com/udell/">Jon Udell</a> suggests that the URI is prime real estate for metadata.  Although Jon makes an excellent case for the value of meta data in the URI, I favor Tim's advice in this case.  The meta data will change over time.  I decided to sacrifice the use of that prime real estate in favor of the stability of the URI over time.</p>
+
+<p>Given <a href="http://www.movabletype.org/">Movable Type</a> as my chosen publishing system, I had a few other constraints within which to work.  Both Tim and Jon recommend including the creation date in the URI.  It's valuable meta data and it won't change over time.  However, Movable Type generates the permanent entries with a serial number and not a creation date.  I lost more meta data, but protected against changes in the calendar system  as <a href="http://www.decimaltime.org/">some have proposed</a>. :-)</p>
+
+<p>The default paths for blogs in Movable Type steered me in the wrong direction at first.  By default the indexes go in <code>www.example.com/</code> and the permanent archives go in <code>www.example.com/archives/</code>.  That makes for longer permanent urls.  I wanted something that was more like Jacob Nielsen's Alertbox:  http://www.useit.com/alertbox/20010204.html.  I also liked the suggestion from Tim to put the recent stuff behind a foo/recent/ URI.  Fortunately, Movable Type allows for this sort of organization, it just isn't suggested by default.  The organization of Jacob's Alertbox suggested I should come up with a column name for my blog.</p>
+
+<p>It took surprisingly many variations to finally settle on putting the indexes in <code>dobbse.net/</code>, and the permanent archive in <code>dobbse.net/thinair/</code>.</p>
+
+<p>Edit: I was wrong about limitations imposed by Movable Type.  I found this comment while bloghopping:  <em>(like Movable Type, where your archive URLs can just be named by the title of the entry, or the date, etc)</em> <a href="http://www.stupidfool.org/archives/2002/09/000213.shtml#000213">Stupid Fool: Complexity of Implementation</a></p>
+
+<p>Edit: After learning how to control the naming of permanent links in Movable Type, I broke the rule about not changing urls.  This site has only been live for a couple weeks, and from the stats I get back from the web host, I'm almost the only one hitting the site right now.  I won't have another chance to make this change without breaking links.  So I put monthly archives in <code>/thinair/yyyy/mm/index.html</code> and permanent links in <code>/thinair/yyyy/mm/0000id.html</code>.  I don't think that even on a busy day I'll post so many items that I'll need to separate posts by day (like this: <code>/thinair/yyyy/mm/dd/0000id.html</code>), so I chose to keep the urls a few characters shorter.</p>
+
+<p>Update: I've done <a href="http://dobbse.net/thinair/2004/01/url_redesign.html">a minor redesign of my URLs</a>.</p>
+
+</div>
+
+<div class="section comments"><a name="comments"></a>
+
+</div>
+
+

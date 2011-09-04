@@ -1,0 +1,22 @@
+--- 
+layout: default
+charset: UTF-8
+fulltitle: Test-driven code duplication
+posted: 2003-04-18T14:59:29
+---
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2003/04/duplication-in-test-driven-sql.html">Test-driven code duplication</a></h1>
+<div class="time 2003-04-18T14:59:29 pubdate meta">Friday 18 April 2003 at 14:59 </div>
+<p>Thursday, I was test driving a <span class="caps">DAO.  </span>At the moment it&#39;s almost entirely pseudo implementation -- no actual <span class="caps">SQL.  </span>The interface is already designed, I get to write the <span class="caps">SQL.</span></p>
+
+<p>Unit testing the <span class="caps">SQL</span> is causing code duplication.  I&#39;m using <a href="http://www.easymock.org">EasyMock</a> objects for the Connection, Statement, PrepairedStatement, and ResultSet.  I end up basically writing the implementation in the test and then writing it again in the <span class="caps">DAO.  </span>Something stinks.  I think it has to do with the way EasyMock sets expectations.  It would look differently if I used MockObjects, or if I rolled my own mocks.  But EasyMock saves me the extra work of writing and maintaining the mock objects.</p>
+
+<p>I want these tests to be independent of the database.</p>
+
+</div>
+
+<div class="section comments"><a name="comments"></a>
+
+</div>
+
+

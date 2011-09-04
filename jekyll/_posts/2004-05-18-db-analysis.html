@@ -1,0 +1,39 @@
+--- 
+layout: default
+charset: UTF-8
+fulltitle: "3D change:  analyzing 12 years of backup data"
+posted: 2004-05-18T04:10:51
+---
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2004/05/db-analysis.html">3D change:  analyzing 12 years of backup data</a></h1>
+<div class="time 2004-05-18T04:10:51 pubdate meta">Tuesday 18 May 2004 at 04:10 </div>
+<p>Over the weekend I thought of a useful way to visualize the problem I described in the previous post.  Noting it here will hopefully spare someone in the future (maybe even me) from the pain I went through getting here.</p>
+
+<p>The goal is to import data from twelve years of backups of the database our software replaced.  But exactly which data do I import?  Data changes over time, how has this particular pile of data changed?  The backups are <span class="caps">MS </span>Access databases.  Each year&#39;s backup is a collection of tables.</p>
+
+<p>Essentially I have three dimensions of change:</p>
+
+<ul><li>the addition of rows to each of the tables,</li>
+<li>the addition of columns, and</li>
+<li>time.</li>
+</ul>
+
+<p>This three-dimensional metaphor helps me organize my approach to the data.</p>
+
+<p>Is that breakdown too trivial to bother mentioning?  It seems pretty obvious in retrospect.  Prior to describing it in this way, I just had a big ball of mud, and my efforts to understand the mud just spread the mud around.  No meaningful shape emerged in the data, just more confusion.  I could answer some questions, but my questions were not getting me any closer to getting the data imported.  With this three-dimensional metaphor in mind, my questions and their answers are getting somewhere.  I can focus my attention on particular lines and planes.</p>
+
+<p>For a given backup, the columns in the tables are constant, but the data in the rows may be inconsistent.  Are the dates all in the same format?  Are there missing dates?  Do the boolean columns use 1/0 or Y/N?  Are they consistent about 1/0?  Can I uniquely identify each row, or are there redundant records?  None of these questions have anything to do with the time dimension.  Their answers lead me toward the code I&#39;ll need to use to massage the data into a consistent form that I can import.</p>
+
+<p>Slicing another way I can ask which columns were added over time.  Load the column names for a particular table in each year&#39;s backup, collect the unique column names, and track in which years they appear.  Which columns exist in all the backups, and which ones don&#39;t?  Those that exist in all the backups will be useful for identifying unique records over time.  For those that don&#39;t, do I need a default value to apply to the older records, or can I ignore the column in the newer records?</p>
+
+<p>The data are mostly consistent, but there are areas that will need human intervention before they can be imported.  I&#39;ll automate as much as I can and collect the records which break my automation -- bring the exceptions to my attention so I can massage them into shape.</p>
+
+<p>There are relationships between the tables.  Some clearly rely on primary keys and foreign keys.  Some don&#39;t, which adds another dimension to the problem.  Thinking in dimensions is getting somewhere.</p>
+
+</div>
+
+<div class="section comments"><a name="comments"></a>
+
+</div>
+
+

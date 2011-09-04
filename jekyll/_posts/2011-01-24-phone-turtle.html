@@ -1,8 +1,8 @@
----
-posted: "2011-01-24T00:54:30"
+--- 
 layout: default
-fulltitle: interactive turtle graphics in a web browser
 charset: UTF-8
+fulltitle: interactive turtle graphics in a web browser
+posted: 2011-01-24T00:54:30
 ---
 <div class="article">
 <h1><a href="http://dobbse.net/thinair/2011/01/phone-turtle.html">interactive turtle graphics in a web browser</a></h1>
@@ -14,8 +14,8 @@ charset: UTF-8
 <p>This makes me happy!</p>
 
 <script type="text/javascript" src="https://github.com/dobbs/turtle/raw/master/turtle.js"></script>
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.4.4.min.js"></script>
 <script type="text/javascript" src="https://github.com/dobbs/turtle/raw/master/fractal.js"></script>
+<script type="text/javascript" src="https://github.com/dobbs/turtle/raw/master/interactive.js"></script>
 <style type="text/css">
 div.thispage canvas {border: 1pt solid black;}
 div.thispage img, div.thispage .interactive {float: left; margin-right: 1.5em;}
@@ -33,10 +33,8 @@ div.thispage .example p:first-child {margin-bottom: 1em;}
 </div>
 <div class="example">
 <p>Commands include:</p>
-<p><code>setPosition <em>x</em> <em>y</em></code></p>
-<p><code>setDirection <em>degrees</em></code></p>
-<p><code>penUp</code></p>
-<p><code>penDown</code></p>
+<p><code>penup</code></p>
+<p><code>pendown</code></p>
 <p><code>move <em>pixels</em></code></p>
 <p><code>turn <em>degrees</em></code></p>
 <p><code>clear</code></p>
@@ -44,22 +42,11 @@ div.thispage .example p:first-child {margin-bottom: 1em;}
 </body>
 <script type="text/javascript"><!--
 (function () {
-var canvas = document.getElementById('interactivecanvas');
-var commandline = document.getElementById('commandline');
-var view = new CanvasView(canvas);
-var t = view.turtle;
-function interpreter () {
-    var args = commandline.value.split(/[ ,.()]/);
-    var command = args.shift();
-    if (typeof(view[command]) == 'function') {
-        view[command].apply(view, args);
-    }
-    commandline.focus();
-    return false;
-}
-commandline.form.onsubmit = interpreter;
-commandline.focus();
-window.onclick = function () {commandline.focus()}
+Turtle.drawFractal(document.getElementsByClassName("fractal")[0]);
+Turtle.interactiveCanvas(
+    document.getElementById("interactivecanvas").getContext('2d'),
+    document.getElementById("commandline")
+);
 return;
 })();
 --></script>

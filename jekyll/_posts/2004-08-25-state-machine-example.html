@@ -1,0 +1,98 @@
+--- 
+layout: default
+charset: UTF-8
+fulltitle: State Machines described and a few examples
+posted: 2004-08-25T23:35:41
+---
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2004/08/state-machine-example.html">State Machines described and a few examples</a></h1>
+<div class="time 2004-08-25T23:35:41 pubdate meta">Wednesday 25 August 2004 at 23:35 </div>
+<p><a href="http://dobbse.net/thinair/2003/09/000140.html">State machines</a> part nine</p>
+
+<p>Around this time last year I started publishing a series of entries about state machines and workflows.  The topic has recently resurfaced in a couple areas.  There&#39;s clearly more that I want to say.</p>
+
+<p>What interested me last year was all the various places I was seeing state machines and workflows.  Looking over it a year later I notice a glaring omission: I wrote everything with the assumption that the reader knows what a state machine is and how to code one.  Let me now drop that assumption and briefly describe state machines.</p>
+
+<p>The <a href="http://c2.com/cgi/wiki?GangOfFour">Gang of Four</a> explain that the state pattern allows an object &quot;to alter its behavior when its internal state changes.&quot;  [<a href="http://allconsuming.net/item.cgi?isbn=0201633612:">Design Patterns</a> p.305] That&#39;s about as succinct as it gets.  I personally needed a bit more explanation.</p>
+
+<p>They offered two example applications of the state pattern: a <span class="caps">TCP</span> connection object and the different drawing tools in graphics applications like Photoshop or Illustrator.  In <a href="http://allconsuming.net/item.cgi?isbn=0135974445">Agile Software Development</a> Bob Martin offered a couple other examples: a turnstile and a comment parser.</p>
+
+<p>All of these examples have an object which moves through a finite collection of states, responding to a specific set of events.  The behavior in response to the events is different depending on the current state of the object.  The turnstile is the simplest of these examples to explain.  I&#39;m just paraphrasing Bob Martin&#39;s story here.  That book is exceptional and his explanation of state machines is really worth your time.</p>
+
+<p>The turnstile takes two events: you either drop a coin in it, or you try to pass through it.  Call the events &#39;coin&#39; and &#39;pass&#39;.  It also has only two states: locked and unlocked.  When it&#39;s locked the &#39;coin&#39; and &#39;pass&#39; events invoke different behavior than when it&#39;s unlocked.  When locked &#39;pass&#39; will sound an alarm and &#39;coin&#39; will change the state to unlocked.  When unlocked &#39;coin&#39; should trigger a refund of the coin and &#39;pass&#39; should change the state to locked.  Different behaviors depending on the state.</p>
+
+<p>How this might look in Java:</p>
+
+<pre>public class Turnstile {
+    State state;
+    public Turnstile {
+        state = new Locked(this);
+    }
+    public void coin() {
+        state.coin();
+    }
+    public void pass {
+        state.pass();
+    }
+}
+public interface State {
+    public void coin();
+    public void pass();
+}
+public class Locked implements State {
+    private Turnstile t;
+    public Locked(Turnstile t) {
+        this.t = t;
+    }
+    public void coin() {
+        t.state = new Unlocked(t);
+    }
+    public void pass() {
+        throw new FreeloaderException(&quot;Come back here!&quot;);
+    }
+}
+public class Unlocked implements State {
+    private Turnstile t;
+    public Unlocked(Turnstile t) {
+        this.t = t;
+    }
+    public void coin() {
+        //refund coin
+    }
+    public void pass() {
+        t.state = new Locked(t);
+    }
+}</pre><p>Bob also suggests using a state transition table to sketch out the different states and their events:</p>
+
+<pre>Turnstile
+state     event  result
+Locked    coin   set Unlocked
+Locked    pass   sound alarm
+Unlocked  coin   refund coin
+Unlocked  pass   set Locked</pre><p>In his state machine compiler he offers a more formal syntax for a state transition table to define states and events and results.  It can then be compiled into a pile of objects similar to what I sketched above.  I&#39;ve already exclaimed about how cool I think that trick is in <a href="http://dobbse.net/thinair/2003/10/000145.html">State Machines and Agile Software Development</a>.  In that entry, you&#39;ll also find an example of the config file for the Turnstile state machine.</p>
+
+<p>I won&#39;t cover the other examples in as much detail.  The <span class="caps">TCP</span> connection has to respond to open, close, and acknowledge events differently depending on whether the connection is established, listening, or closed.  The drawing tools have to respond to mouseup, mousedown, and mouse position events and do different things to the drawing depending on which tool is selected (or what state the palatte is in).  The comment parser responds to a stream of characters and changes states depending on whether it is in an inline comment, a comment block or whathaveyou.  Hopefully those few examples give a sense of how widely applicable the state pattern can be.</p>
+
+<p>As a web developer, I&#39;m particularly interested in how state machines can model web applications.  You have <span class="caps">GE</span>Ts and <span class="caps">POSTS</span> and <span class="caps">PU</span>Ts and <span class="caps">DELET</span>Es as the collection of events.  The <span class="caps">URL</span> and cookies describe the current state.  New requests change the state of the application for the user.  You can use a state transition table to describe the navigation and flow through the application.  If you&#39;re familiar with Struts, you can kinda squint your eyes and see a state transition table in the struts-config.xml file.  Unfortunately, struts mixes the concerns of the navigation with actions that change the model.  It&#39;s sorta like mashing the &#39;event&#39; and &#39;result&#39; columns together in the state transition table I showed above.  It looks like WebWork2 does this better and like <span class="caps">JSF</span> will too.  Of course these days I&#39;m partial to <a href="http://www.bivio.biz/hm/download-bOP">bOP</a>.</p>
+
+<p>The Wikipedia has some useful, though more formal entries:</p>
+
+<ul><li><a href="http://en.wikipedia.org/wiki/Finite_state_machine">finite state machine</a></li>
+<li><a href="http://en.wikipedia.org/wiki/State_transition_table">state transition table</a></li>
+<li><a href="http://en.wikipedia.org/wiki/State_diagram">state diagram</a></li>
+</ul>
+
+</div>
+
+<div class="section comments"><a name="comments"></a>
+<div class="article comment">
+<div class="comment-author"><h2><a target="_blank" href="http://www.cwinters.com/">Chris Winters</a> commented</h2></div>
+<div class="time 2004-08-26T05:56:05 pubdate meta">26 August 2004 at 05:56</div>
+<p>Here's a useful workflow patterns site: <a href="http://tmitwww.tm.tue.nl/research/patterns/patterns.htm">http://tmitwww.tm.tue.nl/research/patterns/patterns.htm</a></p>
+
+<p>It also may be worth noting that I recently published on CPAN the Workflow module. It's very simple and missing lots of features, but I figured it would be useful to get a generic framework out there rather than have everyone rewrite it for their own apps. (This seemed to be the consensus at YAPC as to why there wasn't a workflow module already on CPAN -- everyone just makes a new custom workflow system with every large app they create.)</p>
+</div>
+
+</div>
+
+

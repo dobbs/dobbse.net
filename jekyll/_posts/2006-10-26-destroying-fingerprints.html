@@ -1,0 +1,50 @@
+--- 
+layout: default
+charset: UTF-8
+fulltitle: "Destroying fingerprints: biometrics, government, and ignorance"
+posted: 2006-10-26T00:26:35
+---
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2006/10/destroying-fingerprints.html">Destroying fingerprints: biometrics, government, and ignorance</a></h1>
+<div class="time 2006-10-26T00:26:35 pubdate meta">Thursday 26 October 2006 at 00:26 </div>
+<p>There&#39;s very good news to report.  Last Wednesday the school met with parents to hear our concerns.  At that meeting the director of food services took full responsibility for the decision and verbally committed not to use biometric technology.  What&#39;s more, our school was their first site for implementation which means our efforts will nip it in the bud for the whole district.  Our local school government seems to have stumbled into this controversy by complete ignorance.  Provided they follow-through, they deserve a little praise for quickly claiming responsibility for the mistake and for taking measures to destroy the data they have collected.</p>
+
+<p>In the way of bad news, it sounds like biometrics are already being used all over the place.  An Associated Press report on <a href="http://news.yahoo.com/s/ap/20061025/ap_on_hi_te/biometric_device">biometrics in a Georgia lunch room</a> includes this bit of background:</p>
+
+<blockquote><p>Colleges and high schools have used fingerprint scanners to stop non-students from sneaking into dining halls and gyms. Now elementary schools are joining in, hoping that biometric devices are a good way to keep lines moving and pay for meals.<br />
+ <br />
+Districts elsewhere in the country use finger scans to dispense medicine, take attendance, check out books in the library or ensure that bus-riding students get off at the right stop.<br />
+ <br />
+Jay Fry, <span class="caps">CEO</span> of biometrics maker identiMetrics Inc., said elementary school districts are one of his company&#39;s fastest-growing markets.</p></blockquote>
+
+<p>It&#39;s weird to read the casual tone of that article after seeing the reactions of many of my peers.  Almost everyone with whom I&#39;ve spoken has reacted with shock and dismay at the idea of fingerprinting children.  Maybe we&#39;re just a bit more paranoid around here.</p>
+
+<p>The main concern is this: if fingerprints are compromised, there&#39;s no way to change fingerprints.  Even if the risk of compromise is very low (which it may well be), the consequences could be permanent damage to one&#39;s biometric identity.  That makes the risk equation: low-risk, high-stakes.  That assumes we&#39;re correct about the low-risk.</p>
+
+<p>When I was in college student IDs were the same as Social Security Numbers.  We didn&#39;t think twice about it.  When test results were posted they were often listed by Social Security Number, ironically, to protect the privacy of our grades.  Many establishments used to ask for a Social Security Number and driver&#39;s license number when accepting payment by personal check.  It has only been in the past few years that <em>identity theft</em> has entered our vocabulary.  We&#39;re only at the very earliest stages of understanding how our identity can be abused.  Biometric data are a representation of our physical identity, not just unique numbers we&#39;ve been arbitrarily assigned by The System.  I suspect that the Government changes the Social Security Numbers for people under the witness protection program.  But your fingerprints can&#39;t be changed.  As biometrics enter the mainstream, they will become an obvious point of attack for identity thieves.</p>
+
+<p>In light of our experience and the apparently growing use of biometrics, it seems especially important to publish this.  Until we can verify the low-risk part, let&#39;s take the high stakes part seriously.</p>
+
+<p>One other point to make -- it&#39;s not just about the fingerprints stored on the system.  Every time someone presses their finger onto a reader, another image of their print is taken and processed.  In the case of our lunch lines, that&#39;s a regularly scheduled, completely predictable stream of fingerprints.  The need to secure that data is not just the first time it&#39;s collected, but every time its used as well.  That&#39;s a very long term commitment to security.  Moreover, that data needs to be protected for the entire lifespan of the student.  Is our district insured against financial consequences of loosing that data?</p>
+
+<p>How can the district ensure the destruction of biometric data once they have been collected?  The short, scary answer: information can move pretty close to the speed of light so technically that data could be anywhere and in more than one place.&nbsp; The less scary answer is that bureaucracy doesn&#39;t move anywhere near the speed of light.  They might not have backed up the data yet or transmitted it anywhere.</p>
+
+<p>Any copies of the biometric data that have been transmitted or replicated in any way whatsoever must be permanently destroyed.&nbsp; If it&#39;s on hard drives or backup tapes those copies of the data must undergo a low-level security erase.&nbsp; If backups have been made to CDs those CDs must be shredded.&nbsp; If the data is in stable memory sticks or usb drives, those media must also undergo a low-level security erase.&nbsp; Any systems which were involved in the data transmission should also be shut down so any remnants in memory are also flushed.&nbsp; No electronic remnants on any systems or media of any kind.&nbsp; The data must be erased beyond recovery from any and all devices involved.</p>
+
+<p>A security audit for any systems involved in the collection of biometric data would also be in order.  If any of the systems were compromised by spyware or virus or trojan or root kit, that malicious software might have enabled the biometric data to escape the school district systems without their knowledge.  Similarly if the computers in question are or were connected to a network then the security audit should expand to include the network and any connected devices as well as the specific systems involved because similar compromises on any of those systems might have intercepted the transfer of biometric data.  Also, most operating systems these days use virtual memory as a matter of course.  That means there&#39;s potential for the operating system to have saved copies of the biometric data to disk even if the biometric software were programmed not to use the disk at all.  In other words, any areas of the disk used for virtual memory should also be security erased.</p>
+
+<p>If the data found its way into a database, then the disk partitions on which those database tables are physically stored will also have to undergo a security erase.  Any transaction logs or audit logs kept by the database will have to undergo a security erase.  If the database is replicated or distributed, then the backup databases will require the same attention.  In any of those cases, the district will insist on having a backup of the database in question.  That backup will have to be created carefully to ensure that the biometric data is not included in the backup.</p>
+
+<p>The district&#39;s backup systems deserve special attention.  They almost certainly have an automated backup server which collects the vital data of the district.  The timing of those automated backups may have captured the biometric data.  Moreover, the backups are very likely to include not only the biometric data, but also the students personal records and maybe the encryption keys.  Moreover, it is almost certain that the backups are conducted over the network.  Previous comments about auditing networked systems apply to the network used for backup as well.</p>
+
+<p>I have focused my attention on the scenario of some Bad Guy capturing the biometric data for financial gain.  Some among my community are more concerned about the government being able to subpoena the database of encrypted biometric data, the encryption key which unlocks that data, and any of the district records about the students as well.  The Bad Guys might be in the Government.</p>
+
+<p><small><a href="http://del.icio.us/tag/fingerprint" rel="tag">fingerprint</a> <a href="http://del.icio.us/tag/biometric" rel="tag">biometric</a> <a href="http://del.icio.us/tag/public_education" rel="tag">public_education</a> <a href="http://del.icio.us/tag/volunteer" rel="tag">volunteer</a></small></p>
+
+</div>
+
+<div class="section comments"><a name="comments"></a>
+
+</div>
+
+

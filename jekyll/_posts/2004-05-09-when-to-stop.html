@@ -1,0 +1,59 @@
+--- 
+layout: default
+charset: UTF-8
+fulltitle: True genius is knowing when to stop
+posted: 2004-05-09T22:54:15
+---
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2004/05/when-to-stop.html">True genius is knowing when to stop</a></h1>
+<div class="time 2004-05-09T22:54:15 pubdate meta">Sunday 09 May 2004 at 22:54 </div>
+<p>I call it flailing.  Intuition tells me the problem on which I&#39;m working has an easy solution, but it evades my every turn.  An elusive solution teases me along dead end after dead end.</p>
+
+<p>I have to import data from twelve years of backups.  I don&#39;t expect that to be easy.  But some steps should be.  Our client&#39;s original system was built in Access.  The files were archived annually with names like <span class="caps">DB1990</span>.mdb, <span class="caps">DB1991</span>.mdb, <span class="caps">DB1992</span>.mdb and so on through 2002.  There is a Win32 laptop at work, but Access isn&#39;t installed: <span class="caps">DBI</span> and <span class="caps">DBD</span>::ODBC to the rescue.  Though I haven&#39;t used <span class="caps">DBI</span> before, <span class="caps">JDBC</span> translates quite well.  I work with a bunch of unix geeks, so cygwin is installed.  I thankfully didn&#39;t have to re-traumatize my fingers with <span class="caps">DOS.</span></p>
+
+<p>This &quot;one&quot;-liner prints out the tables from one data source.</p>
+
+<pre class=&quot;code&quot;>% perl -MDBI -e&#39;$dbh=DBI-&gt;connect(&quot;dbi:ODBC:DB1990&quot;); \
+    print join(&quot;\n&quot;, @{$dbh-&gt;tables}), &quot;\n&quot;;&#39;</pre><p>I can ignore most of the tables -- reports and summaries.  But I can&#39;t ignore <span class="caps">BROKER</span> and <span class="caps">BROKER90</span> nor <span class="caps">POLICY</span> and <span class="caps">POLICY90</span> and so on.  The other backups include tables like <span class="caps">FOO</span> and <span class="caps">FOO91</span> and <span class="caps">FOO</span> and <span class="caps">FOO92.  </span>The challenge is to weed out the redundant data from all those backups and to clean the inevitable data inconsistencies.  A few more perl scripts and the mighty <code>diff</code> revealed some columns were added over time but the schema is mostly stable for the first 10 years with some bigger changes in the last two.</p>
+
+<p>What&#39;s the simplest thing that could possibly work?</p>
+
+<p>I thought about dumping the data into tab delimited tables and groveling over it with regular expressions.  But it was already in a structured form and I could use <span class="caps">SQL</span> instead of regular expressions.  Leaving the data where it was seemed like less work, so I started banging out some one-off scripts using <span class="caps">DBI.  </span>Simple.  The repetition quickly got tedious, and Rob routinely advocates <a href="http://c2.com/cgi/wiki?OnceAndOnlyOnce">once-and-only-once</a>, so I made a slightly interactive script and started reusing.</p>
+
+<pre class=&quot;code&quot;>1 while(dispatch_command());
+
+sub dispatch_command {
+    print $prompt;
+    my $cmd = &lt;STDIN&gt;;
+    chomp($cmd);
+    $cmd =~ s/;\s*$//;
+    $cmd =~ m/^([^ ]+) /;
+    my $method = lc($1); 
+    return $dispatch-&gt;{$meth}-&gt;($cmd);
+}</pre><p>Subroutines referenced in the <code>$dispatch</code> table handled specific commands: connecting to a data source, displaying metadata, or an <span class="caps">SQL</span> select.  I didn&#39;t get there immediately.  I just added a simple thing here and there.  I removed a little repitition.  I ended up with a rudamentary perl <span class="caps">SQL</span> shell.  That turns out <em>not</em> to be the simplest thing that could possibly work.  But it was a chain of simplest things that lead me there.  And I was kinda proud of dispatch_command.</p>
+
+<p>The title of this post comes from one of Dr. Veltman&#39;s good friends.</p>
+
+<blockquote><p>True genius is knowing when to stop.  Many people have ideas, but the genius quickly abandons the bad ones, whereas the rest of us press on long after an idea has revealed itself as a failure.</p></blockquote>
+
+<p>For the time I spent I should have just bought a copy of Access and installed it.  I talked with Rob about it later.  His first suggestion was looking for something on <span class="caps">CPAN </span>-- except that our internet connection was down that day (more <a href="http://dobbse.net/thinair/2004/04/t1.html">telecom frustration</a>).  His second suggestion was also more simple: import the raw data into postgresql and use psql.</p>
+
+<p>The next day I decided to abaondon the interactive approach and just see what I could get out of the first database.  I thought it should be pretty easy, and by this time I needed a small success to build back some momentum.  What were the differences between <span class="caps">POLICY</span> and <span class="caps">POLICY90</span>?  I dumped the two tables into tab-delimited text files.  perl warned me about uninitialized values in string concatination, so I replaced undefined values with <code>--null--</code>.  But <code>diff</code> didn&#39;t tell me much.  It compares line-by-line and each line was different -- more columns in one than the other.  While I was talking with Rob about something else he asked about the <code>--null--</code> things.  &quot;If you just write out perl, you can <code>eval</code> it later and just leave those as <code>undef</code>.  Don&#39;t invent your own syntax.&quot;  Sometimes it&#39;s the little things.  Actually, um... I did that on purpose.  See, I knew I&#39;d learn another cool trick from Rob if I put <code>--null--</code> in there. ;-)</p>
+
+<p>Switching to Data::Dumper cut my code down dramatically.  The lesson from Rob is if you just use perl you don&#39;t have to write a parser.  Data::Dumper is my new friend.  It also put each &#39;cell&#39; on its own line.  That made <code>diff -ub</code> much more helpful.  But I was still visually inspecting the diffs.  I wanted a mechanical way of confirming that the extra columns contained all null values.</p>
+
+<p>I wrote an emacs macro to repeatedly search over the diff file.  I thought it might stop when it couldn&#39;t find the pattern in marked region, but instead it just expanded the region.  Took a while to follow that dead end.  I tried using emacs diff-mode to see if it would make the macro any easier.  That lead me to ediff and emerge.  But the files I was diffing were 12MB each and emacs kept crashing -- &quot;don&#39;t know my own strength&quot;.  I tried various other ways of bending emacs to the task thinking it would be simpler than writing a perl script to do the same.  Finally after repeated failures I asked David if he new an emacs incantation that would help.  &quot;Why not use perl to look at the table with the extra columns and just grep for nulls?&quot;</p>
+
+<p>That would be simple.</p>
+
+<pre class=&quot;code&quot;>$result = do &#39;DB1990.dump&#39;;
+print &quot;hooray, they&#39;re all null\n&quot;
+    if (int(@$result) == grep(!defined($_-&gt;[21]), @$result));</pre><p>How do you you learn to recognize the dead-ends before you get to the end?  Is it just a matter of experience?  Or does it actually require genius?</p>
+
+</div>
+
+<div class="section comments"><a name="comments"></a>
+
+</div>
+
+

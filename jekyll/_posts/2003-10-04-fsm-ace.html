@@ -1,0 +1,32 @@
+--- 
+layout: default
+charset: UTF-8
+fulltitle: State Machines and Ace
+posted: 2003-10-04T16:09:35
+---
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2003/10/fsm-ace.html">State Machines and Ace</a></h1>
+<div class="time 2003-10-04T16:09:35 pubdate meta">Saturday 04 October 2003 at 16:09 </div>
+<p><a href="http://dobbse.net/thinair/2003/09/000140.html">State Machines</a> part four</p>
+
+<p>A couple weeks ago John mentioned that Craig Larman is one of his favorite authors.  A link on <a href="http://www.craiglarman.com/">Larman&#39;s site</a>  caught my eye:  James Gosling has been working on <a href="http://research.sun.com/features/ace/">the Ace project</a>.  No particular reason for that to get my attention, but it did.  Trusting intuition I followed the link.  After lots of effusive hype about how Ace is going to make programming easier (and maybe wash your dishes too :), the page briefly explains the <em>how</em> of it:</p>
+
+<blockquote><p>The key to the Ace technology is its mechanism for application specification.  This Ace specification has been formulated to capture the precise and complete intent of the desired application while simultaneously excluding or hiding all of the possible implementation details.</p></blockquote>
+
+<p>I quote that paragraph mostly because it highlights that this is &quot;the key to the Ace technology&quot; and because hiding implementation details sounds remarkably similar to my description of Bob Martin&#39;s state machine compiler.  The quote goes on:</p>
+
+<blockquote><p>The first half of an Ace specification is a description of the data which the application will manipulate, that is, its set of business objects. These business objects and their relationships are represented visually in a diagram. ...<br />
+ <br />
+The second half of an Ace specification is a description of how the application will manipulate that data, that is, its business process tasks. These business process tasks and their sequencing are represented visually in another diagram.</p></blockquote>
+
+<p><a href="http://research.sun.com/features/ace/images/ace_graphic2_lg.jpg">The business process diagram for the PurchaseOrder application</a> is an unmistakable state transition diagram.</p>
+
+<p>Given all the state machines on my brain I had to take a closer look.  <a href="http://research.sun.com/projects/ace/">Sun Labs Ace Project</a> has a more technical spin.  Have a look at this <a href="http://research.sun.com/projects/ace/samples/NameTool/Nametool.aum">Ace example code for an Application Usage Specification</a> and compare that with Bob Martin&#39;s <a href="http://dobbse.net/thinair/2003/10/000145.html">state machine compiler configuration</a>.</p>
+
+</div>
+
+<div class="section comments"><a name="comments"></a>
+
+</div>
+
+

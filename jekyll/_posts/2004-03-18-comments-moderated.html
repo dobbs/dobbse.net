@@ -1,0 +1,49 @@
+--- 
+layout: default
+charset: UTF-8
+fulltitle: Comments now moderated
+posted: 2004-03-18T21:26:11
+---
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2004/03/comments-moderated.html">Comments now moderated</a></h1>
+<div class="time 2004-03-18T21:26:11 pubdate meta">Thursday 18 March 2004 at 21:26 </div>
+<p>There&#39;s many other things I would have rather done with my free time tonight, but I had to finally do something about the blog spammers.  I&#39;ve hacked Movable Type&#39;s comment system to allow me to moderate comments.</p>
+
+<p>I&#39;m a professional perl hacker these days and thought I&#39;d find a way to wire in Spam Assassin.  Before starting I checked Google and found a much more simple solution: <a href="http://www.edithfrost.com/archive/2003/04/10-movable_type_comme.html">Edith Frost - Movable Type comments moderation</a>.</p>
+
+<blockquote><p>All I had to do was comment out six lines in lib/MT/App/Comments.pm...</p></blockquote>
+
+<pre>
+        # $app-&gt;rebuild_indexes( Blog =&gt; $blog )
+        #   or return $app-&gt;error($app-&gt;translate(
+        #       &quot;Rebuild failed: [_1]&quot;, $app-&gt;errstr));
+        # $app-&gt;rebuild_entry( Entry =&gt; $entry )
+        #   or return $app-&gt;error($app-&gt;translate(
+        #       &quot;Rebuild failed: [_1]&quot;, $app-&gt;errstr));</pre><blockquote><p>You can&#39;t use the comments popup window anymore if you want to do this. I don&#39;t think so anyway. So I changed all the links on the index, date-based and category templates to point towards the comments section on the individual archive.</p></blockquote>
+
+<p>This cool trick just disables the automatic rebuilding of the indexes and entry.  That keeps the comments off of the web until I manually rebuild my site.  The comments are actually saved, just not published into the indexes nor appended to the entry.  Editing the index and date-based archive templates to change the comment links is important.  Left at the default, those popups point to the mt-comment.cgi which will happily display the not-yet-approved comments thereby defeating the point.  Like Edith, I changed them to link to the entry archive.</p>
+
+<p>The last trick is to tell the search engines to ignore the cgis:</p>
+
+<pre>document-root/robots.txt
+User-agent: *
+Disallow: /dobbse-cgi-bin/
+</pre><p>Hopefully that will deny the spammers whatever link juice they think they can get from my site.</p>
+
+<p><ins>Update:</ins>  I took a further measure of adding the following lines to the view method in Comments.pm:</p>
+
+<pre>    sub view {
+        return &lt;&lt;END_HTML;
+    &lt;html&gt;
+    &lt;head&gt;&lt;title&gt;Blank&lt;/title&gt;&lt;/head&gt;
+    &lt;body&gt;&lt;h1&gt;Blank&lt;/h1&gt;&lt;p&gt;This space intentionally left blank.&lt;/p&gt;&lt;/body&gt;
+    &lt;/html&gt;
+    END_HTML</pre><p>Now even the mt-comments.cgi won&#39;t display comments -- they&#39;ll only show up on the individual archives which I control through manual updates.</p>
+
+</div>
+
+<div class="section comments"><a name="comments"></a>
+
+</div>
+
+

@@ -1,0 +1,52 @@
+--- 
+layout: default
+charset: UTF-8
+fulltitle: State Machines and Agile Software Development
+posted: 2003-10-02T21:02:02
+---
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2003/10/fsm-agile-software-development.html">State Machines and Agile Software Development</a></h1>
+<div class="time 2003-10-02T21:02:02 pubdate meta">Thursday 02 October 2003 at 21:02 </div>
+<p><a href="http://dobbse.net/thinair/2003/09/000140.html">State Machines</a> part three</p>
+
+<p>I&#39;ve recently finished reading <a href="http://allconsuming.net/item.cgi?isbn=0135974445">Agile Software Development</a> cover to cover.  I learned a ton.  I can&#39;t recommend this book strongly enough.  This goes on my list of must-haves along side <a href="http://allconsuming.net/item.cgi?isbn=0201633612">Design Patterns</a> , and <a href="http://allconsuming.net/item.cgi?isbn=0201485672">Refactoring</a> , and <a href="http://allconsuming.net/item.cgi?isbn=0201310058">Effective Java</a> .</p>
+
+<p>Bob Martin Introduces the state pattern on page 419:</p>
+
+<blockquote><p>Finite state automata are among the most useful abstractions in the software arsenal.  They provide a simple and elegant way to explore and define the behavior of a complex system.  They also provide a powerful implementation strategy that is easy to understand and easy to modify.  I use them at all levels of a system, from controlling the high-level <span class="caps">GUI</span> to the lowest-level communication protocols.  They are almost universally applicable.</p></blockquote>
+
+<p>That dispelled any <a href="http://dobbse.net/thinair/2003/09/000141.html">doubts I had about all those workflows</a> .  And it gave me insight about what made <a href="http://dobbse.net/thinair/2003/10/000142.html">that Tango outline</a> effective.  Despite some tendency toward self-doubt, I trust my intuition when it gets insistent.  But confirmation by external authorities gives me a warm, fuzzy feeling inside.  :-)</p>
+
+<p>Just as I was settling a little too deeply into my self-satisfaction, Bob mentioned his <a href="http://www.objectmentor.com/resources/downloads/index">state machine compiler, available for free at Object Mentor</a> .  It humbled me.  Create a state transition table and let the compiler pop out a bunch of state machine gears and cogs.  What an excellent example of meta-programming (about which I&#39;ll have more to say).  Moreover, a state transition table is an excellent way to think about the state pattern.  The compiler allows me to work with the state machine at a conceptual level without having to get lost in the state pattern minutia.  This is the kind of trick I just know is going to change the way I approach problems.  This is leverage.</p>
+
+<p><em>By the way, Larry, who recommended Agile Software Development to me, has just commented about <a href="http://radio.weblogs.com/0120174/categories/javaAndObjectOrientation/2003/10/01.html#a24">using state charts to design user interfaces</a> .</em></p>
+
+<p><ins>Update:</ins>  Thought I should include an example of the <span class="caps">SMC</span> config file.  This is the state transition table for a turnstyle from the <span class="caps">SMC</span> distribution.  I think you can see at a glance how it spares you the state machine minutia.</p>
+
+<pre>
+Context Turnstylecontext     // The Name Of The Context Class
+Fsmname Turnstyle            // The Name Of The Fsm To Create
+Initial Locked               // The Name Of The Initial State
+                             // For C++ Output
+Pragma Header  Tscontext.H   // The Header File Name For The Context Class
+{
+    Locked
+    {
+        Coin     Unlocked    Unlock
+        Pass     Locked      Alarm
+    }
+    Unlocked
+    {
+	    Coin    Unlocked    Thankyou
+	    Pass    Locked      Lock
+    }
+}
+</pre>
+
+</div>
+
+<div class="section comments"><a name="comments"></a>
+
+</div>
+
+

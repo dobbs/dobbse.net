@@ -1,0 +1,177 @@
+--- 
+layout: default
+charset: UTF-8
+fulltitle: Hacking PDF forms with iText, jython, perl, and emacs
+posted: 2004-02-27T22:12:00
+---
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2004/02/pdf-pot-luck.html">Hacking PDF forms with iText, jython, perl, and emacs</a></h1>
+<div class="time 2004-02-27T22:12:00 pubdate meta">Friday 27 February 2004 at 22:12 </div>
+<p><ins>Update:</ins> <em>This page seems to draw a fair bit of traffic from Google.  In addition to the body of this post, there are some Java samples in the comments.  Have a look there too.</em></p>
+
+<p>For one problem last week I had two tricks to figure out: how to concatenate <span class="caps">PDF</span> forms and how to fill in some <span class="caps">PDF</span> form fields.  With Acrobat people can create <span class="caps">PDF</span> forms which you can complete with Reader.  In our case these are multi-page tax forms.  The <span class="caps">IRS</span> defined the forms -- they&#39;re not under our control.  <a href="http://www.lowagie.com/iText/">iText</a> was the tool of choice, but I didn&#39;t know the <span class="caps">API.  </span>The <a href="http://www.lowagie.com/iText/tutorial/ch13.html">concat_pdf</a> tool put the forms together well enough, but it trashed the data in the forms.</p>
+
+<p>I used <a href="http://www.jython.org/">jython</a> to experiment with the <span class="caps">API</span> and diagnose the problem.  It turns out that the names of the form fields on several of the forms were the same.  It was a simple problem of name collisions.  Jython was entirely great for diagnosing the problem.  I could interrogate the forms before and after concatenation to find out their field names and values.  I tried and tried and failed and failed to get Jython and iText to change the names of those fields.  I spent entirely too much time in trial and error (and error) failing to bend the iText <span class="caps">API</span> to my task.  Attempts to create subclasses or delegates around the <span class="caps">API</span> met with various limits -- crucial methods that were protected or whatever.  There&#39;s a separate story here about recognizing when you&#39;re on the wrong path or using the wrong tools.  I find myself down that dead end more often than I&#39;d like to admit.  But this is a different story, so I won&#39;t go there now.</p>
+
+<p>At some point I remembered Rob&#39;s story about a colleague who spent a long time implementing the <span class="caps">PDF</span> spec to generate correct <span class="caps">PD</span>Fs that nevertheless wouldn&#39;t work with Acrobat.  It seems the spec and the implementations differ.  (When has that ever happened?)  The point of the story was that they eventually threw out the carefully crafted tool and used perl string replacement on existing files created with Acrobat.  So I turned my attention to seeing if I could find a useful pattern in the field names that would yield to perl&#39;s regular expression prowess.</p>
+
+<p>Jython again came in handy for extracting all the field names.  All the time walking down dead ends had left me well enough acquainted with <span class="caps">PDF</span> internals to see the boundaries of the pattern.  Emacs had been in the background of all of these tasks, but it came front and center as I tested my theory about the name collisions and about the pattern.  Sure enough, once I ensured that all the fields were uniquely named, the concatenation worked quite smoothly.  Quickly enough I had a perl solution to renaming the fields that was really fast.</p>
+
+<p><span class="caps">PD</span>Fs are pretty on the display and printing side of things, but pretty ugly on the inside.  Paul ended up throwing out my solution too.  He found things in <a href="http://itextpdf.sourceforge.net/">the beta versions of iText</a> that allow <span class="caps">PDF</span> forms to be &quot;flattened&quot;.  Then the form field names aren&#39;t an issue and the files are smaller too.  So all I have to show for my work is a little unwanted knowledge about <span class="caps">PDF</span> internals and a story for my blog about technical-pot-luck problem solving.  That said, I&#39;ll include a little code here in case the string replacement trick for enforcing unique field names helps someone else from avoiding dead-ends.</p>
+
+<pre>
+    my $ax = &#39;aa&#39;;
+    foreach my $file (@pdf_files) {
+      $file =~ s{\(([cf]\d-[a-z0-9]+)\)}{($ax-$1)}g;
+      $ax++;
+      # save the files to disk
+    }
+</pre><p>The key part is that field names are delimited with parenthesis.  In my case the field names themselves were fairly predictable.  They looked like this: (f1-04) or in some cases (c4-alpha).  I don&#39;t think you can just count on finding parentheses -- <span class="caps">PD</span>Fs are more complex than that.  (The <code>$ax = &#39;aa&#39;; $ax++</code> thing is a fun perl trick.  Perl will increment the string alphanumerically thusly: aa, ab, ac ...)</p>
+
+<p>iText and Jython make it easy to get the field names from a <span class="caps">PDF </span>(assuming you&#39;re not in control of those field names).  Here&#39;s how:</p>
+
+<pre>
+    % env CLASSPATH=./iText.jar jython
+    &gt;&gt;&gt; from com.lowagie.text.pdf import PdfReader
+    &gt;&gt;&gt; reader = PdfReader(&#39;path/to/your.pdf&#39;)
+    &gt;&gt;&gt; [f.name for f in reader.acroForm.fields]
+</pre><p>Then you can analyze the results and figure out your own replacement pattern.</p>
+
+</div>
+
+<div class="section comments"><a name="comments"></a>
+<div class="article comment">
+<div class="comment-author"><h2><a href="mailto&#58;seth&#64;ehawaii&#46;gov">seth</a> commented</h2></div>
+<div class="time 2004-03-30T14:45:30 pubdate meta">30 March 2004 at 14:45</div>
+<p>Is there a way to populate the form fields with iText and write out a PDF with the fields filled in?</p>
+
+<p>Thanks!</p>
+</div>
+<div class="article comment">
+<div class="comment-author"><h2><a target="_blank" href="http://dobbse.net/">eric</a> commented</h2></div>
+<div class="time 2004-04-06T10:08:30 pubdate meta">06 April 2004 at 10:08</div>
+<p>Yes, iText does let you fill in form fields and write out a completed form.  Here's a simple example in java which puts a string of Y's into every field in the PDF form.  I found the example code in the iText library to be too complicated for what I was trying to do.  The comment form will munj my indentation, but javac shouldn't care.  Hope that helps.</p>
+
+<p>-Eric</p>
+
+<p>import com.lowagie.text.pdf.PdfReader;<br />
+import com.lowagie.text.pdf.PRAcroForm;<br />
+import com.lowagie.text.pdf.PdfStamper;<br />
+import com.lowagie.text.pdf.AcroFields;<br />
+import com.lowagie.text.DocumentException;</p>
+
+<p>import java.util.Iterator;<br />
+import java.io.IOException;<br />
+import java.io.FileOutputStream;</p>
+
+<p>public class PdfForm {</p>
+
+<p>    public static void main(String[] args) throws IOException, DocumentException {<br />
+        PdfReader reader = new PdfReader("/full/path/to/source.pdf");<br />
+        PdfStamper stamp = new PdfStamper(reader, new FileOutputStream("/full/path/to/modified.pdf"));<br />
+        AcroFields form = stamp.getAcroFields();<br />
+        for(Iterator i = reader.getAcroForm().getFields().iterator(); i.hasNext();) {<br />
+            PRAcroForm.FieldInformation field = (PRAcroForm.FieldInformation) i.next();<br />
+            field.getInfo();</p>
+
+<p>            form.setField(field.getName(),"YYYYY");<br />
+        }<br />
+        stamp.close();<br />
+    }<br />
+}</p>
+</div>
+<div class="article comment">
+<div class="comment-author"><h2><a href="mailto&#58;nospam&#64;nospam&#46;com">seth</a> commented</h2></div>
+<div class="time 2004-04-06T11:57:23 pubdate meta">06 April 2004 at 11:57</div>
+<p>Thanks!  Luckily I discovered this a little while ago.  This handles check boxes and radio buttons, too!<br />
+</p>
+</div>
+<div class="article comment">
+<div class="comment-author"><h2><a href="mailto&#58;mihaiibanescu&#64;yahoo&#46;com">Mihai</a> commented</h2></div>
+<div class="time 2004-04-06T21:28:53 pubdate meta">06 April 2004 at 21:28</div>
+<p>Hello,</p>
+
+<p>Is there a way with itext to set the checkboxes? I couldn't find a way to do it.</p>
+
+<p>Thanks!</p>
+</div>
+<div class="article comment">
+<div class="comment-author"><h2><a target="_blank" href="http://dobbse.net/">eric</a> commented</h2></div>
+<div class="time 2004-04-07T13:37:07 pubdate meta">07 April 2004 at 13:37</div>
+<p>I haven't had to fill in check boxes, so I can't speak from experience.  Maybe one of these:</p>
+
+<p>form.setField(field.getName(), "1")<br />
+form.setField(field.getName(), "on")</p>
+
+<p>This method might also be helpful -- the javadocs specifically refer to checkboxes:</p>
+
+<p>form.getAppearanceStates(field.getName())</p>
+
+<p><a href="http://itext.sourceforge.net/docs/com/lowagie/text/pdf/AcroFields.html#getAppearanceStates(java.lang.String)">http://itext.sourceforge.net/docs/com/lowagie/text/pdf/AcroFields.html#getAppearanceStates(java.lang.String)</a></p>
+
+<p>-Eric</p>
+</div>
+<div class="article comment">
+<div class="comment-author"><h2><a href="mailto&#58;mihaibanescu&#64;yahoo&#46;com">Mihai</a> commented</h2></div>
+<div class="time 2004-04-08T08:37:31 pubdate meta">08 April 2004 at 08:37</div>
+<p>I figured it out after I posted the question.<br />
+Checkboxes and radio buttons are "special" - getAppearanceStatus() returns a non-empty array of possible values that you can set. Setting the field to one of those values does the trick.</p>
+
+<p>Thanks!</p>
+</div>
+<div class="article comment">
+<div class="comment-author"><h2><a target="_blank" href="http://dobbse.net/">eric</a> commented</h2></div>
+<div class="time 2004-04-08T12:38:57 pubdate meta">08 April 2004 at 12:38</div>
+<p>Mihai, thanks for confirming how to work with PDF checkboxes.</p>
+</div>
+<div class="article comment">
+<div class="comment-author"><h2><a href="mailto&#58;ipforr&#64;gmx&#46;de">ingmar</a> commented</h2></div>
+<div class="time 2004-04-22T04:51:04 pubdate meta">22 April 2004 at 04:51</div>
+<p>thank you for these samples, they helped me a lot!</p>
+</div>
+<div class="article comment">
+<div class="comment-author"><h2><a href="mailto&#58;shant4u&#64;yahoo&#46;com">Prashant Nirmal</a> commented</h2></div>
+<div class="time 2004-07-10T13:02:43 pubdate meta">10 July 2004 at 13:02</div>
+<p>Hi <br />
+Is it possible to extract data from the pdf document  into text document using Perl or PHP<br />
+If so please guide . It will be a great help.<br />
+</p>
+</div>
+<div class="article comment">
+<div class="comment-author"><h2><a target="_blank" href="http://www.missionvi.com">Kevin Baker</a> commented</h2></div>
+<div class="time 2004-10-17T18:27:28 pubdate meta">17 October 2004 at 18:27</div>
+<p>So you mention that paul used pdf flattening in the beta rather than your solution. Do you know if this allow for populating forms in existing Pdfs? Examples? If not I will likely explore your solution above.</p>
+
+<p>Thanks</p>
+</div>
+<div class="article comment">
+<div class="comment-author"><h2><a target="_blank" href="http://dobbse.net/">eric</a> commented</h2></div>
+<div class="time 2004-10-18T18:10:38 pubdate meta">18 October 2004 at 18:10</div>
+<p>Prashant,</p>
+
+<p>Apologies for taking so long to reply.  Paul said he had looked at the PDF options available in perl and wasn't satisfied with what he found.  That's why we ended up using the iText java stuff.  I almost never work in PHP anymore, so I  can't help you there either.</p>
+
+<p>Kevin,</p>
+
+<p>Paul's tricks are cool, so I'm glad you asked.  He exported the field data using Acrobat (not Acrobat Reader) into an FDF file.  Then he uses the iText library to populate the form with data and flatten it.</p>
+
+<p>The java code looks something like this (keep in mind that this is for the beta version of iText):</p>
+
+<p>PdfStamper stamper = new PdfStamper(<br />
+    new PdfReader(pdf_in),<br />
+    new FileOutputStream(pdf_out));<br />
+AcroFields form = stamper.getAcroFields();<br />
+form.setFields(new FdfReader(fdf_file));<br />
+stamper.setFormFlattening(true);<br />
+stamper.close();</p>
+
+<p>The tricky bit is getting the data in the FDF file figured out.  The FDF internals are just as cryptic as PDF's, but there's much less in the way.  Fields look like this:</p>
+
+<p>&lt;&lt; /V (some value) /T (f1-04)>></p>
+
+<p>The 'f1-04' corresponds to the field name in the PDF file, and 'some value' is the part you probably want to replace with your data.  So there's another way to get the field names out of the PDF file, provided you have Acrobat.</p>
+</div>
+
+</div>
+
+

@@ -1,0 +1,28 @@
+--- 
+layout: default
+charset: UTF-8
+fulltitle: State Machines and Tango
+posted: 2003-10-01T22:33:12
+---
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2003/10/fsm-tango.html">State Machines and Tango</a></h1>
+<div class="time 2003-10-01T22:33:12 pubdate meta">Wednesday 01 October 2003 at 22:33 </div>
+<p><a href="http://dobbse.net/thinair/2003/09/000140.html">State Machines</a> part two</p>
+
+<p>My life as a network administrator ended and life as a professional software developer started in 1997 when I moved back to Colorado and got a job with <a href="http://visionlink.org">VisionLink</a> .  At the time, VisionLink used Tango and FileMaker Pro on PowerMac <span class="caps">G3</span>&#39;s for their web application (there was only one at the time).  Tango has changed hands a number of times and now goes by the name <a href="http://www.witango.com/">WiTango</a> .</p>
+
+<p>Since leaving VisionLink I&#39;ve worked with many other web application tools.  <span class="caps">PHP, </span>Zope, the ArsDigita Community Server, perl and python cgis, Turbine, Velocity, Struts, <span class="caps">JSP.  </span>Tango had one thing that all of those other technologies lack.  The development tools encouraged you to think in terms of what the whole application was going to be doing rather than thinking one page at a time.  I miss that way of thinking about web applications.  It was like having an outline of the application up front.  You still had to put the individual pages together but every page was inherently created in the context of the rest of the application.  It was easy to see the relationship of the forrest and the trees.</p>
+
+<p>Few people have even heard of Tango, much less developed an application of any complexity with it.  It&#39;s hard to explain why it&#39;s a better way to think about the apps.  Perhaps it&#39;s similar to making the leap from simple functional programming to recursive programming, or from procedural to object programming.  Or the leap to using patterns.  (I&#39;m sure that aspect oriented programming will open up still more options if I can ever make the time for it.)  It&#39;s all programming, but different modes of thinking about problems open up different solutions.  For a given problem some modes of thinking are more effective than others.  I think Tango had a better fit for thinking about web applications.</p>
+
+<p>I have just recently learned to think of that &quot;outline&quot; as an application-level state machine.</p>
+
+<p><ins>Update:</ins>  Looks like <a href="http://www.witango.com/productinfo/guide/studio.thtml">the WiTango Development Studio</a> hasn&#39;t changed radically since my Tango days.  There&#39;s a picture of the outline I&#39;ve been talking about on that page.  It&#39;s a tree widget with if...else branches and such.  Those branches are at the application level, not the page level.  <em>If the user isn&#39;t logged in</em> ... <em>if action=save</em> ... and so on.  As opposed to <em>if user has x permission then show y widget</em> or other page logic.</p>
+
+</div>
+
+<div class="section comments"><a name="comments"></a>
+
+</div>
+
+
