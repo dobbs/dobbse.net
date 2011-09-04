@@ -91,7 +91,7 @@ task :copy_static do
       destination = source.gsub('imported', 'jekyll')
       dir = File.dirname(destination)
       mkdir_p dir
-      cp_r source, dir
+      cp_r source, dir, preserve: true
   }
   FileList['imported/thinair/*/*/*'].exclude(/.html$/)
     .add('imported/*')
@@ -105,14 +105,27 @@ task :copy_static do
   FileList['imported/thinair/*/*/index.html'].each &copy_file
 end
 
+desc "clean static files in jekyll"
+task :clean_static do
+  FileList['imported/*']
+    .exclude('imported/thinair', /.(atom|opml|html|htmlx|rdf|xml)$/).each do |source|
+    rm_rf source.sub('imported', 'jekyll')
+  end
+end
+
 desc "generate site with jekyll"
 task :jekyll do
   chdir "jekyll" do
     sh "jekyll"
   end
-  cp 'imported/.htaccess', 'jekyll/_site'
+  cp 'imported/.htaccess', 'jekyll/_site', preserve: true
   chdir 'jekyll/_site/resume' do
     ln_s 'eric-dobbs.pdf', 'eric_dobbs.pdf' unless File.symlink? 'eric_dobbs.pdf'
     ln_s 'eric-dobbs.html', 'index.html' unless File.symlink? 'index.html'
   end
+end
+
+desc "publish _site to host"
+task :publish do
+  sh "rsync -avz jekyll/_site/ dobbse-host:www/html/"
 end
