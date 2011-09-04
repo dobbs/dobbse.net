@@ -12,7 +12,7 @@ class FSM
   def parse
     linenumber = 1;
     begin
-      File.open(@source, 'r:ISO-8859-1').each_line do |line|
+      File.open(@source, 'r:ISO-8859-1:UTF-8').each_line do |line|
         linenumber += 1
         @currentline = line
         self.send(@state)
@@ -28,10 +28,10 @@ class FSM
       return self 
     end
     require 'yaml'
-    File.open(@destination, 'w') do |file|
-      file.puts(YAML.dump(@yaml).encode("UTF-8"))
-      file.puts "---".encode("UTF-8")
-      @savedlines.each {|line| file.puts line.encode("UTF-8")}
+    File.open(@destination, 'w:UTF-8') do |file|
+      file.puts(YAML.dump(@yaml))
+      file.puts "---"
+      @savedlines.each {|line| file.puts line}
     end
     self
   end
