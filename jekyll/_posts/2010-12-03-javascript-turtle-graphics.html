@@ -3,6 +3,9 @@ layout: default
 charset: UTF-8
 fulltitle: javascript turtle graphics
 posted: 2010-12-03T22:51:05
+scripts:
+  - https://github.com/dobbs/turtle/raw/master/turtle.min.js
+  - https://github.com/dobbs/turtle/raw/master/fractal.js
 ---
 <div class="article">
 <h1><a href="http://dobbse.net/thinair/2010/12/javascript-turtle-graphics.html">javascript turtle graphics</a></h1>
@@ -27,8 +30,6 @@ posted: 2010-12-03T22:51:05
 
 <p>Oh, and if you happen to be visiting here with a browser that supports the HTML5 canvas element, you can see the von Koch snowflake and Peano curves illustrated below using my javascript turtle graphics.</p>
 
-<script type="text/javascript" src="http://github.com/dobbs/turtle/raw/master/turtle.js"></script>
-<script type="text/javascript" src="http://github.com/dobbs/turtle/raw/master/fractal.js"></script>
 <canvas class="fractalcanvas" width="205" height="110">an image of the von Koch snowflake on the left and peano curve on the right</canvas>
 <script type="text/javascript">Turtle.drawFractal(document.getElementsByClassName("fractalcanvas")[0]);</script>
 

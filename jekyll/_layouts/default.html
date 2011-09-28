@@ -5,6 +5,8 @@
 <title>{% if page.fulltitle %}{{ page.fulltitle }} - {% endif %}thinair</title>
 <link rel="stylesheet" href="http://dobbse.net/style.css" type="text/css" />
 <link rel="alternate" type="application/atom+xml" title="thinair" href="http://dobbse.net/feed.atom" />
+{% for script in page.scripts %}<script type="text/javascript" src="{{ script }}"></script>
+{% endfor %}
 </head>
 <body>
 
