@@ -1,0 +1,458 @@
+--- 
+layout: default
+charset: UTF-8
+fulltitle: "Testing cookies in Capybara, Rack::Test, RSpec, and Rails: debugging other people's code (1 of 2)"
+posted: 2011-12-11T23:39:00
+---
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2011/12/capybara-racktest-rspec-cookies-1of2.html">
+Testing cookies in Capybara, Rack::Test, RSpec, and Rails: debugging other people's code (1 of 2)
+</a></h1>
+<div class="time 2011-12-11T23:39:00 pubdate meta">Sunday 11 December 2011 at 23:39 </div>
+
+<p>
+  This morning Sarah and the kids made gingerbread cookies, thoroughly
+  destroying all illusions of joyous family fun for the holidays.
+  Speaking of cookies failing to deliver promises, I blew the entire
+  day Friday figuring out a failing capybara test around browser
+  cookies.  Not a good weekend for cookies.
+</p>
+
+<p>
+  It's a Rails app which depends entirely on a legacy authentication
+  and authorization system.  The simplest thing that could possibly
+  work is use cookies set by the existing authentication system.
+  Should be simple.
+</p>
+
+<p>
+<pre><code>describe "ServiceRequestController" do
+  it "redirects when credentials are missing" do
+    get new_service_request_path
+    response.status.should == 302
+  end
+end</code></pre>
+</p>
+
+<p>
+  Test is red.
+</p>
+
+<p>
+<pre><code>class ServiceRequestController < ApplicationController
+  def new
+    redirect_to cookies_path
+  end
+end</code></pre>
+</p>
+
+<p>
+  Test is green.
+</p>
+
+<p>
+<pre><code>describe "ServiceRequestController" do
+  ...
+  it "renders the form when credentials are found" do
+    page.driver.browser.set_cookie 'username=jhendrix'
+    get new_service_request_path
+    response.status.should == 200
+  end    
+end</code></pre>
+</p>
+
+<p>
+  Test is red.
+</p>
+
+<p>
+<pre><code>class ServiceRequestController < ApplicationController
+  def new
+    user = LegacyUser.find_by_username(request.cookies['username'])
+    if !user
+      redirect_to cookies_path
+    end
+  end
+end</code></pre>
+</p>
+
+<p>
+  Test is red.  I found a work-around just before lunch, but spent the
+  rest of the day trying to understand why that doesn't work.
+</p>
+
+<h2 id="tldr">tl;dr</h2>
+
+<p>
+  If you're here just for the work-around when testing with cookies in
+  Capybara and RSpec, here's my first work around (but 
+  <a href="http://dobbse.net/thinair/2011/12/capybara-racktest-rspec-cookies-2of2.html#tldr">
+    the better way to test cookies in Capybara, Rack::Test and RSpec is in part 2
+  </a>):
+</p>
+
+<p>
+<pre><code>describe "ServiceRequestController" do
+  ...
+  it "renders the form when credentials are found" do
+    page.driver.browser.set_cookie 'username=jhendrix'
+    <strong>page.driver.</strong>get new_service_request_path
+    response.status.should == 200
+  end    
+end</code></pre>
+</p>
+
+<p>
+  Use the <code>page.driver</code> when you call <code>get</code>.
+</p>
+
+<h2>Debugging other people's code:  aka. code caving in a maze of twisty passages</h2>
+
+<p>
+  What follows are some of the most important programming skills I
+  learned working with Rob and Paul at <a href="http://www.bivio.biz/">bivio</a>:
+  how to find your way around other people's code.  I'll start with
+  the failing test.
+<p>
+
+<p>
+<pre><code>describe "ServiceRequestController" do
+  ...
+  it "renders form when credentials are found" do
+    page.driver.browser.set_cookie 'username=jhendrix'
+    get new_service_request_path
+    response.status.should == 200
+  end    
+end</code></pre>
+</p>
+
+<p>
+  First question: Am I calling <code>set_cookie</code> correctly?
+  There's a profoundly important tone in this question.  Start with a
+  beginner's mind.  Don't guess.  Don't be clever.  Just read and
+  follow the code.  This is also one of the hardest things to do.  As
+  programmers we're all pretty intoxicated with our own cleverness.
+  Let go and use The Source.
+</p>
+
+<p>
+  In RubyMine you can Command-Click on set_cookie or type Command-B.
+  That pulls up a list of likely candidates.  Without RubyMine you
+  need some unix fu.  Two of the most important, general purpose, and
+  language independent programming tools ever are <code>find</code>
+  and <code>grep</code>.  Get to know them.  They are your best
+  friends.
+</p>
+
+<p><code>find ${GEM_PATH//:/ /} -type f -exec grep -nH -e 'def set_cookie' {} /dev/null \;</code></p>
+
+<p>
+  Either way you search, the results are similar (though not
+  identical).  These are cleaned up from the results via
+  <code>find</code> and <code>grep</code>:
+</p>
+
+<p><pre><code>
+action_dispatch/http/response.rb:158:                   def set_cookie(key, value)
+action_dispatch/middleware/session/cookie_store.rb:65:  def set_cookie(env, session_id, cookie)
+rack/response.rb:58:                                    def set_cookie(key, value)
+rack/session/abstract/id.rb:320:                        def set_cookie(env, headers, cookie)
+rack/session/cookie.rb:121:                             def set_cookie(env, headers, cookie)
+rack/mock_session.rb:23:                                def set_cookie(cookie, uri = nil)
+</code></pre></p>
+
+<p>
+  The hits in action_dispatch, rack/response and rack/session are
+  probably all related to the real cookie code.  That stuff has to be
+  working correctly or no Rails app would be able to save cookies.  It
+  almost has to be something in rack/mock_session.
+</p>
+
+<p>
+  There's a certain bit of irony here.  I didn't trust these search
+  results.  I was Being Clever.  I took a longer path and ended up in
+  rack/mock_session anyway.  The longer path did give me the
+  confidence of a second opinion.  Trusting The Source would have
+  produced my answer more quickly.  Then again, I might have found the
+  answer and still not trusted it.  I'll share the longer path I took
+  which is pretty much what I could learn by stepping through with a
+  debugger.
+</p>
+
+<p>
+  In this call, <code>page.driver.browser.set_code</code> where does
+  <code>page</code> come from?  I know it's from Capybara, but where
+  exactly?  It'll be in here somewhere: 
+
+  <a href="https://github.com/jnicklas/capybara/tree/master/lib/capybara">https://github.com/jnicklas/capybara/tree/master/lib/capybara</a>.
+  <pre><code>cucumber.rb	
+dsl.rb
+rails.rb	
+rspec.rb	
+selector.rb	
+server.rb	
+session.rb	
+version.rb</code></pre>
+
+  Looking over that list <code>dsl.rb</code> looked most promising.
+  And sure enough in <a href="https://github.com/jnicklas/capybara/blob/master/lib/capybara/dsl.rb">Capybara::DSL</a>
+  I find
+</p>
+
+<p>
+<pre><code>def page
+  Capybara.current_session
+end</code></pre>  
+</p>
+
+<p>
+  <code>current_session</code> is defined earlier in the file:
+</p>
+
+<p>
+<pre><code>def current_session
+  session_pool["#{current_driver}:#{session_name}:#{app.object_id}"] ||= Capybara::Session.new(current_driver, app)
+end</code></pre>  
+</p>
+
+<p>
+  Now I know that <code>page</code> is a Capybara::Session using <code>current_driver</code>.  What's <code>current_driver</code>?  It's also defined in <code>dsl.rb</code>:
+</p>
+
+<p>
+<pre><code>def current_driver
+  @current_driver || default_driver
+end</code></pre>  
+</p>
+
+<p>And <code>default_driver</code>?</p>
+
+<p>
+<pre><code>def default_driver
+  @default_driver || :rack_test
+end</code></pre>  
+</p>
+
+<p>
+  So <code>page</code> is a <a href="https://github.com/jnicklas/capybara/blob/master/lib/capybara/session.rb">Capybara::Session</a>
+  initalized with <code>:rack_test</code>.  The relevant code:
+</p>
+
+<p>
+<pre><code>attr_reader :mode, :app
+
+def initialize(mode, app=nil)
+  @mode = mode
+  @app = app
+end
+
+def driver
+  @driver ||= begin
+    unless Capybara.drivers.has_key?(mode)
+      other_drivers = Capybara.drivers.keys.map { |key| key.inspect }
+      raise Capybara::DriverNotFoundError, "no driver called #{mode.inspect} was found, available drivers: #{other_drivers.join(', ')}"
+    end
+    Capybara.drivers[mode].call(app)
+  end
+end
+</code></pre>  
+</p>
+
+<p>
+  Remind me again what it was I was searching for?  I've bounced
+  around the code enough to be lost in "a maze of twisty little
+  passages, all alike."  Oh yeah:
+  <code>page.driver.browser.set_cookie</code>.  After all this
+  caving, I'm finally through <code>page</code> and now looking
+  for <code>driver</code>.  The good news is, it's right here:
+  <code>Capybara.drivers[:rack_test].call(app)</code>.  But where do
+  I find <code>Capybara.drivers</code>?  Well given the name, let's look first at the top level capybara module: <a href="https://github.com/jnicklas/capybara/blob/master/lib/capybara.rb">Capybara</a>.
+<p>
+
+<p>
+<pre><code>def drivers
+  @drivers ||= {}
+end</code></pre>  
+</p>
+
+<p>
+  Searching through that file, this is the only line that refers to
+  <code>@drivers</code>.  What about references to
+  <code>drivers</code> itself?  Here's the only one I could find:
+</p>
+
+<p>
+<pre><code>def register_driver(name, &block)
+  drivers[name] = block
+end</code></pre>  
+</p>
+
+<p>
+  And <code>register_driver</code>?
+</p>
+
+<p>
+<pre><code>Capybara.register_driver :rack_test do |app|
+  Capybara::RackTest::Driver.new(app)
+end
+</code></pre>  
+</p>
+
+<p>
+  Now I know the <code>driver</code> is a
+  <a href="https://github.com/jnicklas/capybara/blob/master/lib/capybara/rack_test/driver.rb">Capybara::RackTest::Driver</a>
+  and the top of that file invites the next question: what's the
+  <code>browser</code>?
+</p>
+
+<p>
+<pre><code>  attr_reader :app, :options
+
+def initialize(app, options={})
+  raise ArgumentError, "rack-test requires a rack application, but none was given" unless app
+  @app = app
+  @options = DEFAULT_OPTIONS.merge(options)
+end
+
+def browser
+  @browser ||= Capybara::RackTest::Browser.new(self)
+end
+</code></pre>  
+</p>
+
+<p>
+  Are we there yet?  What was I looking for again?  Oh, right.  It's
+  <code>set_cookie</code>.  But there's no sign of that method in 
+  <a href="https://github.com/jnicklas/capybara/blob/master/lib/capybara/rack_test/browser.rb">Capybara::RackTest::Browser</a>.  
+
+  But there is an important bit that's easy to miss right up top:
+</p>
+
+
+<p>
+<pre><code>class Capybara::RackTest::Browser
+  include ::Rack::Test::Methods</code></pre>  
+</p>
+
+<p>
+  Let's take a peek in <a href="https://github.com/brynary/rack-test/blob/master/lib/rack/test/methods.rb">Rack::Test::Methods</a>.
+  <code>set_cookie</code> is delegated to the
+  <code>current_session</code>.
+</p>
+
+<p>
+<pre><code>METHODS = [
+  :request,
+  :get,
+  :post,
+  :put,
+  :delete,
+  :options,
+  :head,
+  :follow_redirect!,
+  :header,
+  :set_cookie,
+  :clear_cookies,
+  :authorize,
+  :basic_authorize,
+  :digest_authorize,
+  :last_response,
+  :last_request
+]
+
+def_delegators :current_session, *METHODS
+</code></pre>  
+</p>
+
+<p>
+  <code>current_session</code> points to <code>rack_test_session</code>:
+</p>
+
+<p>
+<pre><code>
+def current_session # :nodoc:
+  rack_test_session(_current_session_names.last)
+end
+</code></pre>  
+</p>
+
+<p>
+  which points to <code>build_rack_test_session</code>:
+</p>
+
+<p>
+<pre><code>
+def rack_test_session(name = :default) # :nodoc:
+  return build_rack_test_session(name) unless name
+
+  @_rack_test_sessions ||= {}
+  @_rack_test_sessions[name] ||= build_rack_test_session(name)
+end
+</code></pre>  
+</p>
+
+<p>
+  which creates a Rack::Test::Session with a <code>rack_mock_session</code>:
+</p>
+
+<p>
+<pre><code>
+def build_rack_test_session(name) # :nodoc:
+  Rack::Test::Session.new(rack_mock_session(name))
+end
+</code></pre>  
+</p>
+
+<p>
+  which points to <code>build_rack_mock_session</code>:
+</p>
+
+<p>
+<pre><code>
+def rack_mock_session(name = :default) # :nodoc:
+  return build_rack_mock_session unless name
+
+  @_rack_mock_sessions ||= {}
+  @_rack_mock_sessions[name] ||= build_rack_mock_session
+end
+</code></pre>  
+</p>
+
+<p>
+  "Which will bring us back to" Rack::MockSession.
+</p>
+
+<p>
+<pre><code>
+def build_rack_mock_session # :nodoc:
+  Rack::MockSession.new(app)
+end
+</code></pre>  
+</p>
+  
+<p>
+  And inside <a href="https://github.com/brynary/rack-test/blob/master/lib/rack/mock_session.rb">Rack::MockSession</a> is where the test calls set_cookie.
+</p>
+
+<p>
+<pre><code>def set_cookie(cookie, uri = nil)
+  cookie_jar.merge(cookie, uri)
+end</code></pre>  
+</p>
+
+<p>
+  And what, finally, is <code>cookie_jar</code>?
+</p>
+
+<p>
+<pre><code>def cookie_jar
+  @cookie_jar ||= Rack::Test::CookieJar.new([], @default_host)
+end</code></pre>  
+</p>
+
+<p>
+  It's probably a newly minted Rack::Test::CookieJar.  Now wouldn't it
+  have been a lot easier if I'd just trusted the search results in the
+  first place?  <code>find</code> and <code>grep</code> are your best
+  friends.  You can trust them to save you a lot of time.
+<p>

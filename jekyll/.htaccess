@@ -118,3 +118,4 @@ Redirect permanent /reflection/2002/10/000045.html /thinair/2002/10/zork.html
 Redirect permanent /reflection/2002/10/000058.html /thinair/2002/10/who.html
 Redirect permanent /reflection/2002/09/000057.html /thinair/2002/09/unstarted-projects.html
 Redirect permanent /reflection/2001/01/000054.html /thinair/2001/01/when-i-grow-up.html
+Redirect permanent /thinair/2011/12/capybara-rspec-cookies.html /thinair/2011/12/capybara-racktest-rspec-cookies-1of2.html

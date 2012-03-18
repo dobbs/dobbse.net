@@ -1,0 +1,483 @@
+--- 
+layout: default
+charset: UTF-8
+fulltitle: "Testing cookies in Capybara, Rack::Test, RSpec, and Rails: debugging other people's code (2 of 2)"
+posted: 2011-12-13T23:10:00
+---
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2011/12/capybara-racktest-rspec-cookies-2of2.html">
+Testing cookies in Capybara, Rack::Test, RSpec, and Rails: debugging other people's code (2 of 2)
+</a></h1>
+<div class="time 2011-12-13T23:10:00 pubdate meta">Sunday 13 December 2011 at 23:10 </div>
+
+<p>
+  A quick refresher, mainly for those who may land here first instead
+  of on part 1.  I spent all of last Friday figuring out a failing
+  capybara test around browser cookies.  First, the tests:
+</p>
+
+<p>
+<pre><code>describe "ServiceRequestController", type: :request do
+  it "redirects when credentials are missing" do
+    get new_service_request_path
+    response.status.should == 302
+  end
+
+  it "renders the form when credentials are found" do
+    page.driver.browser.set_cookie 'username=jhendrix'
+    get new_service_request_path
+    response.status.should == 200
+  end    
+end</code></pre>
+</p>
+
+<p>
+  Second, the controller:
+</p>
+
+<p>
+<pre><code>class ServiceRequestController < ApplicationController
+  def new
+    user = LegacyUser.find_by_username(request.cookies['username'])
+    if !user
+      redirect_to cookies_path
+    end
+  end
+end</code></pre>
+</p>
+
+<p>
+  First test passes, second test fails.  The previous post traced
+  through line one of my failing spec:
+  <code>page.driver.browser.set_cookie 'username=jhendrix'</code>.
+</p>
+
+<h2 id="tldr">tl;dr</h2>
+
+<p>
+  If you're here just for the work-around when testing with cookies in
+  Capybara with the Rack::Test driver and RSpec, here's the best
+  solution I've found so far to make it work.  Nevermind trying to set
+  cookies via capybara.  Just pass in the HTTP_COOKIE header with the
+  call to <code>get</code>.
+</p>
+
+<p>
+<pre><code>describe "ServiceRequestController", type: :request do
+  ...
+  it "renders the form when credentials are found" do
+    get new_service_request_path, {}, 'HTTP_COOKIE' => 'username=jhendrix'
+    response.status.should == 200
+  end    
+end</code></pre>
+</p>
+
+<h2>More tricks for debugging other people's code:  aka. code caving in a maze of twisty passages</h2>
+
+<p>
+  I still haven't answered my first question: "am I setting cookies
+  correctly?"  As you can guess from the tl;dr, the short answer is
+  "No".  But life is a journey, not a destination.  I'll start again
+  with the first line:
+  <code>page.driver.browser.set_cookie 'username=jhendrix'</code>
+  The first place to look is at <code>set_cookie</code> and see if
+  I'm actually setting one.  I'll start with the most important
+  programming power tools <code>find</code> and <code>grep</code> and
+  I'll add in another one: intentionally raising an exception.
+</p>
+
+<p><code>find ${GEM_PATH//:/ /} -type f -exec grep -nH -e 'def set_cookie' {} /dev/null \;</code></p>
+
+<p>
+  Here's the results of that search, cleaned up for legibility and brevity
+</p>
+
+<p><pre><code>
+action_dispatch/http/response.rb:158:                   def set_cookie(key, value)
+action_dispatch/middleware/session/cookie_store.rb:65:  def set_cookie(env, session_id, cookie)
+rack/response.rb:58:                                    def set_cookie(key, value)
+rack/session/abstract/id.rb:320:                        def set_cookie(env, headers, cookie)
+rack/session/cookie.rb:121:                             def set_cookie(env, headers, cookie)
+rack/mock_session.rb:23:                                def set_cookie(cookie, uri = nil)
+</code></pre></p>
+
+<p>
+  As I mentioned in part 1, the hits in action_dispatch, rack/response
+  and rack/session are probably all related to the real cookie code.
+  That stuff has to be working correctly or no Rails app would be able
+  to save cookies.  It almost has to be something in
+  rack/mock_session.  But this time around I'll take one extra moment
+  test my hypothesis.  Look at the source for that method in
+  <a href="https://github.com/brynary/rack-test/blob/master/lib/rack/mock_session.rb">
+    Rack::MockSession
+  </a>:
+</p>
+
+<p><pre><code>def set_cookie(cookie, uri = nil)
+  cookie_jar.merge(cookie, uri)
+end</code></pre></p>
+
+<p>
+  Where's cookie_jar come from?
+</p>
+
+<p><pre><code>def cookie_jar
+  @cookie_jar ||= Rack::Test::CookieJar.new([], @default_host)
+end
+</code></pre></p>
+
+<p>
+  I'll take drastic action to confirm this is the code in question:
+</p>
+
+<p><pre><code>def cookie_jar
+  @cookie_jar ||= Rack::Test::CookieJar.new([], @default_host)
+  raise @cookiejar.inspect
+end</code></pre></p>
+
+<p>Running the specs... sure enough they fail with a RuntimeError, for example:</p>
+
+<p><pre><code>1) new service requests redirects when credentials are missing
+   Failure/Error: get new_service_request_path
+   RuntimeError:
+     #&lt;Rack::Test::CookieJar:0x00000103d592c0 @default_host="www.example.com", @cookies=[]&gt;
+   # ./spec/requests/service_requests_controller_spec.rb:5:in `block (2 levels) in &lt;top (required)&gt;'</code></pre></p>
+
+<p>
+  Now I know I'm going in the right direction.  Is the cookie is getting set?
+</p>
+
+<p><pre><code>def set_cookie(cookie, uri = nil)
+  puts "Rack::MockSession.set_cookie(#{cookie})"
+  cookie_jar.merge(cookie, uri)
+  raise @cookiejar.inspect
+end
+
+...
+
+def cookie_jar
+  @cookie_jar ||= Rack::Test::CookieJar.new([], @default_host)
+end</code></pre></p>
+
+<p>
+<pre><code>.Rack::MockSession.set_cookie('username=jhendrix')
+F
+
+Failures:
+
+  1) new service requests renders the form when credentials are found
+     Failure/Error: page.driver.browser.set_cookie "username=jhendrix"
+     RuntimeError:
+       #&lt;Rack::Test::CookieJar:0x000001015ee0f0 @default_host="www.example.com", @cookies=[#&lt;Rack::Test::Cookie:0x000001015ee050 @default_host="www.example.com", @name_value_raw="username=jhendrix", @name="username", @value="jhendrix", @options={"domain"=&gt;"www.example.com", "path"=&gt;""}&gt;]>
+     # ./spec/requests/service_requests_controller_spec.rb:10:in `block (2 levels) in &lt;top (required)&gt;'</code></pre>
+</p>
+
+<p>
+  <code>set_cookie</code> works: the cookie I've set in the spec shows
+  up in the <code>CookieJar</code>.  Why is the spec failing?  I'll
+  change the code to print out the cookie_jar instead of raising an
+  exception and keep searching.
+</p>
+
+<p><pre><code>def set_cookie(cookie, uri = nil)
+  result = cookie_jar.merge(cookie, uri)
+  puts "set_cookie('#{cookie}')\n#{@cookiejar.inspect}"
+  result
+end</code></pre></p>
+
+<h3>Line 2 of the failing spec</h3>
+
+<p>
+<pre><code>get new_service_request_path</code></pre>
+</p>
+
+<p>
+  My trusty friends <code>find</code> and <code>grep</code> will turn
+  up a long list.  <code>get</code> is a really popular method name
+  for objects of every shape and size.
+</p>
+
+<p><code>find ${GEM_PATH//:/ /} -type f -exec grep -nH -e 'def get(' {} /dev/null \;</code></p>
+
+<p>
+  I'll draw your attention to the punctuation... I'm searching for
+  <code>get(</code> and not just <code>get</code> so the results don't
+  include false leads like <code>get_coffee</code>.  Cleaned up
+  results:
+</p>
+
+<p><pre><code>action_controller/test_case.rb:364:                   def get(action, parameters = nil, session = nil, flash = nil)
+action_dispatch/routing/mapper.rb:476:                def get(*args, &block)
+action_dispatch/routing/route_set.rb:106:             def get(name)
+action_dispatch/testing/integration.rb:32:            def get(path, parameters = nil, headers = nil)
+action_view/flows.rb:12:                              def get(key)
+action_view/flows.rb:46:                              def get(key)
+active_model/errors.rb:93:                            def get(key)
+active_record/identity_map.rb:77:                     def get(klass, primary_key)
+active_resource/connection.rb:79:                     def get(path, headers = {})
+active_resource/custom_methods.rb:56:                 def get(custom_method_name, options = {})
+active_resource/custom_methods.rb:89:                 def get(method_name, options = {})
+bundler/vendor/thor/actions/file_manipulation.rb:72:  def get(source, *args, &block)
+capybara/rack_test/driver.rb:75:                      def get(*args, &block)
+ffi/struct.rb:40:                                     def get(ptr)
+ffi/struct.rb:51:                                     def get(ptr)
+ffi/struct.rb:66:                                     def get(ptr)
+rack/mock.rb:56:                                      def get(uri, opts={})
+rack/cache/appengine.rb:27:                           def get(key)
+rack-cache-1.1/test/entitystore_test.rb:248:          def get(key); self[key]; end;
+rack-cache-1.1/test/metastore_test.rb:318:            def get(key); self[key]; end;
+rack-cache-1.1/test/spec_setup.rb:169:                def get(stem, env={}, &b)
+rack/test.rb:55:                                      def get(uri, params = {}, env = {}, &block)
+rake-0.9.2.2/doc/proto_rake.rdoc:70:                  def get(task_name)
+rspec/matchers/operator_matcher.rb:15:                def get(klass, operator)
+sass/util/subset_map.rb:73:                           def get(set)
+selenium/webdriver/common/driver.rb:105:              def get(url)
+selenium/webdriver/remote/bridge.rb:98:               def get(url)
+selenium/webdriver/support/event_firing_bridge.rb:20: def get(url)
+thor-0.14.6/lib/thor/actions/file_manipulation.rb:72: def get(source, *args, &block)
+</code></pre></p>
+
+<p>
+  I could use the same trick by methodically editing every one of
+  these results and raise exceptions in each and then run the specs
+  again.  But that would be tedious and I have another trick to share.
+  It's particularly useful for any Domain Specific Language.  I'll
+  just instrument the spec itself to report which <code>get</code> to
+  investigate.
+<p>
+
+<p><pre><code>it "renders the form when credentials are found" do
+  page.driver.browser.set_cookie "username=jhendrix"
+  puts "#{method(:get)}"
+  get new_service_request_path
+  response.status.should == 200
+end</code></pre></p>
+
+<p>Running the spec...</p>
+
+<p><code>#&lt;Method: RSpec::Core::ExampleGroup::Nested_1(ActionDispatch::Integration::Runner)#get&gt;</code></p>
+
+<p>
+  Connecting the dots between the earlier result 
+  <code>action_dispatch/testing/integration.rb</code> and 
+  <a href="https://github.com/rails/rails/blob/master/actionpack/lib/action_dispatch/testing/integration.rb#L303">ActionDispatch::Integration::Runner</a>
+</p>
+
+<p>
+  It's not quite as easy to spot, but notice that <code>get</code> is
+  forwarded to <code>integration_session</code>
+</p>
+
+<p><pre><code>%w(get post put head delete cookies assigns
+   xml_http_request xhr get_via_redirect post_via_redirect).each do |method|
+  define_method(method) do |*args|
+    reset! unless integration_session
+    # reset the html_document variable, but only for new get/post calls
+    @html_document = nil unless method.in?(["cookies", "assigns"])
+    integration_session.__send__(method, *args).tap do
+      copy_session_variables!
+    end
+  end
+end</code></pre></p>
+
+<p>
+  <a href="https://github.com/rails/rails/blob/master/actionpack/lib/action_dispatch/testing/integration.rb#L127">Integration::Session</a> is defined earlier in the same file:
+</p>
+
+<p><pre><code>class Session
+  DEFAULT_HOST = "www.example.com"
+
+  include Test::Unit::Assertions
+  include TestProcess, RequestHelpers, Assertions</code></pre></p>
+
+<p>
+  There's no sign of any method named <code>get</code> in
+  Integration::Session, but looking through the included modules, I
+  found it in 
+  <a href="https://github.com/rails/rails/blob/master/actionpack/lib/action_dispatch/testing/integration.rb#L11">RequestHelpers</a>
+</p>
+
+<p><pre><code>def get(path, parameters = nil, headers = nil)
+  process :get, path, parameters, headers
+end</code></pre></p>
+
+<p>which calls <code>process</code> which after a bunch of setup
+creates a new Rack::Test::Session</p>
+
+<p><pre><code>def process(method, path, parameters = nil, rack_env = nil)
+  ...
+  session = Rack::Test::Session.new(_mock_session)
+</code></pre></p> 
+
+<p>which calls <code>_mock_session</code></p>
+
+<p><pre><code>def _mock_session
+  @_mock_session ||= Rack::MockSession.new(@app, host)
+end</code></pre></p>
+
+<p>
+  That code looks familiar.  Both the first and second lines of the
+  spec ask Rack::MockSession for their cookies.  Let's instrument that
+  class a little further.
+</p>
+
+<p><pre><code>def cookie_jar
+  @cookie_jar ||= Rack::Test::CookieJar.new([], @default_host)
+  puts "    Rack::MockSession.cookie_jar #{@cookie_jar}"
+  @cookie_jar
+end</code></pre></p>
+
+<p>
+  I also need to know when <code>get</code> is called.  Back to
+  <code>ActionDispatch::Integration::RequestHelpers</code>
+</p>
+
+<p><pre><code>def get(path, parameters = nil, headers = nil)
+  puts "ActionDispatch::Integration::RequestHelpers.get #{path}"
+  process :get, path, parameters, headers
+end</code></pre></p>
+
+<p>
+  Run the failing spec.
+</p>
+
+<p><pre><code>Rack::MockSession.cookie_jar #&lt;Rack::Test::CookieJar:0x00000103458068&gt;
+Rack::MockSession.cookie_jar #&lt;Rack::Test::CookieJar:0x00000103458068&gt;
+Rack::MockSession.set_cookie('username=jhendrix') #&lt;Rack::Test::CookieJar:0x00000103458068 @default_host="www.example.com", @cookies=[#&lt;Rack::Test::Cookie:0x00000103457e88 @default_host="www.example.com", @name_value_raw="username=jhendrix", @name="username", @value="jhendrix", @options={"domain"=&gt;"www.example.com", "path"=&gt;""}&gt;]&gt;
+#&lt;Method: RSpec::Core::ExampleGroup::Nested_1(ActionDispatch::Integration::Runner)#get&gt;
+ActionDispatch::Integration::RequestHelpers.get /service_requests/new
+Rack::MockSession.cookie_jar #&lt;Rack::Test::CookieJar:0x00000102dce008&gt;
+Rack::MockSession.cookie_jar #&lt;Rack::Test::CookieJar:0x00000102dce008&gt;</code></pre></p>
+
+<p>
+  The source of the problem is revealed in these results but it takes
+  careful reading to spot it.  Inside MockSession,
+  <code>cookie_jar</code> is called twice.  Then comes the output from
+  the call to <code>set_cookie</code>.  Line 4 is from the spec where
+  I identified which <code>get</code> was called.  Line 5 is the debug
+  output I just added.  And notice that <code>cookie_jar</code> is
+  again called twice within the call to <code>process</code>.
+</p>
+
+<p>
+  All reasonable enough.  Where's the bug?
+<p>
+
+<p>
+  Look very closely at the <code>CookieJars</code> in use.  It'll help
+  if I put them right next to each other:
+</p>
+
+<p><pre><code>Rack::MockSession.cookie_jar #&lt;Rack::Test::CookieJar:0x00000103458068&gt;
+Rack::MockSession.cookie_jar #&lt;Rack::Test::CookieJar:0x00000102dce008&gt;
+</code></pre></p>
+
+<p>
+  Those may be the same class but they are different instances.  The
+  call to <code>get</code> reads its cookies from a different
+  <code>CookieJar</code> than where they are set in the call to
+  <code>set_cookie</code>.  In fact, those two calls even have
+  different <code>MockSessions</code>.  Removing all the previous
+  debug output and adding this:
+</p>
+
+<p><pre><code>def initialize(app, default_host = Rack::Test::DEFAULT_HOST)
+  puts "#{self}"
+  @app = app
+  @after_request = []
+  @default_host = default_host
+  @last_request = nil
+  @last_response = nil
+end</code></pre></p>
+
+<p>gives the following output when I run the spec again.</p>
+
+<p><pre><code>#&lt;Rack::MockSession:0x00000102e69ad0&gt;
+#&lt;Rack::MockSession:0x00000102d8e9d0&gt;</code></pre></p>
+
+<p>My first work-around was this:</p>
+
+<p><pre><code>it "renders the form when credentials are found" do
+  page.driver.browser.set_cookie 'username=jhendrix'
+  page.driver.get new_service_request_path
+  response.status.should == 200
+end</code></pre></p>
+
+<p>That does get those two lines of code using the same
+<code>MockSession</code> which also makes the test pass:</p>
+
+<p><pre><code>#&lt;Rack::MockSession:0x000001036e9db8&gt;
+.
+
+Finished in 8.14 seconds
+1 example, 0 failures</code></pre></p>
+
+<p>
+  But in the end, that smells wrong to me.  And having just looked at
+  <code>ActionDispatch::Integration::RequestHelpers.get</code> I had a
+  new idea for providing cookies:
+<p>
+
+<p><pre><code>it "renders the form when credentials are found" do
+  get new_service_request_path, {}, 'HTTP_COOKIE' => 'username=jhendrix'
+  response.status.should == 200
+end</code></pre></p>
+
+<p>That test passes.</p>
+
+<h2 id="debugging-tricks">recap of debugging tricks</h2>
+
+<p>
+  Beginner's Mind is really important.  Don't be clever.  Just
+  carefully follow the code.  Take notes along the way so you know the
+  landmarks and can find your way back.
+</p>
+
+<p>
+  <Use <code>find</code> and <code>grep</code> to search in
+  <code>$GEM_PATH</code> for method definitions.
+</p>
+
+<p>
+  Raise exceptions in possible matches to confirm you're looking in
+  the right place.  Replace the exceptions with <code>puts</code>
+  statements when you need to let the software proceed.
+</p>
+
+<p>
+  Ruby's built-in introspection, especially <code>Object#method</code>
+  can help identify methods in DSLs where you may not have an easy
+  handle on the object.
+</p>
+
+<p>
+  You have to read carefully. Read the code carefully and read debug
+  output and stack traces carefully.  Even when you narrow it down to
+  the same class in similar contexts, you may be looking at different
+  instances of the class.
+</p>
+
+<h2 id="the-bug">recap of this specific "bug"</h2>
+
+<p>
+  It is reasonable to think that calling <code>set_cookie</code>
+  should work for the next <code>get</code> or <code>post</code> call.
+  It doesn't.  <code>page.driver.browser.set_cookie</code> creates one
+  instance of <code>Rack::MockSession</code> and <code>get</code>
+  creates another.  They're not the same session.
+</p>
+
+<p>
+  On the other hand, maybe it's not a bug in the code but in the
+  documentation.  If everyone knows to just pass in HTTP_COOKIE with
+  the request, then there's no need for a pull request at all.  I
+  think that's where I've landed.
+</p>
+
+<p>
+  If for some reason you feel motivated to fix the interaction around
+  <code>set_cookie</code>, there's some kind of coordination needed
+  between Capybara's <code>Rack::Test</code> driver and the
+  <code>Rack::Test::Methods</code> so they can share the same
+  <code>Rack::MockSession</code>. 
+</p>

@@ -1,0 +1,67 @@
+--- 
+layout: default
+charset: UTF-8
+fulltitle: "Turtle Geometry exercises"
+posted: 2011-12-22T17:05:23
+scripts:
+  - http://code.jquery.com/jquery-1.7.1.min.js
+  - https://raw.github.com/dobbs/turtle/master/turtle.min.js
+  - https://raw.github.com/dobbs/turtle/master/tg.js
+---
+<div class="article">
+<h1><a href="http://dobbse.net/thinair/2011/12/turtle-geometry-exercises.html">Turtle Geometry exercises</a></h1>
+<div class="time 2011-12-22T17:05:23 pubdate meta">Thursday 22 December 2011 at 17:05 </div>
+
+<style type="text/css">
+.column {
+  display: block;
+  float: left;
+  width: 450px;
+  margin-right: 1em;
+}
+canvas.tg {border: 1pt solid black;}
+.turtle-hide {display:none;}
+#tg-commandline-history-show {text-decoration: none;}
+#tg-exercises a {display: block;}
+</style>
+<div class="column">
+<canvas width="430" height="430" id="tg-tracks" class="tg"></canvas>
+<form><input id="tg-commandline" type="text" size="80" name="tg-commandline"></form>
+<a href="" id="tg-commandline-history-show">&#x25BA; History</a><section id="tg-commandline-history" class="turtle-hide"></section>
+</div>
+<div class="column">
+<p>
+  Exercises and examples from chapter one of
+
+  <a href="http://books.google.com/books/about/Turtle_geometry.html?id=3geYp44hJVcC">Turtle Geometry by Abelson and diSessa</a> 
+
+  implemented in javascript.  Kinda blown away by this book: only on
+  chapter one and this page already offers a pretty fun playground for
+  exploring geometry and rudimentary graphics programming.
+</p>
+<p>
+  Click some of the links below for examples and inspiration.  You can
+  also type commands into the form below the turtle's sandbox.
+  Commands you type will be saved in the history below the sandbox.
+</p>
+<p>
+  Pen controls include <code>penup</code>, <code>pendown</code>,
+  <code>pensize <em>pixels</em></code>, and <code>pencolor
+  <em>color</em></code>.  Any CSS color name or hex value will work
+  for color:
+  <a href="http://en.wikipedia.org/wiki/Web_colors">Wikipedia: Web Colors</a>
+</p>
+<p>
+  Have a look at the source code for these exercises if you like:
+  <a href="https://raw.github.com/dobbs/turtle/master/tg.js">tg.js</a>
+</p>
+<div id="tg-exercises" class="column">
+</div>
+</div>
+</div>
+
+<div class="section comments"><a name="comments"></a>
+
+</div>
+
+
