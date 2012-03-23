@@ -44,10 +44,6 @@
       return newlist;
     }
 
-    function message(msg) {
-      svgDocument.getElementById('message').getFirstChild().setData(msg);
-    }
-
     function intersection(line1,line2) {
       var x1 = line1.start[0];
       var y1 = line1.start[1];
@@ -207,7 +203,6 @@
 
     function createAnimation() {
       commandList = map(parseCommandList,arguments);
-      message(MSG);
       return function () {
         if (arguments.length) {return commandList.length}
         if (commandList.length && commandList[0]('hasMoreFrames')) {
@@ -226,6 +221,8 @@
     var groundlineR;
 
     function init(evt) {
+      if ( window.svgDocument == null )
+        svgDocument = evt.target.ownerDocument;
       var frameCount = 200;
       var projectorR = new Line('ProjectorR');
       groundlineR = new Line('GroundLineR');
@@ -273,30 +270,11 @@
             projectorR,projectorL],
           [function(line){line.hide()},projectorL],
           [refreshEach].concat(refreshLines),
-          [message,'TAH DAH!  The Vanishing Point'],
           [function(p){p.radius = 3;showAndRefreshEach(p)},vanishingPoint],
         1]
 
       );
     }
-
-
-//      [runEach,
-//        [createTranslator(projectedLineR.start,
-//                          projectedLineR.end,
-//                          frameCount),
-//          vProjectorR.end,projectedLineR.end],
-//        [createTranslator(projectedLineL.start,
-//                          projectedLineL.end,
-//                          frameCount),
-//          vProjectorL.end,projectedLineL.end],
-//        [createIntersector(vProjectorL,vGroundlineL),
-//          groundlineL.end],
-//        [createIntersector(vProjectorR,vGroundlineR),
-//          groundlineR.end],
-//        [refreshEach].concat(refreshLines),
-//       frameCount],
-
 
     function go() {
       if (!userClickedStop && anim('hasMoreFrames')) {
@@ -308,7 +286,7 @@
     function start() {
       userClickedStop = 0;
       if (! anim('hasMoreFrames')) {
-        init(evt);
+        init();
       }
       timeout = setTimeout("go()",delay);
     }

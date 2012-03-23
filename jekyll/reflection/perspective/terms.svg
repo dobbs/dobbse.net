@@ -53,6 +53,8 @@ var hiliteId;
 
 function init(evt)
 {
+  if ( window.svgDocument == null )
+    svgDocument = evt.target.ownerDocument;
   hiliteId="";
 }
 
