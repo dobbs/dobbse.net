@@ -1,0 +1,84 @@
+--- 
+layout: default
+charset: UTF-8
+fulltitle: "Bell Labs' Unsung Heros in the History of Computing"
+link: http://dobbse.net/thinair/2012/04/unsung-heros-sigsaly.html
+posted: 2012-04-30T00:42:22
+comments: true
+---
+<div class="article">
+<h1><a href="{{ page.link }}">{{ page.fulltitle }}</a></h1>
+<div class="time {{ page.posted }} pubdate meta">{{ page.posted |date: "%A %d %B %Y at %H:%M" }}</div>
+
+<p>I'm trying to fix a bug in the popular history of computing.</p>
+
+<p>We know Alan Turing and his role deciphering enigma codes in WWII.  But can you name anyone who secured the Allied communications?  Why were the Axis unable to decipher our codes?  The heros who secured Allied communications were bound to secrecy while the history of computing was being written.  Ironic: their success in keeping secrets has kept their role secret too.</p>
+
+<p>Over the holidays in 2001 I met Sarah's extended family for the first time.  I was introduced as a computer programmer to her grandfather, Ralph Miller.  "What do you know about the Internet?" he asked like the opening question in an oral exam.  Over the next couple hours I remember feeling like we were modems trying various ways to handshake.  He was speaking the telecom jargon of an electrical engineer who'd been retired for 20 years.  I was speaking with the limited telecom knowledge left over from configuring Ascend and Cisco routers with frame relay and ISDN lines five years earlier.  It was hard to find common ground.</p>
+
+<blockquote>
+    <p>"Grandpa's telling Eric how he invented the Internet."</p>
+    <p>"Oh good.  Maybe he'll be able to explain it to the rest of us."</p>
+</blockquote>
+
+<p>In retrospect, I'm profoundly lucky to have had regular conversations over the past decade with one of the pioneers of the digital age.  He didn't inventing the Internet.  It was more fundamental than that.  Ralph worked at Bell Labs on the team which created the X System, as it was called at Bell Labs, known as <a href="http://en.wikipedia.org/wiki/SIGSALY">SIGSALY</a> when it was in service.  The National Security Agency has heralded it as <a href="http://www.nsa.gov/about/cryptologic_heritage/center_crypt_history/publications/sigsaly_start_digital.shtml">the start of the digital revolution</a>.  But it and its engineers need a promotion in the popular history.</p>
+
+<p>In that first conversation with Ralph, there was one point that sticks in my mind.  It was one of the few places where we had common language.  He said "they brought in a hot-shot kid from MIT to try to break the code.  What was his name?"  It was a name I'd heard before.  "Shannon.  Claude Shannon."  After a moment of reflection he added, "He never could break it."</p>
+
+<p>I think what struck me most was his tone of voice.  He completely lacked the sense of reverence I'd always heard from people talking about Claude Shannon.  Here was my fiancée's grandpa describing one of the demigods of computing as a bright kid, a math wiz who'd nevertheless been beaten in by a math problem.  There were other names which Ralph reveres:  R. C. Mathes, R. K. Potter, and H. W. Dudley.  But Claude Shannon was just a youngster in Ralph's eyes, and given too much credit as an individual for work that was created by a very high performing team.</p>
+
+<p>The cypher used in SIGSALY was a one-time pad.  Shannon ended up writing a proof that the one-time pad is unbreakable.  Part of the reason Shannon's initial publications on cryptography and information theory were so complete is because he'd been involved in analyzing the most ground-breaking secret communications system of the day -- a system that would remain a tightly guarded military secret for another thirty years.  The implementation and essential innovation came first.  The groundbreaking theory came second.  But the popular history of computing was written while the implementation was still under wraps.</p>
+
+<p>On Friday, Talk of the Nation interviewed Jon Gertner about his new book <a href="http://www.amazon.com/The-Idea-Factory-American-Innovation/dp/1594203288">The Idea Factory: Bell Labs and the Great Age of American Innovation</a>.  The chapter on Shannon is a perfect example of popular history missing this key part of the story.  Although the rest of the world were taken by surprise by the insights in the "Communication Theory of Secrecy Systems", and "A Mathematical Theory of Communication" neither Ralph nor his colleagues were.  For them Shannon had captured the common knowledge among the engineers involved in the project.</p>
+
+<p>There are a few details which Gertner gets wrong about Pulse Code Modulation (PCM), by the way.  On page 127 he writes "Shannon wasn't interested in helping with the complex implementation of PCM -- that was a job for the development engineers at Bell Labs, and would end up taking them more than a decade."  On the contrary, a patent for PCM was filed in 1943 by Ralph and his assistant Badgley.  From the outset of the project Bell Labs were looking for a way to combine the Vernam cypher, the one-time pad which had been devised for telegraph encryption, with H. W. Dudley's vocoder which could compress and synthesize speech.  PCM was the inflection point.  Analog to digital.  Once the signal was digital it could be combined with a random key, the essential ingredient for unbreakable encryption.</p>
+
+<p>Here's the other interesting part.  Ralph turned 105 in March.  I'll have a chance to visit with him again this summer.  Got any questions for him?  Imagine you could talk to someone like Turing or von Neumann or Shannon.  What would you want to know?</p>
+
+<p>Here's a list of inventors and their patents related to SIGSALY.  These are some of the unsung heros.</p>
+
+<table>
+<thead>
+<tr><th> Inventor                       </th><th> U.S. Patent </th><th> Filed    </th><th> Issued   </th></tr>
+</thead>
+<tbody>
+<tr><td> A. A. Lundstron, L. G. Schimpf </td><td> 3,897,591   </td><td> 8/27/42  </td><td> 7/29/75  </td></tr>
+<tr><td> A. E. Melhose                  </td><td> 3,891,799   </td><td> 9/27/44  </td><td> 6/24/75  </td></tr>
+<tr><td> A. J. Busch                    </td><td> 3,968,454   </td><td> 9/27/44  </td><td> 7/6/76   </td></tr>
+<tr><td> D. K. Gannett                  </td><td> 3,893,326   </td><td> 9/27/44  </td><td> 9/28/76  </td></tr>
+<tr><td> D. K. Gannett                  </td><td> 3,924,075   </td><td> 3/20/47  </td><td> 12/2/75  </td></tr>
+<tr><td> D. K. Gannett                  </td><td> 3,934,078   </td><td> 5/1/46   </td><td> 1/20/76  </td></tr>
+<tr><td> D. K. Gannett                  </td><td> 3,944,744   </td><td> 5/10/45  </td><td> 3/16/76  </td></tr>
+<tr><td> D. K. Gannett                  </td><td> 3,944,745   </td><td> 5/10/45  </td><td> 3/16/76  </td></tr>
+<tr><td> D. K. Gannett                  </td><td> 3,953,677   </td><td> 5/10/45  </td><td> 4/27/76  </td></tr>
+<tr><td> D. K. Gannett                  </td><td> 3,953,678   </td><td> 5/10/45  </td><td> 4/27/76  </td></tr>
+<tr><td> D. K. Gannett                  </td><td> 3,965,297   </td><td> 5/1/46   </td><td> 6/22/76  </td></tr>
+<tr><td> D. K. Gannett, A. C. Norwine   </td><td> 3,983,327   </td><td> 7/9/45   </td><td> 9/28/76  </td></tr>
+<tr><td> E. Peterson                    </td><td> 3,924,074   </td><td> 5/19/45  </td><td> 12/2/75  </td></tr>
+<tr><td> E. Peterson                    </td><td> 3,979,558   </td><td> 6/30/44  </td><td> 9/7/76   </td></tr>
+<tr><td> H. L. Barney                   </td><td> 3,193,626   </td><td> 12/29/44 </td><td> 7/6/65   </td></tr>
+<tr><td> H. W. Dudley                   </td><td> 3,470,323   </td><td> 6/30/44  </td><td> 9/30/69  </td></tr>
+<tr><td> H. W. Dudley                   </td><td> 3,985,958   </td><td> 12/18/41 </td><td> 10/12/76 </td></tr>
+<tr><td> K. H. Davis, A. C. Norwine     </td><td> 3,024,321   </td><td> 12/29/44 </td><td> 3/6/62   </td></tr>
+<tr><td> L. G. Schimpf                  </td><td> 3,394,314   </td><td> 7/17/43  </td><td> 7/23/68  </td></tr>
+<tr><td> M. E. Mohr                     </td><td> 3,076,146   </td><td> 12/27/45 </td><td> 1/29/63  </td></tr>
+<tr><td> M. E. Mohr                     </td><td> 3,188,390   </td><td> 12/20/43 </td><td> 6/8/65   </td></tr>
+<tr><td> N. D. Newby, H. E. Vaughan     </td><td> 3,373,245   </td><td> 8/27/42  </td><td> 3/12/68  </td></tr>
+<tr><td> O. Myers                       </td><td> 3,937,888   </td><td> 7/17/43  </td><td> 2/10/75  </td></tr>
+<tr><td> R. C. Mathes                   </td><td> 3,967,066   </td><td> 9/24/41  </td><td> 6/29/76  </td></tr>
+<tr><td> R. C. Mathes                   </td><td> 3,991,273   </td><td> 10/4/43  </td><td> 11/9/76  </td></tr>
+<tr><td> R. H. Badgley, L. G. Schimpf   </td><td> 3,405,362   </td><td> 12/20/43 </td><td> 10/8/68  </td></tr>
+<tr><td> R. H. Badgley, R. L. Miller    </td><td> 3,912,868   </td><td> 7/17/43  </td><td> 10/14/75 </td></tr>
+<tr><td> R. K. Potter                   </td><td> 3,340,361   </td><td> 7/9/45   </td><td> 9/5/67   </td></tr>
+<tr><td> R. K. Potter                   </td><td> 3,967,067   </td><td> 9/24/41  </td><td> 6/29/76  </td></tr>
+<tr><td> R. L. Miller                   </td><td> 3,887,772   </td><td> 6/30/44  </td><td> 6/3/75   </td></tr>
+<tr><td> R. L. Miller                   </td><td> 3,965,296   </td><td> 6/30/44  </td><td> 8/24/76  </td></tr>
+<tr><td> R. L. Miller                   </td><td> 3,976,839   </td><td> 6/30/44  </td><td> 8/24/76  </td></tr>
+</tbody>
+</table>
+
+</div>
+
+<div class="section comments"><a name="comments"></a>
+
+</div>
