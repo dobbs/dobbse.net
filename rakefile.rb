@@ -113,6 +113,11 @@ task :clean_static do
   end
 end
 
+desc "print the formated date and time and copy to the clipboard"
+task :date do
+  sh "date +'%Y-%m-%dT%H:%M:%S' | pbcopy"
+end
+
 desc "generate site with jekyll"
 task :jekyll do
   chdir "jekyll" do
