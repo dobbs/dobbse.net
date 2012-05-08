@@ -1,3 +1,5 @@
+AddType text/cache-manifest .manifest manifest
+
 Redirect permanent /thinair/2002/09/000012.html /thinair/2002/09/lack-of-oxygen.html
 Redirect permanent /thinair/2002/09/000015.html /thinair/2002/09/uri-design.html
 Redirect permanent /thinair/2002/09/000036.html /thinair/2002/09/planetary-nervous-system.html
