@@ -1,0 +1,40 @@
+--- 
+layout: default
+charset: UTF-8
+fulltitle: "Cultural Bias, HTML, CSS, and Conway's Law"
+link: http://dobbse.net/thinair/2012/12/cultural-bias-html-css-and-conways-law.html
+posted: 2012-12-17T03:10:03
+comments: true
+---
+<article>
+<h1><a href="{{ page.link }}">{{ page.fulltitle }}</a></h1>
+<div class="time {{ page.posted }} pubdate meta">{{ page.posted |date: "%A %d %B %Y at %H:%M" }}</div>
+
+<p>
+Overheard:  "I'm just a web designer.  I don't program or anything."
+</p>
+
+<p>
+Here a web designer adopts the cultural bias which values programming above design.  But the bias cuts both ways.  Designers are not to be trusted with code and coders are not to be trusted with design.
+</p>
+
+<p>
+HTML and CSS are unfortunate consequences of this bias.  In the ideal world, HTML can be purely semantic and the look-and-feel can be done completely with the CSS.  Except that world doesn't really exist and HTML gets littered with extra &lt;divs&gt; to prop up the design needs.  And CSS gets littered with duplication of paddings and margins (at the very least) to adjust and control the positions of elements on the page.
+</p>
+
+<p>
+And so we have grown templating languages on the server side to try to manage the deficiencies in HTML and CSS in various ways.  The menagerie of HTML templating languages is beyond imagination.  For CSS we now have SASS and LESS and SCSS:  basically templating languages for CSS.
+</p>
+
+<p>
+What the server-side languages have in common is introducing turing completeness for languages that are not themselves turing complete. When one language doesn't do what you want, invent another language which can be compiled into the lesser language.  This is how C begat C++ begat Java and C# which... never mind, I've gone too far already.
+</p>
+
+<p>
+You can see Conway's Law at work here.  The programmers and designers are on separate teams and speak different languages.  So architectural interfaces are created between the teams.  Code goes on this side.  Design goes on that side.  Over time the architectural boundary between the teams accumulates a lot of kludge on either side to accommodate the inability for the teams to really communicate.  And that boundary becomes a point of friction that slows down development and growth.
+</p>
+
+<p>
+CSS is especially unfortunate.  It is intended for design and it completely misses the mark right from the outset.  Seriously.  The heart of CSS from a design point of view is the box model. Let me say that again just so you really get the complete and painful irony.  The language designed for designers jams all web design into a BOX model.  Designers by nature want to think non-linearly and outside-the-box and the language they've been given confines them to a hierarchical tree of boxes.  Seriously.  So it's hobbled as a programming language and it's a cruel form of torture as a design language.
+</p>
+</article>

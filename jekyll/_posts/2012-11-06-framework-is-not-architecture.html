@@ -1,0 +1,271 @@
+--- 
+layout: default
+charset: UTF-8
+fulltitle: "Framework Adoption Antipattern or MVC is not an architecture"
+link: http://dobbse.net/thinair/2012/11/framework-is-not-architecture.html
+posted: 2012-11-09T01:00:24
+comments: true
+---
+<article>
+<h1><a href="{{ page.link }}">{{ page.fulltitle }}</a></h1>
+<div class="time {{ page.posted }} pubdate meta">{{ page.posted |date: "%A %d %B %Y at %H:%M" }}</div>
+
+<section>
+<p>
+Allow me to introduce you to the Framework Adoption Antipattern.  And
+with it I will share some software history that you youngin's might do
+well to learn.
+</p>
+
+<figure>
+  <ol>
+    <li>Get fed up with current tangled mess</li>
+    <li>Choose The New Hotness</li>
+    <li>Choose a database</li>
+    <li>Spend a couple weeks integrating the New Hotness and database with IDE and test infrastructure</li>
+    <li>Gradually create a New Tangled Mess</li>
+  </ol>
+</figure>
+
+<p>
+The software industry is built around cycles of new adoption.  The
+churn creates an artificial pressure to keep up with the latest and
+greatest.  There's always a new hotness.  There's also the illusion
+that this time around maybe we'll get started on the right foot.
+Maybe <em>this</em> new hotness will not lead us into a tangled mess.
+</p>
+
+<p>
+For those of us who've been to more than one rodeo, it's a depressing
+to watch history repeat itself in the new hotness, just like it did in
+the old and busted.  The next wave is super tempting.  Get ahead of
+the crowd and you can become the hot shot writing books or speaking at
+conferences.  The early adopters always seem like the coolest kids on
+the block.  Added bonus, you can ditch the tangled mess you're in and
+start fresh.  But <strong>every revolution becomes the new
+establishment</strong>.  Which is why we keep going in circles.
+</p>
+</section>
+
+<section>
+<h2>Advice for a young programmer</h2>
+<p>
+I know how this sounds to you.  I'm just old and crotchety.  I don't
+<em>get it</em>.  I'm part of the establishment.  This is a new world.
+What you're building is really going to change everything.
+</p>
+
+<p>
+You're right.  You are going to change everything.  But you will also
+learn the truth in the cliche: the more things change the more they
+stay the same.  In five or ten years you will look back at what you've
+created and see some depressingly familiar tangles.  And there will be
+another new hotness.  Your once revolutionary new hotness will grow up
+to become the new old and busted.
+</p>
+
+<p>
+This story is for the long term.  As an industry we still don't know
+how to teach what we do.  The only way to learn these lessons is to
+join a revolution and experience the transformation to establishment.
+This advice-disguised-as-a-story is for programmers starting their
+second rodeo.
+</p>
+</section>
+
+<section>
+<h2>Historical background on the path to MVC architecture for web apps</h2>
+<p>
+Sherman, set the WAYBAC machine to 1995.  It was a momentous year.
+Three items launched with particular fanfare: the Internet was
+commercialized, Sun released Java, and Netscape released
+<del>LiveScript</del> JavaScript.  Perl 5 and python 1 had been
+released one year earlier.  The first public announcements of PHP and
+ruby were also in 1995.  And the first working draft of XML was in
+1996.  All of these things in their respective communities were the
+new hotness.  All of them are now the establishment.  I'll also mention that
+
+<a href="http://en.wikipedia.org/wiki/Design_Patterns">Design Patterns</a> 
+
+was published in late 1994 'cos it comes into the story later. 
+</p>
+
+<p>
+At the time enterprise computing was dominated by two-tier,
+client-server architecture: a fat Windows client connecting to a fat
+database.  Over the next few years web applications would be dominated
+by Perl CGI and Cold Fusion and its copycats: ASP, JSP, and PHP.  Sun,
+IBM, Oracle, WebLogic, BEA and others jumped on the new three-tier
+architecture.  They were selling java <em>middleware</em> in hopes of
+breaking Microsoft's grip on desktop computing.  Instead of a fat
+Windows client, businesses could use the web browser that's installed
+with the OS and move their applications onto expensive servers.
+</p>
+
+<p>
+By the turn of the century, Internet Explorer had nearly won the
+browser wars.  Netscape would be bought by AOL in a few years.  On the
+server side, Sun and friends were facing backlash against Enterprise
+Java Beans (EJBs) and Microsoft started its push to move the ASP
+community to .NET.  Sun began evangelizing the Model 2 architecture as
+the new hotness: separate the display of content from the business
+logic.  <span class="tangent">It was a fashionable pitch at the time:
+CSS was promising similar benefits of separating design from
+markup.</span>
+</p>
+
+</section>
+
+<section>
+<h2>Sun's model 2 marketing and MVC</h2>
+<p>
+It was right at the turn of the century when our cultural wires got
+crossed and we started using the MVC pattern to describe web
+architecture.  MVC was a profound innovation in object-oriented user
+interface design from Smalltalk-80.  That dash eighty refers to 1980
+so we're clear that the pattern was already twenty years old at the
+time.  In fact, MVC is used in Design Patterns as an example to help
+explain what a design pattern is.  This was a rare moment when the new
+hotness was consciously applying lessons from software history.
+</p>
+
+<p>
+In the final days of 1999, JavaWorld published 
+
+<a href="http://www.javaworld.com/javaworld/jw-12-1999/jw-12-ssj-jspmvc.html">Understanding
+JavaServer Pages Model 2 architecture</a>.
+
+In May of 2000, Craig McClanahan from Sun, donated a reference
+implementation of Sun's Model 2 architecture to the Apache Software
+Foundation.  Struts would become the de-facto standard for java web
+frameworks.  No question it was a terrific improvement to apply the
+MVC pattern to web apps in contrast to the Cold-Fusion-JSP-ASP-PHP
+tag-soup model 1.  And yet, and yet....
+</p>
+
+<p>
+In Sun's marketing and the hype around Struts, Model 2 was described
+as an architecture.  In every explanation the MVC pattern was used to
+explain the architecture.  And so the Model 2 architecture, the MVC
+pattern, and the Struts framework were all conceptually muddled in the
+Java community.
+</p>
+</section>
+
+<section>
+<h2>And then Rails was the new hotness</h2>
+<p>
+Another half-decade later when Rails burst onto the scene, MVC was
+taken for granted as the de facto best practice for web application
+architecture.  A new generation of programmers were introduced to web
+applications and MVC-as-architecture and The Rails Way at the same
+time.
+</p>
+</section>
+
+<section>
+<h2>What's wrong with MVC and Model 2 for web applications?</h2>
+
+<p>
+MVC originally lived in a Smalltalk image, which is sorta like that
+virtual machine you have up in the cloud running your modern web
+applications.  Only it was a lot less complicated.  Importantly the M
+and the V and the C were all living in the same image.  When messages
+were passed between the different components in an MVC pattern in
+Smalltalk, the messages didn't have far to go.
+</p>
+
+<p>
+Model 2 by contrast was full of network latency because it grew up
+when Sun was trying to sell hardware into the enterprise.  There were
+browsers on the desktop and there was middleware running java on
+expensive hardware, and then a database (probably Oracle) running on
+another bit of expensive hardware.
+</p>
+
+<p>
+Web frameworks have been contending with two key pieces of friction
+for the past decade or so.  On the client side there's the
+statelessness of HTTP and on the back end there's the
+object-relational mapping to get data back and forth from a pile of
+object-oriented business logic on the server into a pile of relational
+algebra in the database.
+</p>
+
+<p>
+MVC in Smalltalk suffered from neither of those key problems.  Data
+were persisted within the image right along side the class
+definitions, and the View and Controller were in direct and very
+stateful communication.
+</p>
+
+<p>
+Ever since the Model 2 architecture co-opted MVC, Model has come to
+mean some object-relational mapping, View is something from the
+menagerie of templating languages, and the Controller... Ahh the
+controller...
+</p>
+
+<p>
+Controller as a term is meaningless.  No, it's worse than that.
+<strong>Controller is actively destructive</strong>.  I know exactly
+what a Controller is, and so do you.  But my Controller is different
+from your Controller.  We're using the same word to describe
+completely different things.  The only common ground we have is that
+we know there's something between the Model and the View.
+</p>
+</section>
+
+<section>
+<h2>MVC is not an architecture and neither is your framework</h2>
+<p>
+MVC is a pattern.  It's beautiful and full of wisdom.  It's an
+exceptionally good example to teach the principle of separating
+concerns.  But the coopting of MVC into an architectural framework
+effectively blinded us to the principles and left us with software
+dogma.  And such powerful dogma that the Rails revolutionaries
+embraced the dogma wholesale even as their rhetoric railed against
+excessive ceremony and dogma in the java community.
+</p>
+
+<p>
+If you looked at a typical rails app you'd think that MVC and
+ActiveRecord were the only design patterns you need.  And as
+applications have grown from simple foundations in Rails into
+enterprise-sized beasts, we hear about developers reaching for Plain
+Old Ruby Objects to speed up their test suites.  There's buzz about
+refactoring away from fat controllers and fat models.  Rails apps have
+become most of what it originally opposed.
+</p>
+
+<p>
+What's more insidious is the pervasive use of object inheritance in
+web frameworks.  Design Patterns has been published for almost two
+decades and itself summarized wisdom from the previous two decades of
+object-oriented design.  A core principle espoused therein is to
+prefer composition to inheritance and yet frameworks continue to
+recommend their developers inherit.  This and a database schema is all
+you need: <code>class Post &lt; ActiveRecord::Base; end</code>
+</p>
+</section>
+
+<section>
+<h2>Yep, Rails apps are a tangled mess.  Let's switch to the New Hotness.</h2>
+<p>
+There's a lot of excitement building around javascript these days:
+Backbone.js, Ember.js, Node.js, and Meteor are a few examples.
+There's buzz around various functional languages: Scala, Erlang,
+Haskell, and Clojure, for example.  But really, why bother with the
+web anymore when there's Andriod and iOS?  As always there's a lot of
+options in the category of new hotness.
+</p>
+
+<p>
+Nevermind me and my war stories.  Just make the switch and start
+drafting talks for the surge of javascript or functional or mobile
+conferences.  You can re-invent Rails in a new language as a fast path
+to join the next generation of thought leaders.
+</p>
+</section>
+
+</article>
