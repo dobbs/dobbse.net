@@ -43,12 +43,6 @@
     	font-weight: bold;
       	margin: 0;
       }
-      .position h2, h3 {
-    	display: inline;
-      }
-      h2 {
-    	margin-right: 1em;
-      }
       dt {
     	width: 7em;
     	float: left;
@@ -58,13 +52,12 @@
     	margin-left: 8em;
     	width: 40em;
       }
-      #skills li {
-    	padding-left: .5em;
-    	float: left;
-    	list-style: circle inside;
+      #skills span {
+    	padding-right: 2em;
+      white-space: nowrap;
       }
-      #skills li.last {
-    	margin-bottom: 1em;
+      #skills dd {
+    	padding-bottom: 1em;
       }
       #copyright {
     	clear: left;
@@ -87,22 +80,155 @@
    <div id="strengths">
       <h2>Summary of Strengths</h2>
       <ul>
-	<li>Fourteen years of web application development experience</li>
-	<li>Eleven years of test-driven development experience</li>
-	<li>Technical and non-technical problem-solving skills</li>
+	<li>Sixteen years full-stack web development, thirteen years test-driven</li>
 	<li>Personal and professional integrity</li>
 	<li>Exceptional written, verbal, and visual communication skills</li>
 	<li>Enthusiasm for learning and teaching</li>
 	<li>Adaptability to change</li>
 	<li>Amiable personality</li>
 	<li>History of exceeding expectations</li>
+  <li>Extremely versatile: object-oriented or functional, polyglot, UX and middleware and db</li>
       </ul>
+    </div>
+    <div class="position">
+      <h2>Senior Software Engineer</h2>
+      <h3>Mobilecause</h3>
+      <p class="date">February 2012 to present</p>
+      <dl>
+        <dt>Impact</dt><dd>
+          <p>
+            Fostered a culture of continuous improvement through
+            honest and courageous communication, by speaking hard
+            truths, and applauding when others did the same.
+          </p>
+        </dd>
+        <dt>Emergent Design</dt><dd>
+          <p>
+            Refactored all outbound messaging, the core purpose of the
+            software, into a delivery service without disrupting any
+            existing message flows.  Thanks to this layer of
+            abstraction, only two weeks later we were able to easily
+            improve throughput just in time for a customer's big
+            campaign messaging over 330,000 numbers.
+          </p>
+          <p>
+            Introduced a command dispatcher and handlers for message
+            processing.
+          </p>
+          <p>
+            Created a foundation for modularized html, css, and
+            javascript which enabled migration of the existing UI from
+            a home-grown CSS-soup to Bootstrap.
+          </p>
+          <p>
+            Refactored one particularly messy controller with just a
+            handful of method extractions.  A few weeks later those
+            changes enabled a colleague to clarify the routing and
+            models and complete the cleanup without me.
+          </p>
+        </dd>
+        <dt>Scale</dt><dd>
+          <p>
+            Profiled outbound messaging performance and throughput.
+            Identified garbage collection and IO as primary
+            bottlenecks.
+          </p>
+          <p>
+            Threaded message delivery for an immediate twelvefold
+            increase in SMS message throughput.  Introduced retries
+            and fallbacks to ensure message logging and persistance
+            and expand the ability to identify and diagnose failures.
+          </p>
+          <p>
+            Enabled message workers to run under JRuby as a strategic
+            move to open other performance opportunities via JVM based
+            tools and languages.
+          </p>
+        </dd>
+        <dt>Front-end Engineering</dt><dd>
+          <p>
+            Streamlined unit testing of javascript front end code
+            using Jasmine.
+          </p>
+          <p>
+            Created dynamic and thoroughly customizable fundraising
+            thermometer and pledge wall for use in high-profile gala
+            events.  Produced the SVG graphic for dynamic display and
+            employed Ember.js for updates.
+          </p>
+        </dd> 
+        <dt>Methodology</dt><dd>
+          <p>
+            Full-stack agile methodologies including continuous
+            integration, full-time pair-programming, retrospectives, etc.
+          </p>
+        </dd>
+     </dl>
+    </div>
+    <div class="position">
+      <h2>Aikido Instructor</h2>
+      <h3>University of Colorado Recreation Center</h3>
+      <p class="date">August 2005 to Present</p>
+      <dl>
+        <dt>Impact</dt><dd>
+          <p>
+            Three students gave unsolicited feedback that my teaching
+            changed their lives.
+          </p>
+          <p>
+            Increased typical class enrollment by 50%.  Inspired many
+            students to join Boulder Aikikai.
+          </p>
+        </dd>
+      </dl>
+    </div>
+    <div class="position">
+      <h2>Independent Contractor</h2>
+      <h3>Presilient</h3>
+      <p class="date">November 2011 to January 2012</p>
+      <dl>
+        <dt>Integrating Legacy System</dt><dd>
+          <p>
+            Client had a significant investment in an existing J2EE
+            application running in JBoss 4 with a complex
+            authentication scheme and heavy reliance on MSSQL stored
+            procedures.
+          </p>
+          <p>
+            Created a thin RESTful JSON API to wrap the existing
+            stored procedures.  By running the Rails 3 app under
+            JRuby, saved the client from a complete re-write of their
+            authentication system and enabled the use of battle-tested
+            JDBC drivers for MSSQL.
+          </p>
+        </dd>
+        <dt>Front-end engineering</dt><dd>
+          <p>
+            Created a light front-end framework against the JSON API
+            for their service request portal using Bootstrap and
+            Backbone.js.  Test-drove all front-end code using Jasmine.
+          </p>
+        </dd>
+      </dl>
     </div>
     <div class="position">
       <h2>Software Engineer</h2>
       <h3>Pivotal Labs</h3>
       <p class="date">November 2010 to September 2011</p>
       <dl>
+        <dt>Impact</dt><dd>
+          <p>
+            Initiated an informal usability analysis for Groupon's
+            editorial tools via direct observation of editors and deal
+            creators.
+          </p>
+          <p>
+            Consequently created dramatic improvements in deal
+            creation and editorial workflows.  Streamlined
+            communications between sales and editorial teams by
+            integrating with Salesforce.
+          </p>
+        </dd>
         <dt>Learning</dt><dd>
           <p>
             Mastered Ruby within a month.  Immediately effective
@@ -118,18 +244,6 @@
             minutes down to 15 seconds.
           </p>
         </dd>
-        <dt>Usability</dt><dd>
-          <p>
-            Initiated an informal usability analysis for Groupon's
-            editorial tools via direct observation of editors and deal
-            creators.
-          </p>
-          <p>
-            Dramatically improved deal creation and editorial
-            workflows.  Streamlined communications between sales and
-            editorial teams by integrating with Salesforce.
-          </p>
-        </dd>
         <dt>Methodology</dt><dd>
           <p>
             Full-time pair-programming, behavior-driven design (BDD),
@@ -138,23 +252,6 @@
           </p>
         </dd>
      </dl>
-    </div>
-    <div class="position">
-      <h2>Aikido Instructor</h2>
-      <h3>University of Colorado Recreation Center</h3>
-      <p class="date">August 2005 to Present</p>
-      <dl>
-	<dt>Impact</dt><dd>
-	  <p>
-	    Three students gave direct feedback that my teaching
-	    changed their lives.
-	  </p>
-  	  <p>
-	    Increased typical class enrollment by 50%.  Inspired 
-	    many students to join Boulder Aikikai.
-	  </p>
-        </dd>
-      </dl>
     </div>
     <div class="position">
       <h2>Consultant</h2>
@@ -170,7 +267,7 @@
 	  </p>
 	  <p>
 	    Drove successful adoption of XHTML and CSS for web
-	    interfaces, and wikis and blogs for content mangagement,
+	    interfaces, and wikis and blogs for content management,
 	    both internally and for bivio's customers.
 	  </p>
 	</dd>
@@ -204,7 +301,7 @@
 	  <p>
 	    Lead a three-day bOP training course for a client's entire
 	    development team whose programming skills ranged from
-	    systems administrators to senior embeded systems
+	    systems administrators to senior embedded systems
 	    programmers.  Also created the overall training plan and
 	    most of the supporting documentation.  Received strong
 	    positive feedback from all participants.
@@ -442,9 +539,9 @@
     </div>
 
     <div class="education">
-      <h2>Second Degree Black Belt</h2>
-      <h3>Aikido Schools of Ueshiba</h3>
-      <p class="date">November 2005</p>
+      <h2>Forth Degree Black Belt</h2>
+      <h3>Boulder Aikikai, Aikido Schools of Ueshiba</h3>
+      <p class="date">May 2013</p>
     </div>
 
     <div class="education">
@@ -458,107 +555,91 @@
       <h3>(aka. buzzword compliance ;-)</h3>
       <dl>
 	<dt>Languages</dt><dd>
-	  <ul>
-	    <li>Ruby</li>
-	    <li>JavaScript</li>
-	    <li>Perl</li>
-	    <li>Python</li>
-	    <li>SQL</li>
-	    <li>Java</li>
-	    <li>AutoLISP</li>
-	    <li>AppleScript</li>
-	    <li>PHP</li>
-	    <li>bash</li>
-	    <li>DOS batch files</li>
-	    <li>a little C++</li>
-	    <li class="last">a little Common Lisp</li> 
-	  </ul>
+	    <span>Ruby</span>
+	    <span>JavaScript</span>
+	    <span>Perl</span>
+	    <span>Python</span>
+	    <span>SQL</span>
+	    <span>Java</span>
+	    <span>AutoLISP</span>
+	    <span>AppleScript</span>
+	    <span>PHP</span>
+	    <span>bash</span>
+	    <span>DOS batch files</span>
+	    <span>a little C++</span>
+	    <span class="last">a little Common Lisp</span> 
 	</dd>
 	<dt>Markup</dt><dd>
-	  <ul>
-	    <li>HTML5</li>
-	    <li>XHTML</li>
-	    <li>HTML</li>
-	    <li>DHTML</li>
-	    <li>XML</li>
-	    <li class="last">CSS</li>
-	  </ul>
+	    <span>HTML5</span>
+	    <span>XHTML</span>
+	    <span>HTML</span>
+	    <span>DHTML</span>
+	    <span>XML</span>
+	    <span class="last">CSS</span>
 	</dd>
 	<dt>Web frameworks</dt><dd>
-	  <ul>
-	    <li>Rails</li>
-	    <li>bOP</li>
-	    <li>Struts</li>
-	    <li>Turbine</li>
-	    <li>a little Django</li>
-	    <li class="last">CGI (the simplest framework that can possibly work ;-)</li>
-	  </ul>
+	    <span>Rails</span>
+	    <span>bOP</span>
+	    <span>Struts</span>
+	    <span>Turbine</span>
+	    <span>a little Django</span>
+	    <span class="last">CGI (the simplest framework that can possibly work ;-)</span>
 	</dd>
 	<dt>Databases</dt><dd>
-	  <ul>
-	    <li>PostgreSQL</li>
-	    <li>Oracle</li>
-	    <li>MySQL</li>
-	    <li>Access</li>
-	    <li class="last">FileMaker Pro</li>
-	  </ul>
+	    <span>PostgreSQL</span>
+	    <span>Oracle</span>
+	    <span>MySQL</span>
+	    <span>Access</span>
+	    <span class="last">FileMaker Pro</span>
 	</dd>
 	<dt>Practices</dt><dd>
-	  <ul>
-	    <li>Test-driven development (TDD)</li>
-	    <li>Behavior-driven development (BDD)</li>
-	    <li>Pair programming</li>
-	    <li>Don't repeat yourself</li>
-	    <li>Emergent design</li>
-	    <li>Design patterns</li>
-	    <li>Stories</li>
-	    <li>Planning game</li>
-	    <li>Continuous integration</li>
-	    <li>Small releases</li>
-	    <li>Refactoring</li>
-	    <li>Collective ownership</li>
-	    <li class="last">Coding standards</li>
-	  </ul>
+	    <span>Test-driven development (TDD)</span>
+	    <span>Behavior-driven development (BDD)</span>
+	    <span>Pair programming</span>
+	    <span>Don't repeat yourself</span>
+	    <span>Emergent design</span>
+	    <span>Design patterns</span>
+	    <span>Stories</span>
+	    <span>Planning game</span>
+	    <span>Continuous integration</span>
+	    <span>Small releases</span>
+	    <span>Refactoring</span>
+	    <span>Collective ownership</span>
+	    <span class="last">Coding standards</span>
 	</dd>
 	<dt>Operating Systems</dt><dd>
-	  <ul>
-	    <li>MacOS X</li>
-	    <li>Linux</li>
-	    <li>Windows XP, 2000, NT, 98, 95, 3.x</li>
-	    <li>MacOS 6-9</li>
-	  </ul>
+	    <span>MacOS X</span>
+	    <span>Linux</span>
+	    <span>Windows XP, 2000, NT, 98, 95, 3.x</span>
+	    <span class="last">MacOS 6-9</span>
 	</dd>
 	<dt>Networking</dt><dd>
-	  <ul>
-	    <li>TCP/IP routing, addressing, subnetting</li>
-	    <li>NAT</li>
-	    <li>DNS</li>
-	    <li>firewalls</li>
-	    <li>proxy servers</li>
-	    <li>routers</li>
-	    <li>ethernet hubs and switches</li>
-	    <li>modem banks</li>
-	    <li>file and print servers</li>
-	    <li>network printers</li>
-	    <li class="last">cabling</li>
-	  </ul>
+	    <span>TCP/IP routing, addressing, subnetting</span>
+	    <span>NAT</span>
+	    <span>DNS</span>
+	    <span>firewalls</span>
+	    <span>proxy servers</span>
+	    <span>routers</span>
+	    <span>ethernet hubs and switches</span>
+	    <span>modem banks</span>
+	    <span>file and print servers</span>
+	    <span>network printers</span>
+	    <span class="last">cabling</span>
 	</dd>
 	<dt>Graphic design</dt><dd>
-	  <ul>
-	    <li>image scanning</li>
-	    <li>digital photography</li>
-	    <li>image processing</li>
-	    <li>illustration</li>
-	    <li>page layout</li>
-	    <li>3D modeling</li>
-	    <li>rendering</li>
-	    <li class="last">animation</li>
-	  </ul>
+	    <span>image scanning</span>
+	    <span>digital photography</span>
+	    <span>image processing</span>
+	    <span>illustration</span>
+	    <span>page layout</span>
+	    <span>3D modeling</span>
+	    <span>rendering</span>
+	    <span class="last">animation</span>
 	</dd>
       </dl>
     </div>
     <div id="copyright">
-      <p>Copyright &copy; 2011 Eric Dobbs.</p>
+      <p>Copyright &copy; 2013 Eric Dobbs.</p>
       <p>All rights reserved.</p>
       <p>Redistribution is forbidden without written consent of the author.</p>
     </div>
