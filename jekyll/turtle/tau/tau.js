@@ -168,7 +168,7 @@
           var event;
           touchevent.preventDefault();
           event = extend({}, touchevent.originalEvent.changedTouches[0], {
-            view: event.view
+            view: touchevent.view
           });
           return moveHandler(event);
         };
