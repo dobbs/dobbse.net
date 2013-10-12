@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]> <html lang="en" class="ie6"> <![endif]--> <!--[if IE 7 ]>    <html lang="en" class="ie7"> <![endif]--> <!--[if IE 8 ]>    <html lang="en" class="ie8"> <![endif]--> <!--[if IE 9 ]>    <html lang="en" class="ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="UTF-8"></meta>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"></meta>
+
+  <title>Tau</title>
+  <meta name="description" content="Tau is 2Pi"></meta>
+  <meta name="author" content="Eric Dobbs"></meta>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+
+  <link rel="shortcut icon" href="/favicon.ico"></link>
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png"></link>
+  <link rel="stylesheet" href="base.css?v=0"></link>
+  <link rel="stylesheet" href="tau.css?v=0"></link>
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div id="tau"></div>
+  <!-- The missing protocol means that it will match the current protocol, either http or https. If running locally, we use the local jQuery. -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="jquery-1.7.2.min.js"%3E%3C/script%3E'))</script>
+  <script type="text/javascript" src="handlebars-1.0.rc.1.js"></script>
+  <script type="text/javascript" src="ember-1.0.pre.min.js"></script>
+  <script type="text/javascript" src="tau.js"></script>
+  <script type="text/javascript">
+    var Q = [], Demo = Tau.createDemo(jQuery);
+    Demo.createCanvas($(this), Q);
+  </script>
+</body>
+</html>

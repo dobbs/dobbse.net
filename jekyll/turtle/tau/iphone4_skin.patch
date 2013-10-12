@@ -1,0 +1,99 @@
+commit c5d8bdd6d3b9ae665098ae8eac824802005278c7
+Author: MC Pair 1 <mc-pair1@mobilecause.com>
+Date:   Fri Apr 13 15:10:01 2012 -0600
+
+    markup, images, and css for dynamic iphone4 preview
+
+diff --git a/app/assets/images/iphone4-skin.png b/app/assets/images/iphone4-skin.png
+new file mode 100644
+index 0000000..33c9444
+Binary files /dev/null and b/app/assets/images/iphone4-skin.png differ
+diff --git a/app/assets/images/mo-bubble.png b/app/assets/images/mo-bubble.png
+new file mode 100644
+index 0000000..e9817ea
+Binary files /dev/null and b/app/assets/images/mo-bubble.png differ
+diff --git a/app/assets/stylesheets/home.css.scss b/app/assets/stylesheets/home.css.scss
+index e4bb35a..09c12e7 100644
+--- a/app/assets/stylesheets/home.css.scss
++++ b/app/assets/stylesheets/home.css.scss
+@@ -8,8 +8,62 @@ body {
+   padding-top: 60px;
+ }
+ 
++.container-fluid > .sidebar {
++  width: auto;
++  max-width: 380px;
++}
++
++.container-fluid > .content {
++  margin-left: 400px;
++}
++
+ .well {
+   margin-top: 10px;
++
++  .iphone4-skin {
++    width: 300px;
++    height: 588px;
++    background: url('iphone4-skin.png');
++    position: relative;
++    .shortcode, .pledge-v, .reply {
++      background: transparent;
++      position: relative;
++    }
++    .shortcode {
++      top: 128px;
++      width: 60px;
++      margin: auto;
++      text-align: center;
++      font-size: 15px;
++      font-weight: bold;
++      color: white;
++      background: transparent;
++    }
++    .pledge-v {
++      top: 201px;
++      width: 300px;
++      height: 23px;
++      position: relative;
++    }
++    .pledge {
++      font-size: 12px;
++      float: right;
++      height: 23px;
++      min-width: 25px;
++      margin-right: 38px;
++      padding-left: 11px;
++      padding-top: 2px;
++      background: url('mo-bubble.png') no-repeat left top;
++      overflow: hidden;
++      white-space: nowrap;
++      max-width: 220px;
++    }
++    .reply {
++      top: 210px;
++      left: 40px;
++      width: 150px;
++    }
++  }
+ }
+ 
+ .ember-view {
+diff --git a/app/views/home/index.html.erb b/app/views/home/index.html.erb
+index 62af6a2..1a0b92c 100644
+--- a/app/views/home/index.html.erb
++++ b/app/views/home/index.html.erb
+@@ -9,6 +9,13 @@
+ <div class="container-fluid">
+   <div class="sidebar">
+     <div class="well">
++      <div class="iphone4-skin">
++        <div class="shortcode">51-555</div>
++        <div class="pledge-v"><span class="pledge">Gala 25</span></div>
++        <div class="reply">Thank you for your pledge.  Msg&Data Rates may apply. Reply HELP for help, STOP to cancel</div>
++      </div>
++    </div>
++    <div class="well">
+        <script type="text/x-handlebars">
+         {{#view App.createItemView}}
+           <p><a class="btn success medium">Create item</a></p>

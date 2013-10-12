@@ -1,0 +1,50 @@
+.iphone4_preview {
+  position: absolute;
+  top: 235px;
+  right: -330px;
+  .iphone4_skin {
+    position: relative;
+    width: 300px;
+    height: 588px;
+    background: image-url('iphone4_skin.png');
+    position: relative;
+    .shortcode, .pledge_v, .reply {
+      background: transparent;
+      position: relative;
+    }
+    .shortcode {
+      top: 128px;
+      width: 60px;
+      margin: auto;
+      text-align: center;
+      font-size: 15px;
+      font-weight: bold;
+      color: white;
+      background: transparent;
+    }
+    .pledge_v {
+      top: 204px;
+      width: 300px;
+      height: 23px;
+      position: relative;
+    }
+    .pledge {
+      font-size: 12px;
+      float: right;
+      height: 23px;
+      min-width: 25px;
+      margin-right: 38px;
+      padding-left: 11px;
+      padding-top: 5px;
+      background: image-url('iphone4_mo_bubble.png') no-repeat left top;
+      overflow: hidden;
+      white-space: nowrap;
+      max-width: 220px;
+    }
+    .reply {
+      top: 35px;
+      left: 40px;
+      width: 150px;
+    }
+  }
+}
