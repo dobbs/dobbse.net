@@ -1,3 +1,14 @@
 permalink: /thinair/:year/:month/:title.html
 copyright: 2001
 charset: UTF-8
+title: thinair
+email: eric@dobbse.net
+description: > # this means to ignore newlines until "baseurl:"
+  Exploring lofty and vaporous thoughts.  Guided by Eric Dobbs.
+baseurl: "" # the subpath of your site, e.g. /blog/
+url: "http://dobbse.net" # the base hostname & protocol for your site
+twitter_username: dobbse
+github_username:  dobbs
+
+# Build settings
+markdown: kramdown
