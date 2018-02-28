@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"><head>
     <title>Eric Dobbs</title>
-    <script type="text/javascript" src="d3.min.js"></script>
-    <script type="text/javascript" src="resume.js"></script>
+    <meta charset="utf-8">
     <style type="text/css">
      body {
          font-family: Verdana,sans-serif;
@@ -29,7 +28,7 @@
      #strengths {
          clear: left;
      }
-     .position, .education, #objective, #strengths, #skills {
+     .position, .degree, #education, #objective, #strengths, #copyright {
          margin-top: 2em;
      }
      .position h2 {
@@ -88,8 +87,8 @@
 
     </style>
 </head>
-<body>
-    <div id="resume">
+<body style="">
+    <main id="resume">
         <header>
             <h1>Eric Dobbs</h1>
             <p>eric@dobbse.net</p>
@@ -111,18 +110,20 @@
                 </li>
                 <li>Extremely versatile
                 </li>
-            </ul></section>
+            </ul>
+        </section>
         <section id="jobs">
-            <section class="position">
+            <article class="position">
 
-                <h2>Manager of Software Development - DevOps</h2>
+                <h2>Manager of Software Development – DevOps</h2>
                 <h3>Itron, Inc. (was Comverge)</h3>
                 <p class="date"><time>December 2013</time> to <time>March 2018</time></p>
                 <dl>
 
                     <dt>Impact</dt><dd>
                         <p>Streamlined communications and greatly increased collaboration between QA, Development, IT, and Solutions Delivery with diplomacy and role-modeling.</p>
-                        <p>Increased productivity for 20 developers and 4 technicians.  Drastically reduced build times and deploy times while also increasing reliability.  </p>
+                        <p>Increased productivity for 20 developers and 4 technicians.  Drastically reduced build times and deploy times while also increasing reliability.</p>
+                        <p>Successfully lead adoption of Docker through the organization.</p>
                     </dd>
 
                     <dt>Leadership</dt><dd>
@@ -141,9 +142,11 @@
                     <dt>DevOps</dt><dd>
                         <p>Reduced build times from 8 hours to 30 minutes by a combination of expanding the jenkins cluster from 20 to 70 VMs, and identifying and fixing the worst-offenders in the test suite.</p>
                         <p>Improved our deploys with significant increase in consistency and reducing time-to-deploy from one month to a few hours.  Instituted standardized deploy process with team-wide adoption of runbooks, and made semi-automated deploys into a consistent part of the software delivery life-cycle.</p>
+                        <p>Social and technical engineering of Docker adoption. Enabled early adopters to experiment and learn containers in development.  Deployed first containers into our Continuous Integration cluster.  Created first containerized tests and deploys.  Designed and evangelized effective patterns of use.  Planned, negotiated, persuaded, and executed deployment in stages from dev, to test, QA, UAT, and production.</p>
                     </dd>
                 </dl>
-
+            </article>
+            <article class="position">
 
                 <h2>Senior Software Engineer</h2>
                 <h3>Mobilecause</h3>
@@ -223,38 +226,8 @@
                         </p>
                     </dd>
                 </dl>
-
-
-                <h2>Independent Contractor</h2>
-                <h3>Presilient</h3>
-                <p class="date"><time>November 2011</time> to <time>January 2012</time></p>
-                <dl>
-
-                    <dt>Integrating Legacy System</dt><dd>
-                        <p>
-                            Client had a significant investment in an existing J2EE
-                            application running in JBoss 4 with a complex
-                            authentication scheme and heavy reliance on MSSQL stored
-                            procedures.
-                        </p>
-                        <p>
-                            Created a thin RESTful JSON API to wrap the existing
-                            stored procedures.  By running the Rails 3 app under
-                            JRuby, saved the client from a complete re-write of their
-                            authentication system and enabled the use of battle-tested
-                            JDBC drivers for MSSQL.
-                        </p>
-                    </dd>
-
-                    <dt>Front-end engineering</dt><dd>
-                        <p>
-                            Created a light front-end framework against the JSON API
-                            for their service request portal using Bootstrap and
-                            Backbone.js.  Test-drove all front-end code using Jasmine.
-                        </p>
-                    </dd>
-                </dl>
-
+            </article>
+            <article class="position">
 
                 <h2>Software Engineer</h2>
                 <h3>Pivotal Labs</h3>
@@ -300,7 +273,8 @@
                         </p>
                     </dd>
                 </dl>
-
+            </article>
+            <article class="position">
 
                 <h2>Aikido Instructor</h2>
                 <h3>University of Colorado Recreation Center</h3>
@@ -318,19 +292,25 @@
                         </p>
                     </dd>
                 </dl>
-            </section></section>
-            <section id="education">
-                <div class="education">
-                    <h2>Third Degree Black Belt</h2>
-                    <h3>Boulder Aikikai</h3>
-                    <p class="date">May 2013</p>
-                </div>
-                <div class="education">
-                    <h2>Bachelor's of Environmental Design, emphasizing computer methods in design</h2>
-                    <h3>College of Architecture and Planning, University of Colorado at Boulder</h3>
-                    <p class="date">May 1994</p>
-                </div>
-            </section>
-    </div>
+            </article>
+        </section>
+        <section id="education">
+            <article class="degree">
+                <h2>Third Degree Black Belt</h2>
+                <h3>Boulder Aikikai</h3>
+                <p class="date">May 2013</p>
+            </article>
+            <article class="degree">
+                <h2>Bachelor's of Environmental Design, emphasizing computer methods in design</h2>
+                <h3>College of Architecture and Planning, University of Colorado at Boulder</h3>
+                <p class="date">May 1994</p>
+            </article>
+        </section>
+        <section id="copyright">
+            <p>Copyright © 2018 Eric Dobbs.</p>
+            <p>All rights reserved.</p>
+            <p>Redistribution is forbidden without written consent of the author.</p>
+        </section>
+    </main>
 </body>
 </html>
