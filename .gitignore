@@ -2,3 +2,4 @@ jekyll/.*
 jekyll/_site
 blank
 .bundle
+vendor/bundle

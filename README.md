@@ -1,3 +1,11 @@
+# what worked 2022-06-18:
+
+``` bash
+rm Gemfile.lock
+bundle install --path vendor/bundle
+rake jekyll
+```
+
 # what I tried 2018-02-27:
 
 ``` bash
