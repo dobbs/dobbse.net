@@ -49,11 +49,11 @@ test(function counts_of_headers() {
   )
 })
 
-test(function posts_with_link_are_templated() {
+test(function has_link_and_no_article() {
   assert(
     db.rows
       .filter(({headers}) => !!headers.link)
-      .every(({body}) => body.match(/{{ page\.link }}/))
+      .every(({body}) => !body.match(/class="article"/))
   )
 })
 
@@ -65,40 +65,9 @@ test(function posts_without_link_are_not_templated() {
   )
 })
 
-test(function two_posts_with_link_header_do_not_use_article_tag() {
-  assertEquals(
-    db.rows
-      .filter(({headers:{link}, body}) => !!link && !body.startsWith('<article'))
-      .map(({name, headers:{link}, body}) => ({name, link})),
-    [
-      {
-        link: "http://dobbse.net/thinair/2012/05/touchmove-deviceorientation-devicemotion.html",
-        name: "2012-05-07-touchmove-deviceorientation-devicemotion.html",
-      },
-      {
-        link: "http://dobbse.net/thinair/2012/04/unsung-heros-sigsaly.html",
-        name: "2012-04-29-unsung-heros-sigsaly.html",
-      }
-    ]
-  )
-})
-
-test(function seven_posts_use_article_tag() {
-  assertEquals(
-    db.rows
-      .filter(({name, body}) => body.startsWith('<article'))
-      .map(({name}) => name)
-      .sort()
-    ,
-    [
-      "2012-11-06-framework-is-not-architecture.html",
-      "2012-12-17-cultural-bias-html-css-and-conways-law.html",
-      "2012-12-18-help-visualize-invisible.html",
-      "2014-02-04-wish-you-were-here.html",
-      "2014-12-19-microagression-waiting-for-the-bus.html",
-      "2015-03-16-base-eleven-pi-day.html",
-      "2015-05-06-emotion-reason-riot-revolution.html"
-    ]
+test(function no_posts_use_article_tag() {
+  assert(
+    db.rows.every(({body}) => !body.startsWith('<article'))
   )
 })
 
