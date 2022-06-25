@@ -42,7 +42,7 @@ test(function counts_of_headers() {
     {
       title: 231,
       layout: 231,
-      link: 9,
+      link: 231,
       date: 231,
       scripts: 4
     }
@@ -57,11 +57,9 @@ test(function has_link_and_no_article() {
   )
 })
 
-test(function posts_without_link_are_not_templated() {
+test(function no_posts_are_templated() {
   assert(
-    db.rows
-      .filter(({headers}) => !headers.link)
-      .every(({body}) => !body.match(/{{ page\.link }}/))
+    db.rows.every(({body}) => !body.match(/{{ page\.link }}/))
   )
 })
 
@@ -167,24 +165,23 @@ test(async function thirty_two_posts_have_comments() {
   )
 })
 
-test(async function dom_structure_is_consistent_for_222_posts_without_links() {
-  await initParser()
-  const {parseFromString} = new DOMParser()
+test(function only_two_posts_end_with_closing_div() {
   assertEquals(
     db.rows
-      .filter(({headers:{link}}) => !link)
-      .map(({name, body}) => {
-        const document = parseFromString(body, 'text/html')
-        const article = document.querySelector('.article')
-        const head = article.children[0]
-        const date = article.children[1]
-        return [
-          `${head.tagName}>${head.firstChild.tagName}`,
-          ...head.firstChild.getAttributeNames(),
-          ...date.getAttributeNames(),
-          date.classList[0], ...Array.from(date.classList).slice(2)
-        ]
-      }),
-    Array.from({length: 222}, () => ["H1>A", "href", "class", "time", "pubdate", "meta"])
+      .filter(({body}) => body.endsWith("\n</div>\n"))
+      .map(({name}) => name)
+      .sort(),
+    [
+      "2011-01-24-phone-turtle.html",
+      "2011-12-22-turtle-geometry-exercises.html",
+    ]
+  )
+})
+
+test(function posts_with_comments_do_not_have_a_stray_div() {
+  assert(
+    db.rows
+      .filter(({body}) => body.match(/class="comments"/))
+      .every(({body}) => !body.match(/<\/div>\s+<section class="comments">/m))
   )
 })

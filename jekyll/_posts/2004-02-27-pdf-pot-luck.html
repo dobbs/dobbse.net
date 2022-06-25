@@ -2,10 +2,8 @@
 layout: post
 title: Hacking PDF forms with iText, jython, perl, and emacs
 date: 2004-02-27T22:12:00
+link: http://dobbse.net/thinair/2004/02/pdf-pot-luck.html
 ---
-<div class="article">
-<h1><a href="http://dobbse.net/thinair/2004/02/pdf-pot-luck.html">Hacking PDF forms with iText, jython, perl, and emacs</a></h1>
-<div class="time 2004-02-27T22:12:00 pubdate meta">Friday 27 February 2004 at 22:12 </div>
 <p><ins>Update:</ins> <em>This page seems to draw a fair bit of traffic from Google.  In addition to the body of this post, there are some Java samples in the comments.  Have a look there too.</em></p>
 
 <p>For one problem last week I had two tricks to figure out: how to concatenate <span class="caps">PDF</span> forms and how to fill in some <span class="caps">PDF</span> form fields.  With Acrobat people can create <span class="caps">PDF</span> forms which you can complete with Reader.  In our case these are multi-page tax forms.  The <span class="caps">IRS</span> defined the forms -- they&#39;re not under our control.  <a href="http://www.lowagie.com/iText/">iText</a> was the tool of choice, but I didn&#39;t know the <span class="caps">API.  </span>The <a href="http://www.lowagie.com/iText/tutorial/ch13.html">concat_pdf</a> tool put the forms together well enough, but it trashed the data in the forms.</p>
@@ -36,9 +34,7 @@ date: 2004-02-27T22:12:00
     &gt;&gt;&gt; [f.name for f in reader.acroForm.fields]
 </pre><p>Then you can analyze the results and figure out your own replacement pattern.</p>
 
-</div>
-
-<div class="section comments"><a name="comments"></a>
+<section class="comments"><a name="comments"></a>
 <div class="article comment">
 <div class="comment-author"><h2><a href="mailto&#58;seth&#64;ehawaii&#46;gov">seth</a> commented</h2></div>
 <div class="time 2004-03-30T14:45:30 pubdate meta">30 March 2004 at 14:45</div>
@@ -170,7 +166,4 @@ stamper.close();</p>
 
 <p>The 'f1-04' corresponds to the field name in the PDF file, and 'some value' is the part you probably want to replace with your data.  So there's another way to get the field names out of the PDF file, provided you have Acrobat.</p>
 </div>
-
-</div>
-
-
+</section>

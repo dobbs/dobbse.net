@@ -2,10 +2,8 @@
 layout: post
 title: Jython makes Drools declarations more palatable
 date: 2005-03-13T12:08:19
+link: http://dobbse.net/thinair/2005/03/jython-drools.html
 ---
-<div class="article">
-<h1><a href="http://dobbse.net/thinair/2005/03/jython-drools.html">Jython makes Drools declarations more palatable</a></h1>
-<div class="time 2005-03-13T12:08:19 pubdate meta">Sunday 13 March 2005 at 12:08 </div>
 <p>I&#39;ve been trying to play around with <a href="http://drools.codehaus.org">drools</a> in fits and starts for over a year now or maybe longer.  My first exposure to a rule engine was at PlanetCAD.  We were going to integrate Envoy with some code which I mostly didn&#39;t like but had the redeeming quality that they used <a href="http://herzberg.ca.sandia.gov/jess/">Jess</a> for declaring pricing rules.</p>
 
 <p>I wanted to play with Drools, but I just can&#39;t stand the <span class="caps">XML</span> syntax for declaring rules.  It mixes angle-brackets with code blocks.  You can choose a few different languages for use in the code blocks, but it still looks too much like <span class="caps">JSP</span> without <span class="caps">JSTL.  </span>(Bob, aren&#39;t you the one who said &quot;I hate programming in angle brackets&quot;?)  More importantly, I&#39;m just tinkering with this stuff to get my head thinking in rules and Java doesn&#39;t feel like the right language for tinkering.</p>
@@ -40,5 +38,3 @@ class TestClosure(unittest.TestCase):
 if __name__ == &#39;__main__&#39;:
     unittest.main()
 </pre><p>There are ways to work around this, but they&#39;re all ugly and the whole point was to get away from ugly.  I was so disappointed as I was debugging this and searching the web for more details.  Sigh.  It&#39;s pretty hard to do without closures once you get used to thinking that way.  The alternatives seem so messy.  A rev of Jython can&#39;t come too soon as far as I&#39;m concerned.</p>
-
-</div>

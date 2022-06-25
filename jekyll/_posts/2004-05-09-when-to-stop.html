@@ -2,10 +2,8 @@
 layout: post
 title: True genius is knowing when to stop
 date: 2004-05-09T22:54:15
+link: http://dobbse.net/thinair/2004/05/when-to-stop.html
 ---
-<div class="article">
-<h1><a href="http://dobbse.net/thinair/2004/05/when-to-stop.html">True genius is knowing when to stop</a></h1>
-<div class="time 2004-05-09T22:54:15 pubdate meta">Sunday 09 May 2004 at 22:54 </div>
 <p>I call it flailing.  Intuition tells me the problem on which I&#39;m working has an easy solution, but it evades my every turn.  An elusive solution teases me along dead end after dead end.</p>
 
 <p>I have to import data from twelve years of backups.  I don&#39;t expect that to be easy.  But some steps should be.  Our client&#39;s original system was built in Access.  The files were archived annually with names like <span class="caps">DB1990</span>.mdb, <span class="caps">DB1991</span>.mdb, <span class="caps">DB1992</span>.mdb and so on through 2002.  There is a Win32 laptop at work, but Access isn&#39;t installed: <span class="caps">DBI</span> and <span class="caps">DBD</span>::ODBC to the rescue.  Though I haven&#39;t used <span class="caps">DBI</span> before, <span class="caps">JDBC</span> translates quite well.  I work with a bunch of unix geeks, so cygwin is installed.  I thankfully didn&#39;t have to re-traumatize my fingers with <span class="caps">DOS.</span></p>
@@ -48,5 +46,3 @@ sub dispatch_command {
 <pre class=&quot;code&quot;>$result = do &#39;DB1990.dump&#39;;
 print &quot;hooray, they&#39;re all null\n&quot;
     if (int(@$result) == grep(!defined($_-&gt;[21]), @$result));</pre><p>How do you you learn to recognize the dead-ends before you get to the end?  Is it just a matter of experience?  Or does it actually require genius?</p>
-
-</div>

@@ -2,10 +2,8 @@
 layout: post
 title: Perl state machine to scrape HTML
 date: 2004-08-29T21:54:29
+link: http://dobbse.net/thinair/2004/08/perl-fsm.html
 ---
-<div class="article">
-<h1><a href="http://dobbse.net/thinair/2004/08/perl-fsm.html">Perl state machine to scrape HTML</a></h1>
-<div class="time 2004-08-29T21:54:29 pubdate meta">Sunday 29 August 2004 at 21:54 </div>
 <p><a href="http://dobbse.net/thinair/2003/09/000140.html">State machines</a> part ten</p>
 
 <p>I finally had an occasion to roll my own state machine earlier this month.</p>
@@ -128,5 +126,3 @@ sub _notify {
 <p>What I find most satisfying about this solution is the concise and declarative structure of the $_STATE_TABLE.  There&#39;s some effort required to understand the mechanics of the notification and the start, text, and end events.  But with that understood, the $_STATE_TABLE is considerably less cluttered than the pile of if ..  elsif .. else blocks it could have been.  The bulk of the state machine is also fits in a single window in emacs whereas in Java I would have a pile of objects in different files to express the same machine.  I think it also provides a nice example of the kind of power and expressiveness you get from having anonymous functions and arrays and hashes built into the language.  Python, Ruby, and Groovy offer similar expressive power, but the proof is left as an exercise for the reader.  :-) For what it&#39;s worth, In Java, I think the Command pattern with a little Dependency Injection could be used to provide something similar to the anonymous functions.</p>
 
 <p>This technique for parsing angle-bracketed data would be equally applicable with <span class="caps">SAX</span> and an <span class="caps">XML</span> data source.</p>
-
-</div>

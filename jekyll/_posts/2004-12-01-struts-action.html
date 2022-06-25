@@ -2,10 +2,8 @@
 layout: post
 title: Teasing apart Struts Actions
 date: 2004-12-01T01:00:46
+link: http://dobbse.net/thinair/2004/12/struts-action.html
 ---
-<div class="article">
-<h1><a href="http://dobbse.net/thinair/2004/12/struts-action.html">Teasing apart Struts Actions</a></h1>
-<div class="time 2004-12-01T01:00:46 pubdate meta">Wednesday 01 December 2004 at 01:00 </div>
 <p><a href="http://struts.apache.org">Struts</a> has huge market share in the web development world.  Most Java web app developers start with Struts.  It shapes the way we think about web applications.  That would be fine except &lt;action-mappings&gt; in struts-config.xml is mixing concerns.  I have whined about this before, but maybe this time I can explain myself.</p>
 
 <p>Credit to Kris Thompson for showing more symptoms of the problem.  In <a href="http://jroller.com/page/quadzilla/20040531#front_page_controller_suggestion">Front Page Controller suggestion</a> he presents two patterns and proposes a combination:</p>
@@ -34,5 +32,3 @@ This pattern is great for presentation Action classes. Presentation action class
 <p>I&#39;m not quite satisfied with the breakdown I&#39;ve outlined.  For starters, I&#39;m not entirely sure where I would put form validation.  It&#39;s clearly a crucial aspect of web application development.  It touches Navigation &#39;cos bad input needs to bounce the user back to the form with meaningful error messages.  It touches Handlers and Workflow because I want valid data before I change the data saved in the database.</p>
 
 <p>Even so, &lt;action-mappings&gt; definitely blurs the picture in a bad way.</p>
-
-</div>

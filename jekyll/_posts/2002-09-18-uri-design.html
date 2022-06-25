@@ -2,10 +2,8 @@
 layout: post
 title: thinair design choices
 date: 2002-09-18T09:47:42
+link: http://dobbse.net/thinair/2002/09/uri-design.html
 ---
-<div class="article">
-<h1><a href="http://dobbse.net/thinair/2002/09/uri-design.html">thinair design choices</a></h1>
-<div class="time 2002-09-18T09:47:42 pubdate meta">Wednesday 18 September 2002 at 09:47 </div>
 <p>Tim Berners-Lee has persuaded me that <a href="http://www.w3.org/Provider/Style/URI.html">Cool URIs don't change</a>.  He advises that URIs be designed without classification or categoriztion information.  Those groupings are likely to change over time which will work against the goal of stable URIs.  In contrast, in <a href="http://www.oreilly.com/catalog/pracintgr/">Practial Internet Groupware</a>, <a href="http://weblog.infoworld.com/udell/">Jon Udell</a> suggests that the URI is prime real estate for metadata.  Although Jon makes an excellent case for the value of meta data in the URI, I favor Tim's advice in this case.  The meta data will change over time.  I decided to sacrifice the use of that prime real estate in favor of the stability of the URI over time.</p>
 
 <p>Given <a href="http://www.movabletype.org/">Movable Type</a> as my chosen publishing system, I had a few other constraints within which to work.  Both Tim and Jon recommend including the creation date in the URI.  It's valuable meta data and it won't change over time.  However, Movable Type generates the permanent entries with a serial number and not a creation date.  I lost more meta data, but protected against changes in the calendar system  as <a href="http://www.decimaltime.org/">some have proposed</a>. :-)</p>
@@ -19,5 +17,3 @@ date: 2002-09-18T09:47:42
 <p>Edit: After learning how to control the naming of permanent links in Movable Type, I broke the rule about not changing urls.  This site has only been live for a couple weeks, and from the stats I get back from the web host, I'm almost the only one hitting the site right now.  I won't have another chance to make this change without breaking links.  So I put monthly archives in <code>/thinair/yyyy/mm/index.html</code> and permanent links in <code>/thinair/yyyy/mm/0000id.html</code>.  I don't think that even on a busy day I'll post so many items that I'll need to separate posts by day (like this: <code>/thinair/yyyy/mm/dd/0000id.html</code>), so I chose to keep the urls a few characters shorter.</p>
 
 <p>Update: I've done <a href="http://dobbse.net/thinair/2004/01/url_redesign.html">a minor redesign of my URLs</a>.</p>
-
-</div>

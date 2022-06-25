@@ -2,10 +2,8 @@
 layout: post
 title: Comments now moderated
 date: 2004-03-18T21:26:11
+link: http://dobbse.net/thinair/2004/03/comments-moderated.html
 ---
-<div class="article">
-<h1><a href="http://dobbse.net/thinair/2004/03/comments-moderated.html">Comments now moderated</a></h1>
-<div class="time 2004-03-18T21:26:11 pubdate meta">Thursday 18 March 2004 at 21:26 </div>
 <p>There&#39;s many other things I would have rather done with my free time tonight, but I had to finally do something about the blog spammers.  I&#39;ve hacked Movable Type&#39;s comment system to allow me to moderate comments.</p>
 
 <p>I&#39;m a professional perl hacker these days and thought I&#39;d find a way to wire in Spam Assassin.  Before starting I checked Google and found a much more simple solution: <a href="http://www.edithfrost.com/archive/2003/04/10-movable_type_comme.html">Edith Frost - Movable Type comments moderation</a>.</p>
@@ -38,5 +36,3 @@ Disallow: /dobbse-cgi-bin/
     &lt;body&gt;&lt;h1&gt;Blank&lt;/h1&gt;&lt;p&gt;This space intentionally left blank.&lt;/p&gt;&lt;/body&gt;
     &lt;/html&gt;
     END_HTML</pre><p>Now even the mt-comments.cgi won&#39;t display comments -- they&#39;ll only show up on the individual archives which I control through manual updates.</p>
-
-</div>

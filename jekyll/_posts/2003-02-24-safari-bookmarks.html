@@ -2,23 +2,16 @@
 layout: post
 title: Hacking Safari Bookmarks
 date: 2003-02-24T21:35:56
+link: http://dobbse.net/thinair/2003/02/safari-bookmarks.html
 ---
-<div class="article">
-<h1><a href="http://dobbse.net/thinair/2003/02/safari-bookmarks.html">Hacking Safari Bookmarks</a></h1>
-<div class="time 2003-02-24T21:35:56 pubdate meta">Monday 24 February 2003 at 21:35 </div>
 <p><cite>Charles Miller<cite> <a href="http://fishbowl.pastiche.org/archives/001257.html">asked</a> <q>Is there an AppleScripty way to manipulate Safari bookmarks? I'd like to be able to mirror my NetNewsWire subscriptions there.</q></p>
 
 <p>Safari's AppleScript dictionary doesn't expose anything bookmark related.  Maybe it will in a later beta release.  In the meantime the bookmarks are stored as XML in ~/Library/Safari/Bookmarks.plist.  I edited that file directly with the Property List Editor and successfully added bookmarks, though the editing would have been quicker in emacs.  I basically copied other entries modifying values as appropriate.  I made up the WebBookmarkUUID element (you'll have to look at the file to see what I'm talking about).  I have no idea if the one I concocted will conflict with Safari's ID generation.  Also, I had to quit and re-launch Safari for the bookmark to show up in the UI.</p>
 
-</div>
-
-<div class="section comments"><a name="comments"></a>
+<section class="comments"><a name="comments"></a>
 <div class="article comment">
 <div class="comment-author"><h2><a href="mailto&#58;GouldIMG&#64;mac&#46;com">Rob Gould</a> commented</h2></div>
 <div class="time 2004-01-22T23:26:11 pubdate meta">22 January 2004 at 23:26</div>
 <p>Can anyone tell me if this bookmarks XML file has been the same format since Safari came out?  If I write an app that goes and edits this file, will it break in earlier versions of Safari?</p>
 </div>
-
-</div>
-
-
+</section>
