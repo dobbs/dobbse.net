@@ -1,0 +1,11 @@
+---
+layout: default
+---
+<header class="post-header">
+  <h1 class="post-title">{{ page.year }}</h1>
+</header>
+
+<ul>
+{% for post in site.posts %}{% capture year %}{{post.date | date: "%Y"}}{% endcapture %}{% capture month %}{{post.date | date: "%Y-%m"}}{% endcapture %}{% if page.year == year or page.month == month %}
+  <li><a href="{{ post.url }}">{{ post.title }}</a></li>{% endif %}{% endfor %}
+</ul>

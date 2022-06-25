@@ -40,12 +40,11 @@ test(function counts_of_headers() {
   assertEquals(
     db.headers,
     {
-      charset: 231,
-      fulltitle: 231,
+      title: 231,
       layout: 231,
       link: 9,
-      posted: 231,
-      scripts: 4,
+      date: 231,
+      scripts: 4
     }
   )
 })
@@ -131,15 +130,9 @@ test(function four_posts_have_extra_script_tags() {
   )
 })
 
-test(function every_post_is_utf8() {
+test(function every_post_layout_is_post() {
   assert(
-    db.rows.map(({headers:{charset}}) => charset == 'UTF-8')
-  )
-})
-
-test(function every_post_layout_is_default() {
-  assert(
-    db.rows.every(({headers:{layout}}) => layout == 'default')
+    db.rows.every(({headers:{layout}}) => layout == 'post')
   )
 })
 
