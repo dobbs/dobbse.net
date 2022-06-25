@@ -87,15 +87,17 @@ test(function seven_posts_use_article_tag() {
   assertEquals(
     db.rows
       .filter(({name, body}) => body.startsWith('<article'))
-      .map(({name}) => name),
+      .map(({name}) => name)
+      .sort()
+    ,
     [
+      "2012-11-06-framework-is-not-architecture.html",
+      "2012-12-17-cultural-bias-html-css-and-conways-law.html",
       "2012-12-18-help-visualize-invisible.html",
       "2014-02-04-wish-you-were-here.html",
-      "2015-05-06-emotion-reason-riot-revolution.html",
-      "2012-11-06-framework-is-not-architecture.html",
-      "2015-03-16-base-eleven-pi-day.html",
       "2014-12-19-microagression-waiting-for-the-bus.html",
-      "2012-12-17-cultural-bias-html-css-and-conways-law.html"
+      "2015-03-16-base-eleven-pi-day.html",
+      "2015-05-06-emotion-reason-riot-revolution.html"
     ]
   )
 })
