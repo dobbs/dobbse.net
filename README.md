@@ -6,6 +6,17 @@ bundle install --path vendor/bundle
 rake jekyll
 ```
 
+# analyzing structure of jekyll/_posts
+
+Using a vaguely test-driven approach to discover the existing
+structure with a view of transforming that structure to fit some
+jekyll site templates out on the internet. The test cases here encode
+what I've learned about my library of blog posts.
+
+``` bash
+deno test --allow-read audit/test.js
+```
+
 # what I tried 2018-02-27:
 
 ``` bash
