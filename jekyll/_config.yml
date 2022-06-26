@@ -1,17 +1,33 @@
-title: thinair
-email: eric@dobbse.net
-description: > # this means to ignore newlines until "baseurl:"
-  Exploring lofty and vaporous thoughts.  Guided by Eric Dobbs.
-baseurl: "" # the subpath of your site, e.g. /blog/
-url: "https://dobbse.net" # the base hostname & protocol for your site
+title:       thinair
+tagline:     Boulder, Colorado. elevation 5400 feet.
+url:         https://dobbse.net
+baseurl:     ""
+permalink:   /thinair/:year/:month/:title.html
+
+author:
+  name: Eric Dobbs
+  url: https://twitter.com/dobbse
+
 twitter_username: dobbse
 github_username:  dobbs
 
-theme: minima
-minima:
-  date_format: "%A %d %B %Y at %H:%M"
 plugins:
   - jekyll-feed
+  - jekyll-gist
+  - jekyll-seo-tag
 
-permalink: /thinair/:year/:month/:title.html
-copyright: 2001
+# Optimize Jekyll
+exclude:
+  - .editorconfig
+  - .git
+  - .jekyll-cache
+  - Gemfile
+  - Gemfile.lock
+  - LICENSE.md
+  - README.md
+
+sass:
+  sass_dir: _sass
+  style: :compressed
+
+date_format: "%A %d %B %Y at %H:%M"

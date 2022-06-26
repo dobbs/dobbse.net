@@ -1,11 +1,22 @@
 ---
 layout: default
+title: Home
 scripts:
   - http://code.jquery.com/jquery-1.12.4.min.js
-  - https://dobbs.github.io/turtle/turtle.min.js
-  - https://dobbs.github.io/turtle/fractal.js
-  - https://dobbs.github.io/dobbs/tg.js
 ---
-{% for post in site.posts limit: 10 %}
-{{ post.content }}
-{% endfor %}
+
+<div class="posts">
+  {% for post in site.posts limit: 10 %}
+  <article class="post">
+    <h1 class="post-title">
+      <a href="{{ post.url | relative_url }}">
+        {{ post.title }}
+      </a>
+    </h1>
+
+    <time datetime="{{ post.date | date_to_xmlschema }}" class="post-date">{{ post.date | date_to_string }}</time>
+
+    {{ post.content }}
+  </article>
+  {% endfor %}
+</div>

@@ -1,0 +1,39 @@
+// Masthead
+//
+// Super small header above the content for site name and short description.
+
+.masthead {
+  padding-top: var(--spacer);
+  padding-bottom: var(--spacer);
+  margin-bottom: var(--spacer-3);
+  background: no-repeat right var(--spacer-2) url('/thinair.svg');
+  background-size: var(--spacer-3);
+}
+
+.masthead-title {
+  margin-bottom: 0;
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  small {
+    display: inline-block;
+    margin-left: var(--spacer);
+    font-weight: 400;
+    opacity: .5;
+    font-size: 50%;
+  }
+}
+
+@media (min-width: 30em) {
+  .masthead {
+    background-size: contain;
+    background-position-y: center;
+  }
+
+  .masthead-title small {
+    font-size: 85%;
+  }
+}
