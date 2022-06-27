@@ -49,27 +49,49 @@ test(function counts_of_headers() {
   )
 })
 
-test(function has_link_and_no_article() {
-  assert(
-    db.rows
-      .filter(({headers}) => !!headers.link)
-      .every(({body}) => !body.match(/class="article"/))
-  )
+test(function every_post_has_link() {
+  assert(db.rows.every(({headers:{link}}) => !!link))
+})
+
+test(function no_posts_have_article_class() {
+  assert(db.rows.every(({body}) => !body.match(/class="article"/)))
 })
 
 test(function no_posts_are_templated() {
-  assert(
-    db.rows.every(({body}) => !body.match(/{{ page\.link }}/))
-  )
+  assert(db.rows.every(({body}) => !body.match(/{{ page\.link }}/)))
 })
 
 test(function no_posts_use_article_tag() {
-  assert(
-    db.rows.every(({body}) => !body.startsWith('<article'))
+  assert(db.rows.every(({body}) => !body.startsWith('<article')))
+})
+
+test(function every_post_layout_is_post() {
+  assert(db.rows.every(({headers:{layout}}) => layout == 'post'))
+})
+
+test(function no_post_has_empty_comments() {
+  let re=/\s<div class="section comments"><a name="comments"><\/a>\s+<\/div>\s+\z/
+  assert(db.rows.every(({body}) =>!body.match(re)))
+})
+
+test(function no_post_has_comments_header() { // used to, but don't anymore
+  assert(db.rows.every(({headers:{comments}}) => !comments))
+})
+
+test(function only_two_posts_end_with_closing_div() {
+  assertEquals(
+    db.rows
+      .filter(({body}) => body.endsWith("\n</div>\n"))
+      .map(({name}) => name)
+      .sort(),
+    [
+      "2011-01-24-phone-turtle.html",
+      "2011-12-22-turtle-geometry-exercises.html",
+    ]
   )
 })
 
-test(function four_posts_have_extra_script_tags() {
+test(function only_four_posts_have_extra_script_tags() {
   assertEquals(
     db.rows
       .filter(({headers:{scripts}}) => !!scripts)
@@ -97,21 +119,6 @@ test(function four_posts_have_extra_script_tags() {
       ],
     ]
   )
-})
-
-test(function every_post_layout_is_post() {
-  assert(
-    db.rows.every(({headers:{layout}}) => layout == 'post')
-  )
-})
-
-test(function no_post_has_empty_comments() {
-  let re=/\s<div class="section comments"><a name="comments"><\/a>\s+<\/div>\s+\z/
-  assert(db.rows.every(({body}) =>!body.match(re)))
-})
-
-test(function no_post_has_comments_header() { // used to, but don't anymore
-  assert(db.rows.every(({headers:{comments}}) => !comments))
 })
 
 test(async function thirty_two_posts_have_comments() {
@@ -161,19 +168,6 @@ test(async function thirty_two_posts_have_comments() {
       ["2004-10-26-vote.html", 2],
       ["2004-11-10-create-peace.html", 1],
       ["2004-12-03-welcome-home-elliott.html", 3],
-    ]
-  )
-})
-
-test(function only_two_posts_end_with_closing_div() {
-  assertEquals(
-    db.rows
-      .filter(({body}) => body.endsWith("\n</div>\n"))
-      .map(({name}) => name)
-      .sort(),
-    [
-      "2011-01-24-phone-turtle.html",
-      "2011-12-22-turtle-geometry-exercises.html",
     ]
   )
 })
