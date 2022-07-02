@@ -17,6 +17,12 @@ what I've learned about my library of blog posts.
 deno test --allow-read audit/test.js
 ```
 
+An inventory of outbound links:
+
+``` bash
+deno run --allow-read audit/broken-links.js
+```
+
 # what I tried 2018-02-27:
 
 ``` bash
