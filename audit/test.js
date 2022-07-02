@@ -6,8 +6,7 @@ import {
   DOMParser,
   initParser,
 } from "https://deno.land/x/deno_dom/deno-dom-wasm-noinit.ts";
-// import {DOMParser} from "https://deno.land/x/deno_dom/deno-dom-native.ts"
-import * as path from "https://deno.land/std@0.144.0/path/mod.ts"
+import {join} from "https://deno.land/std@0.144.0/path/mod.ts"
 import {
   parse,
   stringify,
@@ -20,7 +19,7 @@ function parseAllPosts() {
   let files = readDirSync(dir)
   let audit = {headers: {}, rows:[]}
   for (let {name, isFile, isDirectory} of files) {
-    let filepath = path.join(dir, name)
+    let filepath = join(dir, name)
     if (isFile) {
       let content = readTextFileSync(filepath)
       let [ignore, head, body] = content.split(/--- *\n/)
