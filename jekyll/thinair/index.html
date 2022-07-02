@@ -1,17 +1,16 @@
 ---
 layout: default
 ---
-{%- capture pageyear -%}{{ page.year }}{{ page.month | split: '-' | first }}{%- endcapture -%}
-<h1><a href="/thinair/{{pageyear}}/">{{ pageyear }}</a></h1>
-<!--   -->
 {%- assign lastmonth = "" -%}
+{%- assign lastyear = "" -%}
 {%- for post in site.posts reversed -%}
 {%- capture year -%}{{post.date | date: "%Y"}}{%- endcapture -%}
 {%- capture month -%}{{post.date | date: "%Y-%m"}}{%- endcapture -%}
-{%- if year == page.year or page.month == month -%}
+{%- if year != lastyear -%}{%- assign lastyear = year -%}
+<h1><a href="/thinair/{{ year }}/">{{ year }}</a></h1>
+{%- endif -%}
 {%- if month != lastmonth -%}{%- assign lastmonth = month -%}
-<h3><a href="/thinair/{{month | replace: '-', '/'}}/">{{ month | append: "-01" | date: "%B" }}</a></h3>
+<h3><a href="/thinair/{{ month | replace: '-', '/' }}/">{{ month | append: "-01" | date: "%B" }}</a></h3>
 {%- endif-%}
 <div><a href="{{ post.url }}">{{ post.title }}</a></div>
-{%- endif -%}
 {%- endfor -%}

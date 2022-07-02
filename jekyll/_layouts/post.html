@@ -8,18 +8,22 @@ layout: default
   {{ content }}
 </article>
 
-{% if site.related_posts != empty %}
-<aside class="related">
-  <h3>Related posts</h3>
-  <ul class="related-posts">
-    {% for post in site.related_posts limit:3 %}
-      <li>
-        <a href="{{ site.baseurl }}{{ post.url }}">
-          {{ post.title }}
-          <small><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date_to_string }}</time></small>
-        </a>
-      </li>
-    {% endfor %}
-  </ul>
+
+<aside class="archives">
+  <h3>Archives</h3>
+  {%- assign prevyear = "" -%}
+  {%- for post in site.posts reversed -%}
+  {%- capture year -%}{{post.date | date: "%Y"}}{%- endcapture -%}
+  {%- capture month -%}{{post.date | date: "%Y-%m"}}{%- endcapture -%}
+  {% if year != lastyear %}{%- assign lastyear = year -%}{%- assign prevmonth = "" -%}
+  <a href="/thinair/{{year}}/">{{year}}</a>
+  {% endif %}
+  {%- capture pagemonth -%}{{ page.date | date: "%Y-%m" }}{%- endcapture -%}
+  {% if month != lastmonth and month == pagemonth %}{%- assign lastmonth = month -%}
+  <a href="/thinair/{{ month | replace: '-', '/'}}/">{{ month | append: "-01" | date: "%B" }}</a><br>
+  {% endif %}
+  {% if month == pagemonth %}
+  <a href="{{post.url}}">{{post.title}}</a><br>
+  {% endif %}
+  {%- endfor -%}
 </aside>
-{% endif %}
