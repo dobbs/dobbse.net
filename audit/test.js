@@ -1,16 +1,16 @@
 import {
   assert,
   assertEquals
-} from "https://deno.land/std@0.144.0/testing/asserts.ts";
+} from "https://deno.land/std@0.144.0/testing/asserts.ts"
 import {
   DOMParser,
   initParser,
-} from "https://deno.land/x/deno_dom/deno-dom-wasm-noinit.ts";
 import {join} from "https://deno.land/std@0.144.0/path/mod.ts"
 import {
   parse,
   stringify,
 } from "https://deno.land/std@0.144.0/encoding/yaml.ts";
+} from "https://deno.land/x/deno_dom/deno-dom-wasm-noinit.ts"
 const {test} = Deno
 
 function parseAllPosts() {
