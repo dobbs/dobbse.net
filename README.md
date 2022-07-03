@@ -20,7 +20,8 @@ deno test --allow-read audit/test.js
 An inventory of outbound links:
 
 ``` bash
-deno run --allow-read audit/broken-links.js
+deno run --allow-read --allow-net audit/broken-links.js | \
+  tee -a ./broken-links.log
 ```
 
 # what I tried 2018-02-27:
