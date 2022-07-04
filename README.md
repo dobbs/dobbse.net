@@ -17,11 +17,28 @@ what I've learned about my library of blog posts.
 deno test --allow-read audit/test.js
 ```
 
-An inventory of outbound links:
+# link maintenance
+
+Many links on my site are currently broken. I'm building some tools to
+help me find broken links and fix them. Hoping to make maintenance of
+links easier.
+
+This script makes HEAD requests to 100 links, in batches of about 4
+per second. STDOUT is yaml data structure which we append to
+`./link-cache-log.yaml`
 
 ``` bash
 deno run --allow-read --allow-net audit/broken-links.js | \
-  tee -a ./broken-links.log
+  tee -a ./link-cache-log.yaml
+```
+
+## testing at deno REPL
+
+``` bash
+deno repl
+import {loadCache} from "./audit/load-cache.js"
+let cache = loadCache()
+let fivehundreds = cache.filter(row => row.error || row.status >= 500)
 ```
 
 # what I tried 2018-02-27:

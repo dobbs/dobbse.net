@@ -3,24 +3,16 @@ import {
   DOMParser,
   initParser,
 } from "https://deno.land/x/deno_dom/deno-dom-wasm-noinit.ts";
-import {
-  parse,
-  stringify,
-} from "https://deno.land/std@0.144.0/encoding/yaml.ts";
+import {stringify} from "https://deno.land/std@0.144.0/encoding/yaml.ts";
 import { delay } from 'https://deno.land/x/delay@v0.2.0/mod.ts';
 const {readDirSync, readTextFileSync} = Deno
 
 
+import {loadCache} from "./load-cache.js"
 import {parseAllPosts} from "./parse-all-posts.js"
 
 const db = parseAllPosts()
-const cacheFile = path.resolve(
-  path.dirname(path.fromFileUrl(import.meta.url)),
-  "..",
-  "broken-links.log"
-)
-const cacheYaml = readTextFileSync(cacheFile)
-const cache = parse(cacheYaml)
+const cache = loadCache()
 await initParser()
 const {parseFromString} = new DOMParser()
 
