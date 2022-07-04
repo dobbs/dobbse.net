@@ -18,3 +18,15 @@ export function loadCache(filename=null) {
   })
   return cache
 }
+
+export async function checkOneLink({href, post, label}) {
+  const fetched = new Date.toJSON()
+  try {
+    const res = await fetch(href, {method: "POST"})
+    const {ok, status, redirected, url} = res
+    return {href, post, label, fetched, ok, details:{status, redirected, url}}
+  } catch (error) {
+    const {name, message} = error
+    return {href, post, label, fetched, ok: false, details: {error: name, message}}
+  }
+}
