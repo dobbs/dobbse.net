@@ -1,5 +1,5 @@
 export async function checkOneLink({href, post, label}) {
-  const fetched = new Date.toJSON()
+  const fetched = new Date().toJSON()
   if (!href) {
     return {href, post, label, fetched, ok: false, details: {
       error: "unsupported href",
