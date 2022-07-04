@@ -68,4 +68,5 @@ async function checkInventory() {
   }
 }
 
-await checkInventory()
+if (import.meta.main)
+  await checkInventory()
