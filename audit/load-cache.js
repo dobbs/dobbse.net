@@ -1,5 +1,5 @@
 import {dirname, fromFileUrl, resolve} from "https://deno.land/std@0.144.0/path/mod.ts"
-import {parse} from "https://deno.land/std@0.144.0/encoding/yaml.ts";
+import {parse} from "https://deno.land/std@0.144.0/encoding/yaml.ts"
 const {readTextFileSync} = Deno
 
 export function loadCache(filename=null) {
