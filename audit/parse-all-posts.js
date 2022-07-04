@@ -4,9 +4,8 @@ import {
   stringify,
 } from "https://deno.land/std@0.144.0/encoding/yaml.ts";
 
-export function parseAllPosts() {
+export function parseAllPosts(dir="./jekyll/_posts") {
   const {readDirSync, readTextFileSync} = Deno
-  let dir = './jekyll/_posts'
   let files = readDirSync(dir)
   let audit = {headers: {}, rows:[]}
   for (let {name, isFile, isDirectory} of files) {
