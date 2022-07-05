@@ -13,7 +13,7 @@ export function loadCache(filename=null) {
   }
   let rawcache
   try {
-    rawcache = parse(readTextFileSync(filename))
+    rawcache = parse(readTextFileSync(filename)) || []
   } catch(error) {
     if (error.name != "NotFound") {
       throw error
