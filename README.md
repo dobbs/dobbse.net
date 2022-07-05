@@ -32,14 +32,28 @@ deno run --allow-read --allow-net audit/broken-links.js | \
   tee -a ./link-cache-log.yaml
 ```
 
-## testing at deno REPL
+## deno REPL
+
+compare cache with link inventory
 
 ``` bash
 deno repl
 import {loadCache} from "./audit/load-cache.js"
 let cache = loadCache()
-let fivehundreds = cache.filter(row => row.error || row.status >= 500)
+import {linkInventory} from "./audit/link-inventory.js"
+let links = await linkInventory()
+links.length == cache.length
+cache.filter(it => !it.ok).length
 ```
+
+try testing a few links
+
+``` bash
+deno repl
+import {main} from "./audit/broken-links.js"
+main(5) // check on the next five links from inventory that are not in cache
+```
+
 
 # what I tried 2018-02-27:
 
