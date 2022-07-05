@@ -18,12 +18,12 @@ export async function checkOneLink({href, post, label}) {
       message: "cannot fetch mailto hrefs"
     }}
   }
-  const absoluteHref = new URL(href, "http://dobbse.net")
+  const absoluteHref = new URL(href, "http://dobbse.net").toString()
   try {
     const res = await fetch(absoluteHref, {method: "POST"})
     const {ok, status, redirected, url} = res
     return {href, post, label, fetched, ok, details:{
-      status, redirected, url, absoluteHref
+      status, redirected, url:url.toString(), absoluteHref
     }}
   } catch (error) {
     const {name, message} = error
