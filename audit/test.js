@@ -1,3 +1,4 @@
+import {dirname, fromFileUrl, resolve} from "https://deno.land/std@0.144.0/path/mod.ts"
 import {
   assert,
   assertEquals
@@ -154,4 +155,51 @@ test(function posts_with_comments_do_not_have_a_stray_div() {
       .filter(({body}) => body.match(/class="comments"/))
       .every(({body}) => !body.match(/<\/div>\s+<section class="comments">/m))
   )
+})
+
+test(async function all_posts_are_indexed_by_month_and_year() {
+  const exists = file => Deno.stat(file)
+        .then(() => true)
+        .catch(error => {
+          if (error instanceof Deno.errors.NotFound) {
+            return false
+          }
+          throw error
+        })
+  const seen = new Set()
+  const fix = []
+  for(let {name} of db.rows) {
+    let [ignore, year, month] = name.match(/^(\d{4})-(\d{2})-\d{2}-/)
+    let yearIndex = resolve(
+      dirname(fromFileUrl(import.meta.url)),
+      "..", "jekyll", "thinair", year, "index.html")
+    let monthIndex = resolve(
+      dirname(fromFileUrl(import.meta.url)),
+      "..", "jekyll", "thinair", year, month, "index.html")
+    if (!seen.has(yearIndex)) {
+      seen.add(yearIndex)
+      if (! await exists(yearIndex)) {
+        fix.push({filename: yearIndex, header: `year: "${year}"`})
+      }
+    }
+    if (!seen.has(monthIndex)) {
+      seen.add(monthIndex)
+      if (! await exists(monthIndex)) {
+        fix.push({filename: monthIndex, header: `month: "${year}-${month}"`})
+      }
+    }
+  }
+
+  for(let {filename, header} of fix.sort()) {
+    console.log(`mkdir -p ${dirname(filename)}
+cat <<EOF > ${filename}
+---
+layout: periodic
+${header}
+---
+EOF
+`)
+  }
+
+  assertEquals(fix, [])
 })

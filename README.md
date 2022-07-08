@@ -17,6 +17,23 @@ what I've learned about my library of blog posts.
 deno test --allow-read audit/test.js
 ```
 
+# index maintenance
+
+I have a test to verify consistency of posts and indexes. To run all the tests:
+
+``` bash
+deno test --allow-read
+```
+
+I verify that there are year and month indexes for every post. Where
+there are missing index files, I also emit a short shell script to
+create the missing file.
+
+(This might want to grow up to be a script that runs unconditionally
+as a pre-commit hook, but I'm not quite ready to commit to that
+automation. I'll wait to feel if this current hack hurts enough to
+make it worth more effort here.)
+
 # link maintenance
 
 Many links on my site are currently broken. I'm building some tools to
