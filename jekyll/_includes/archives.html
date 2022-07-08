@@ -1,0 +1,18 @@
+<aside class="archives">
+  <h3>Archives</h3>
+  {%- assign prevyear = "" -%}
+  {%- for post in site.posts reversed -%}
+  {%- capture year -%}{{post.date | date: "%Y"}}{%- endcapture -%}
+  {%- capture month -%}{{post.date | date: "%Y-%m"}}{%- endcapture -%}
+  {% if year != lastyear %}{%- assign lastyear = year -%}{%- assign prevmonth = "" -%}
+  <a href="/thinair/{{year}}/">{{year}}</a>
+  {% endif %}
+  {%- capture pagemonth -%}{{ page.date | date: "%Y-%m" }}{%- endcapture -%}
+  {% if month != lastmonth and month == pagemonth %}{%- assign lastmonth = month -%}
+  <a href="/thinair/{{ month | replace: '-', '/'}}/">{{ month | append: "-01" | date: "%B" }}</a><br>
+  {% endif %}
+  {% if month == pagemonth %}
+  <a href="{{post.url}}">{{post.title}}</a><br>
+  {% endif %}
+  {%- endfor -%}
+</aside>
