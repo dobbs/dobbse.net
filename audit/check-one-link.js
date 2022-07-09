@@ -20,7 +20,7 @@ export async function checkOneLink({href, post, label}) {
   }
   const absoluteHref = new URL(href, "http://dobbse.net").toString()
   try {
-    const res = await fetch(absoluteHref, {method: "POST"})
+    const res = await fetch(absoluteHref, {method: "HEAD"})
     const {ok, status, redirected, url} = res
     return {href, post, label, fetched, ok, details:{
       status, redirected, url:url.toString(), absoluteHref
