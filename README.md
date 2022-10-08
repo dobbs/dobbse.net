@@ -3,7 +3,12 @@
 ``` bash
 rm Gemfile.lock
 bundle install --path vendor/bundle
-rake jekyll
+(cd jekyll; bundle exec jekyll build)
+```
+
+testing locally
+``` bash
+(cd jekyll; bundle exec jekyll serve)
 ```
 
 # analyzing structure of jekyll/_posts
