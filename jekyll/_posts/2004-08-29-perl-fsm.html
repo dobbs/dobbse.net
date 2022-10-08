@@ -2,13 +2,13 @@
 layout: post
 title: Perl state machine to scrape HTML
 date: 2004-08-29T21:54:29
-link: http://dobbse.net/thinair/2004/08/perl-fsm.html
+link: https://dobbse.net/thinair/2004/08/perl-fsm.html
 ---
-<p><a href="http://dobbse.net/thinair/2003/09/000140.html">State machines</a> part ten</p>
+<p><a href="https://dobbse.net/thinair/2003/09/000140.html">State machines</a> part ten</p>
 
 <p>I finally had an occasion to roll my own state machine earlier this month.</p>
 
-<p>My problem was to integrate a little piece of our application with a foreign web application.  Jon Udell taught me to look at all web applications as web services in <a href="http://allconsuming.net/item.cgi?isbn=1565925378">Practical Internet Groupware</a>.  The short story is I needed to scrape some lightly-tag-soup-style <span class="caps">HTML.  </span>It&#39;s a parsing problem.  <a href="http://dobbse.net/thinair/2004/08/state-machine-example.html">Bob Martin&#39;s example of using a state machine to parse code comments</a> came to mind.  <span class="caps">HTTP</span>::Parser gets me part of the way.  It&#39;ll scrape the angle brackets and give me a stream of four specific events: start-tag, end-tag, text, and comment.  If the other app were using validated <span class="caps">XHTML I</span> might be able to do this more simply with XPath.  But these apps don&#39;t live in the ideal web-services bubble.  They live on today&#39;s web, warts and all.</p>
+<p>My problem was to integrate a little piece of our application with a foreign web application.  Jon Udell taught me to look at all web applications as web services in <a href="http://allconsuming.net/item.cgi?isbn=1565925378">Practical Internet Groupware</a>.  The short story is I needed to scrape some lightly-tag-soup-style <span class="caps">HTML.  </span>It&#39;s a parsing problem.  <a href="https://dobbse.net/thinair/2004/08/state-machine-example.html">Bob Martin&#39;s example of using a state machine to parse code comments</a> came to mind.  <span class="caps">HTTP</span>::Parser gets me part of the way.  It&#39;ll scrape the angle brackets and give me a stream of four specific events: start-tag, end-tag, text, and comment.  If the other app were using validated <span class="caps">XHTML I</span> might be able to do this more simply with XPath.  But these apps don&#39;t live in the ideal web-services bubble.  They live on today&#39;s web, warts and all.</p>
 
 <pre>
 &lt;FONT FACE=&quot;Arial&quot;&gt;

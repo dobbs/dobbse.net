@@ -2,9 +2,9 @@
 layout: post
 title: State Machines, JavaServer Faces, bOP, and Rethinking the V in MVC
 date: 2003-10-11T10:41:24
-link: http://dobbse.net/thinair/2003/10/fsm-jsf-and-bop.html
+link: https://dobbse.net/thinair/2003/10/fsm-jsf-and-bop.html
 ---
-<p><a href="http://dobbse.net/thinair/2003/09/000140.html">State machines</a> part six</p>
+<p><a href="https://dobbse.net/thinair/2003/09/000140.html">State machines</a> part six</p>
 
 <p><a href="http://www.denverjug.org/events/oct2003.html">David Geary presented an overview of JavaServer Faces at DJUG</a> on Wednesday.  I have to agree with his assessment that JavaServer Faces will be The Next Big Thing in java web app development.  Interestingly, it looks like <span class="caps">JSF</span> will be notably similar to bOP.</p>
 
@@ -18,7 +18,7 @@ link: http://dobbse.net/thinair/2003/10/fsm-jsf-and-bop.html
 
 <p><span class="caps">JSF</span> adds several stages in the life-cycle of a request.  Some of those stages are specifically added  to allow page widgets to trigger events.  It allows you to &quot;attach&quot; server-side event listeners to those page widgets.  They&#39;ve done some pretty clever things to simulate a Swing-like event model while staying within the limits of <span class="caps">HTTP.  I</span>&#39;m sad to report that <span class="caps">JSP</span> still plays a central role.  Taglibs provide some of the important hooks that help maintain the Swing-like look in the code.   It looks like it will be hard to use other templating options with <span class="caps">JSF </span>-- the functionality provided by tag libraries for <span class="caps">JSP</span> would have to be replicated in <a href="http://jakarta.apache.org/velocity/">Velocity</a> or similar tools.</p>
 
-<p>I&#39;m not sure what to make of the move to Swingishness.  See, I&#39;ve drunk deeply from the templating kool-aid.  I prefer <a href="http://jakarta.apache.org/velocity/">Velocity</a> to <span class="caps">JSP</span> for various reasons I won&#39;t go into here.  When <a href="http://dobbse.net/thinair/2003/09/000138.html">I wrote a little controller in perl for New Millennium</a>, one of the key ingredients was <span class="caps">HTML</span>::Template -- it&#39;s not as cool as Velocity, but it let me separate the <span class="caps">HTML</span> from the controller.</p>
+<p>I&#39;m not sure what to make of the move to Swingishness.  See, I&#39;ve drunk deeply from the templating kool-aid.  I prefer <a href="http://jakarta.apache.org/velocity/">Velocity</a> to <span class="caps">JSP</span> for various reasons I won&#39;t go into here.  When <a href="https://dobbse.net/thinair/2003/09/000138.html">I wrote a little controller in perl for New Millennium</a>, one of the key ingredients was <span class="caps">HTML</span>::Template -- it&#39;s not as cool as Velocity, but it let me separate the <span class="caps">HTML</span> from the controller.</p>
 
 <p>Rob observes that templates make the same mistakes that old green screens did: mixing display codes with business logic and data.  At first blush that sounds like <span class="caps">JSP</span> scriptlets.  But I think Rob&#39;s assertion was more sweeping.  Whether you&#39;re writing servlets with println()s or <span class="caps">JS</span>Ps with scriptlets or concealing the scriptlets with tag libraries, there&#39;s a mixing &quot;screen control characters&quot; with logic and data.  Velocity macros don&#39;t change that mix.</p>
 

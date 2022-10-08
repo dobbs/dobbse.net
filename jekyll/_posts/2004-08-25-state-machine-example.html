@@ -2,9 +2,9 @@
 layout: post
 title: State Machines described and a few examples
 date: 2004-08-25T23:35:41
-link: http://dobbse.net/thinair/2004/08/state-machine-example.html
+link: https://dobbse.net/thinair/2004/08/state-machine-example.html
 ---
-<p><a href="http://dobbse.net/thinair/2003/09/000140.html">State machines</a> part nine</p>
+<p><a href="https://dobbse.net/thinair/2003/09/000140.html">State machines</a> part nine</p>
 
 <p>Around this time last year I started publishing a series of entries about state machines and workflows.  The topic has recently resurfaced in a couple areas.  There&#39;s clearly more that I want to say.</p>
 
@@ -66,7 +66,7 @@ state     event  result
 Locked    coin   set Unlocked
 Locked    pass   sound alarm
 Unlocked  coin   refund coin
-Unlocked  pass   set Locked</pre><p>In his state machine compiler he offers a more formal syntax for a state transition table to define states and events and results.  It can then be compiled into a pile of objects similar to what I sketched above.  I&#39;ve already exclaimed about how cool I think that trick is in <a href="http://dobbse.net/thinair/2003/10/000145.html">State Machines and Agile Software Development</a>.  In that entry, you&#39;ll also find an example of the config file for the Turnstile state machine.</p>
+Unlocked  pass   set Locked</pre><p>In his state machine compiler he offers a more formal syntax for a state transition table to define states and events and results.  It can then be compiled into a pile of objects similar to what I sketched above.  I&#39;ve already exclaimed about how cool I think that trick is in <a href="https://dobbse.net/thinair/2003/10/000145.html">State Machines and Agile Software Development</a>.  In that entry, you&#39;ll also find an example of the config file for the Turnstile state machine.</p>
 
 <p>I won&#39;t cover the other examples in as much detail.  The <span class="caps">TCP</span> connection has to respond to open, close, and acknowledge events differently depending on whether the connection is established, listening, or closed.  The drawing tools have to respond to mouseup, mousedown, and mouse position events and do different things to the drawing depending on which tool is selected (or what state the palatte is in).  The comment parser responds to a stream of characters and changes states depending on whether it is in an inline comment, a comment block or whathaveyou.  Hopefully those few examples give a sense of how widely applicable the state pattern can be.</p>
 

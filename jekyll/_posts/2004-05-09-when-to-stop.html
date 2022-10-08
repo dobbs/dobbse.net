@@ -2,7 +2,7 @@
 layout: post
 title: True genius is knowing when to stop
 date: 2004-05-09T22:54:15
-link: http://dobbse.net/thinair/2004/05/when-to-stop.html
+link: https://dobbse.net/thinair/2004/05/when-to-stop.html
 ---
 <p>I call it flailing.  Intuition tells me the problem on which I&#39;m working has an easy solution, but it evades my every turn.  An elusive solution teases me along dead end after dead end.</p>
 
@@ -33,7 +33,7 @@ sub dispatch_command {
 
 <blockquote><p>True genius is knowing when to stop.  Many people have ideas, but the genius quickly abandons the bad ones, whereas the rest of us press on long after an idea has revealed itself as a failure.</p></blockquote>
 
-<p>For the time I spent I should have just bought a copy of Access and installed it.  I talked with Rob about it later.  His first suggestion was looking for something on <span class="caps">CPAN </span>-- except that our internet connection was down that day (more <a href="http://dobbse.net/thinair/2004/04/t1.html">telecom frustration</a>).  His second suggestion was also more simple: import the raw data into postgresql and use psql.</p>
+<p>For the time I spent I should have just bought a copy of Access and installed it.  I talked with Rob about it later.  His first suggestion was looking for something on <span class="caps">CPAN </span>-- except that our internet connection was down that day (more <a href="https://dobbse.net/thinair/2004/04/t1.html">telecom frustration</a>).  His second suggestion was also more simple: import the raw data into postgresql and use psql.</p>
 
 <p>The next day I decided to abaondon the interactive approach and just see what I could get out of the first database.  I thought it should be pretty easy, and by this time I needed a small success to build back some momentum.  What were the differences between <span class="caps">POLICY</span> and <span class="caps">POLICY90</span>?  I dumped the two tables into tab-delimited text files.  perl warned me about uninitialized values in string concatination, so I replaced undefined values with <code>--null--</code>.  But <code>diff</code> didn&#39;t tell me much.  It compares line-by-line and each line was different -- more columns in one than the other.  While I was talking with Rob about something else he asked about the <code>--null--</code> things.  &quot;If you just write out perl, you can <code>eval</code> it later and just leave those as <code>undef</code>.  Don&#39;t invent your own syntax.&quot;  Sometimes it&#39;s the little things.  Actually, um... I did that on purpose.  See, I knew I&#39;d learn another cool trick from Rob if I put <code>--null--</code> in there. ;-)</p>
 

@@ -2,7 +2,7 @@
 layout: post
 title: Teasing apart Struts Actions
 date: 2004-12-01T01:00:46
-link: http://dobbse.net/thinair/2004/12/struts-action.html
+link: https://dobbse.net/thinair/2004/12/struts-action.html
 ---
 <p><a href="http://struts.apache.org">Struts</a> has huge market share in the web development world.  Most Java web app developers start with Struts.  It shapes the way we think about web applications.  That would be fine except &lt;action-mappings&gt; in struts-config.xml is mixing concerns.  I have whined about this before, but maybe this time I can explain myself.</p>
 
@@ -27,7 +27,7 @@ This pattern is great for presentation Action classes. Presentation action class
 
 <p>In Struts an Action described in &lt;action-mappings&gt; can be Workflow, Navigation, Handler, or some combination thereof.  Then there are Kris&#39; different kinds of Actions which probably overlap some with the concerns I outline.  Many web developers are so accustomed to thinking of Actions that they may not recognize just how many things are going on in there.</p>
 
-<p>One thing <span class="caps">JSF</span> has gotten right is separating the configuration of the Navigation from the configuration of the Workflow, as I mentioned last year in <a href="http://dobbse.net/thinair/2003/10/000150.html">State Machines, JavaServer Faces, bOP, and Rethinking the V in MVC</a>.  For the record, <a href="http://jakarta.apache.org/turbine/">Turbine</a> also gets this right by specifying the template and the action separately in the <span class="caps">URL.</span></p>
+<p>One thing <span class="caps">JSF</span> has gotten right is separating the configuration of the Navigation from the configuration of the Workflow, as I mentioned last year in <a href="https://dobbse.net/thinair/2003/10/000150.html">State Machines, JavaServer Faces, bOP, and Rethinking the V in MVC</a>.  For the record, <a href="http://jakarta.apache.org/turbine/">Turbine</a> also gets this right by specifying the template and the action separately in the <span class="caps">URL.</span></p>
 
 <p>I&#39;m not quite satisfied with the breakdown I&#39;ve outlined.  For starters, I&#39;m not entirely sure where I would put form validation.  It&#39;s clearly a crucial aspect of web application development.  It touches Navigation &#39;cos bad input needs to bounce the user back to the form with meaningful error messages.  It touches Handlers and Workflow because I want valid data before I change the data saved in the database.</p>
 
