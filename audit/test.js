@@ -157,6 +157,95 @@ test(function posts_with_comments_do_not_have_a_stray_div() {
   )
 })
 
+test(function all_local_images_addressed_https() {
+  assertEquals(
+    db.rows
+      .filter((({body}) => body.match(/<img/)))
+      .map(({name, body}) => {
+        let _,x
+        const images = body.match(/<img.*?src=".+?".*?>/mg)
+              .map(img => ([_,x]=img.match(/src="(.+?)"/), x))
+        return [name, ...(images.sort())]
+      })
+      .sort(),
+    [
+      [
+        "2003-03-20-spring.html",
+        "https://dobbse.net/images/spring-small.jpg",
+      ],
+      [
+        "2003-07-19-use-a-better-browser.html",
+        "https://giantfightingrobots.com/betterbrowser.gif",
+      ],
+      [
+        "2004-07-15-finger-pointing.html",
+        "https://dobbse.net/thinair/2004/05/finger-pointing.gif",
+      ],
+      [
+        "2004-10-03-pcd-lessons.html",
+        "https://dobbse.net/thinair/2004/10/figures.gif",
+      ],
+      [
+        "2007-06-11-photosynth.html",
+        "https://dobbse.net/thinair/2007/06/notre_dame.png",
+        "https://dobbse.net/thinair/2007/06/notre_dame_cones_of_vision.png",
+      ],
+      [
+        "2008-12-09-growth-and-polygons.html",
+        "https://dobbse.net/thinair/2008/12/rainbow.png",
+      ],
+      [
+        "2008-12-29-logo-fractals-recursion.html",
+        "https://dobbse.net/thinair/2008/12/peano-012.png",
+        "https://dobbse.net/thinair/2008/12/peano-4.png",
+        "https://dobbse.net/thinair/2008/12/sam-curve-1.png",
+        "https://dobbse.net/thinair/2008/12/sam-curve-2.png",
+        "https://dobbse.net/thinair/2008/12/sam-curve-3.png",
+        "https://dobbse.net/thinair/2008/12/sam-curve-4.png",
+        "https://dobbse.net/thinair/2008/12/vkzig-1.png",
+        "https://dobbse.net/thinair/2008/12/vkzig-2.png",
+        "https://dobbse.net/thinair/2008/12/vkzig-6.png",
+        "https://dobbse.net/thinair/2008/12/vonkoch-012.png",
+        "https://dobbse.net/thinair/2008/12/vonkoch-345.png",
+        "https://dobbse.net/thinair/2008/12/vonkoch-67.png",
+        "https://dobbse.net/thinair/2008/12/vonkoch-snowflake.png",
+      ],
+      [
+        "2009-09-19-punksnotdead.html",
+        "https://dobbse.net/thinair/2009/09/punksnotdead.png",
+      ],
+      [
+        "2009-10-29-blizzard.html",
+        "https://dobbse.net/thinair/2009/10/labyrinth-1.jpg",
+        "https://dobbse.net/thinair/2009/10/labyrinth-2.jpg",
+        "https://dobbse.net/thinair/2009/10/labyrinth-3.jpg",
+      ],
+      [
+        "2010-08-17-computational-education-map.html",
+        "https://dobbse.net/thinair/2010/08/computational-education.png",
+      ],
+      [
+        "2011-01-24-phone-turtle.html",
+        "https://dobbse.net/thinair/2011/01/phone-turtle.png",
+      ],
+      [
+        "2012-12-18-help-visualize-invisible.html",
+        "https://dobbse.net/thinair/2012/12/figures.jpg",
+        "https://dobbse.net/thinair/2012/12/rotunda.jpg",
+        "https://dobbse.net/thinair/2012/12/u-of-v.jpg",
+      ],
+      [
+        "2014-02-04-wish-you-were-here.html",
+        "https://dobbse.net/thinair/2014/02/wish-you-were-here.jpg",
+      ],
+      [
+        "2015-05-06-emotion-reason-riot-revolution.html",
+        "https://dobbse.net/thinair/2015/05/medium_13_17_09_13_6_25_25_139532434.jpeg",
+      ],
+    ]
+  )
+})
+
 test(async function all_posts_are_indexed_by_month_and_year() {
   const exists = file => Deno.stat(file)
         .then(() => true)

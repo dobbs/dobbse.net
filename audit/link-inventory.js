@@ -25,7 +25,16 @@ export async function linkInventory() {
       const uniqueKey = uniqueKeyForLink({href, post})
       if (!seen.has(uniqueKey)) {
         seen.add(uniqueKey)
-        acc.push({href, label, post})
+        acc.push({href, label, post, type: 'link'})
+      }
+    })
+    dom.querySelectorAll("img[src]").forEach(img => {
+      const src = img.getAttribute("src")
+      const label = (img.getAttribute("alt") || "image").trim()
+      const uniqueKey = uniqueKeyForLink({href:src, post})
+      if (!seen.has(uniqueKey)) {
+        seen.add(uniqueKey)
+        acc.push({href:src, label, post, type: 'image'})
       }
     })
     return acc

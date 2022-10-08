@@ -1,19 +1,19 @@
-export async function checkOneLink({href, post, label}) {
+export async function checkOneLink({href, post, label, type}) {
   const fetched = new Date().toJSON()
   if (!href) {
-    return {href, post, label, fetched, ok: false, details: {
+    return {href, type, post, label, fetched, ok: false, details: {
       error: "unsupported href",
       message: "cannot fetch empty href"
     }}
   }
   if (href.startsWith("#")) {
-    return {href, post, label, fetched, ok: false, details: {
+    return {href, type, post, label, fetched, ok: false, details: {
       error: "unsupported href",
       message: "cannot fetch hrefs that are only hash parameters"
     }}
   }
   if (href.startsWith("mailto:")) {
-    return {href, post, label, fetched, ok: false, details: {
+    return {href, type, post, label, fetched, ok: false, details: {
       error: "unsupported href",
       message: "cannot fetch mailto hrefs"
     }}
@@ -22,12 +22,12 @@ export async function checkOneLink({href, post, label}) {
   try {
     const res = await fetch(absoluteHref, {method: "HEAD"})
     const {ok, status, redirected, url} = res
-    return {href, post, label, fetched, ok, details:{
+    return {href, type, post, label, fetched, ok, details:{
       status, redirected, url:url.toString(), absoluteHref
     }}
   } catch (error) {
     const {name, message} = error
-    return {href, post, label, fetched, ok: false, details: {
+    return {href, type, post, label, fetched, ok: false, details: {
       error: name, message, absoluteHref
     }}
   }
