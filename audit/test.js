@@ -174,10 +174,6 @@ test(function all_local_images_addressed_https() {
         "https://dobbse.net/images/spring-small.jpg",
       ],
       [
-        "2003-07-19-use-a-better-browser.html",
-        "https://giantfightingrobots.com/betterbrowser.gif",
-      ],
-      [
         "2004-07-15-finger-pointing.html",
         "https://dobbse.net/thinair/2004/05/finger-pointing.gif",
       ],
