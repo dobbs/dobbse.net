@@ -81,13 +81,13 @@ test(function only_four_posts_have_extra_script_tags() {
       ],
       [
         "2011-12-22-turtle-geometry-exercises.html",
-        "http://code.jquery.com/jquery-1.7.1.min.js",
+        "https://code.jquery.com/jquery-1.7.1.min.js",
         "https://dobbs.github.io/turtle/turtle.min.js",
         "https://dobbs.github.io/turtle/tg.js",
       ],
       [
         "2012-03-18-programming-by-touch.html",
-        "http://code.jquery.com/jquery-1.7.1.min.js",
+        "https://code.jquery.com/jquery-1.7.1.min.js",
       ],
       [
         "2010-12-03-javascript-turtle-graphics.html",
