@@ -242,6 +242,34 @@ test(function all_local_images_addressed_https() {
   )
 })
 
+test(async function all_posts_are_cleaned_of_redirected_urls() {
+  const htaccess = Deno.readTextFileSync(resolve(
+    dirname(fromFileUrl(import.meta.url)),
+    "..", "jekyll", ".htaccess"
+  ))
+  const index = htaccess.split("\n").reduce((acc, line) => {
+    if (line.match(/permanent/)) {
+      const [redirect, target] = line.split(/\s+/).slice(2)
+      acc.set(redirect, target)
+    }
+    return acc
+  }, new Map())
+  const re = new RegExp(Array.from(index.keys()).join("|"), 'gim')
+  assertEquals(
+    db.rows
+      .reduce((acc, {name, body}) => {
+        const matches = body.match(re)
+        if (matches) {
+          const replacements = matches.map(redirect =>
+            `s(${redirect})(${index.get(redirect)})i;`
+          )
+          return `${acc}perl -pi -e '${replacements.join("")}' jekyll/_posts/${name}\n`
+        }
+        return acc
+      }, ""),
+    "")
+})
+
 test(async function all_posts_are_indexed_by_month_and_year() {
   const exists = file => Deno.stat(file)
         .then(() => true)
