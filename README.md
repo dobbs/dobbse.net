@@ -11,6 +11,18 @@ testing locally
 (cd jekyll; bundle exec jekyll serve)
 ```
 
+# publishing
+
+Indra's net switched to cPanel.
+
+- create the tarball
+
+    (cd ~/workspace/dobbs/dobbse.net/jekyll/_site;
+     tar zcf ../../dobbse.net-$(date +%Y-%m-%d).tgz)
+
+- upload to cPanel home directory
+- use cPanel file manager to expand the tarball into public_html
+
 # analyzing structure of jekyll/_posts
 
 I used a vaguely test-driven approach to discover the existing
