@@ -18,7 +18,7 @@ Indra's net switched to cPanel.
 - create the tarball
 
     (cd ~/workspace/dobbs/dobbse.net/jekyll/_site;
-     tar zcf ../../dobbse.net-$(date +%Y-%m-%d).tgz)
+     tar zcf ../../dobbse.net-$(date +%Y-%m-%d).tgz .)
 
 - upload to cPanel home directory
 - use cPanel file manager to expand the tarball into public_html

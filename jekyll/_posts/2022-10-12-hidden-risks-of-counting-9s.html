@@ -1,0 +1,81 @@
+---
+layout: post
+title: "Hidden Risks of Counting 9s"
+link: https://dobbse.net/thinair/2022/10/hidden-risks-of-counting-9s.html
+date: 2022-10-12T00:15:00-600
+---
+<p>An experience report from measuring uptime. Many software people believe measuring uptime to be a useful tool to support or assess improvement in software reliability. My experience is different.</p>
+
+<p>I joined a team at an internet scale company whose job was to manage an incident chat bot and related incident database. The main job of the database was to track uptime for teams and products. It’s the best calculator of uptime I’ve seen through my career and better than most I’ve heard of from other engineers. It is the kind of tool most software companies think they want.</p>
+
+<p>But I’m telling you this story in the month of October as a horror story and a cautionary tale. The cliché summary: be careful what you wish for. The conclusion up front:</p>
+
+<ul>
+  <li>measuring uptime is deceptively expensive and inaccurate</li>
+  <li>reporting lapses in uptime leads to counterproductive behavior</li>
+  <li>using lapses in uptime to trigger mechanical consequences destroys morale</li>
+</ul>
+
+<h2>The Calculator</h2>
+
+<p>The chat bot’s main job was to support incident response. It had a bunch of features. But for this story we’ll focus on how it helped with calculating uptimes. The bot would record the start time and end time of any incident along with any time severity changed over the duration of the incident.</p>
+
+<p>After an incident, teams were expected to estimate the customer impact for each of the major products and for each of the severity timespans over the duration of the incident.</p>
+
+<p>One of the expected outcomes from an incident retro was to identify which team owned the impact for the incident.</p>
+
+<p>From this data, we would generate reports of uptime expressed as number of nines, adjusted by the percentage of customer impact. So 99.5, 99.7, 99.8, whatever was happening for a specific group.</p>
+
+<p>These were broken down by both team and product and grouped over the past three months, alongside the past 30 day rolling window. The cells were colored green, yellow, or red according to team-specific or product-specific objectives for uptime. Reports were delivered in a weekly email to pretty well everybody in the engineering organization.</p>
+
+<h2>Context</h2>
+
+<p>These tools were built alongside a deep investment in nurturing a world-class incident response culture. For example, a self-guided training module was required as part of onboarding every engineer to teach them how to use the chat bot, how to run an incident, and how to know when to escalate. There were a lot of beneficial returns on the investment of developing that kind of culture. It is tracking uptime that I hope to discourage.</p>
+
+<h2>Deceptively Expensive</h2>
+
+<p>These tools had been under development by a team of about four engineers for four years at the time I joined the company. This level of investment doesn’t seem particularly outlandish. At the time I joined the company there were about 500 developers—a back-of-the-envelope estimate of 1% of engineering effort is maybe even inexpensive.</p>
+
+<p>One hidden expense was that the longer incidents created more expensive data collection and data entry. They included ups and downs in severity; symptoms would cascade from one product area to another. Where those cascades started or ended were hard to identify and didn’t correlate cleanly with the changes in severity. Each change in severity and cascade of impact would surface ambiguous boundaries for estimating impact. The more complex incidents involved many teams and many products. This further multiplied the ambiguity, difficulty, and costs of estimating impact.</p>
+
+<p>Another unexpected outcome grew out of the ownership of incidents. Ownership was meant as a kind of accountability. But many retros would fixate on “who owned the impact?” or reassessing the impact instead of surfacing the things that would actually improve our incident response and service to customers: discovering mechanisms of failure, communication breakdowns, or places where the existing architecture wasn't keeping up with the customer growth.</p>
+
+<p>Probably the most popular feature request that we got on the team was to allow incidents to share ownership between the teams involved. This was also the hardest thing for us to implement: it would have required a significant amount of change in the database schema and related calculations, and would have doubled (or more) the complexity of an already difficult and costly UX.</p>
+
+<h2>Best of Intentions</h2>
+
+<p>So time passed. We had a pretty rough couple of months over one August and September. It was in October (oh hey! an anniversary!) when leadership implemented a new policy: a kind of targeted code freeze. If teams entered the red, they were expected to stop feature development, and develop a plan that focused on reliability engineering. The plan had to be signed off by their VP and would include specific exit criteria that would enable them to resume work on their existing roadmap.</p>
+
+<p>As teams encountered the new policy, it became universally hated. This memory is particularly acute for me because not long after the venom started flowing, I wrote an impassioned defense of the new process. Teams have an accumulation of technical debt. We know there are areas that get neglected. And the purpose of the policy was to create organizational cover, to buy time for teams to be able to invest in cleaning up some of that neglect.</p>
+
+<p>What I learned in the ensuing backlash from my blog post is that leadership were not universally aligned on the new policy. In some parts of the company the pressure to keep to our roadmaps was higher than the pressure to preserve reliability. It seemed few leaders were adjusting their schedule when they entered the code freeze. Many kept to their expected deadlines. A few former colleagues remember it this way:</p>
+
+<blockquote>One thing that I witnessed during this time frame was managers wrangling with each other over who would “own” the incident and be forced into [the code freeze]. Rather than doing what was best globally, they were both trying to optimize locally for their team. And, it led to misleading ownership that was assigned not for good reason, but so that managers could save their own SLAs and push things on to other teams who hadn’t used up their budgets yet. So, in essence, the game became “how to not be forced into [code freeze]” rather than “how to most effectively fix our overall system.”</blockquote>
+
+<p>For these teams, the result was perhaps the worst of policy outcomes. Teams already most exhausted from recent incidents were now getting double the demands of their time. Instead of us creating cover, the policy was doubling the workload on the teams already collapsed from overload.</p>
+
+<p>I should add that other former colleagues remember some mixed or positive outcomes from the policy—not uniformly terrible.</p>
+
+<blockquote>I remember feeling pretty defensive (which is, like, the least useful emotion to have ever) and yes, it became more about “getting my team out of [code freeze]” in addition to fixing the underlying problems. Because it felt like the focus was more on “Here are the hoops the team needs to jump through to get out of [code freeze]” rather than (but, to be fair, in addition to) “here’s how we get better as a company”. We ... really didn’t need that split focus, IMO. We didn’t need hoops to jump through, or “reliability training wheels”. We had enough engineering excellence gravity that was already pulling us toward Doing the Right Thing. [Code freeze] was just noise on our end. Needless friction.</blockquote>
+
+<p>While preparing this report, I got feedback from one of the former VPs who put a ton of their own time into ensuring incident data was filled out thoroughly despite having very good automation around collecting that data.</p>
+
+<p>I’ll reiterate: it was deceptively expensive to get good data into the system. Teams who were already displaying internal motivation to balance their reliability engineering with feature development were the ones making the extra effort to provide better data. But as cited in the earlier quote, they were also the teams who were least in need of “reliability training wheels.”</p>
+
+<p>I further learned that the report itself had a subtle effect of shaming teams by publicly drawing attention to their team in red. This had the effect of suppressing the reported severity of incidents. Low severity incidents could skip the extra data entry and accounting visibility.</p>
+
+<p>These features had the combined effect of converting the reliability work into a kind of punishment.</p>
+
+<p>But there’s more. As I looked more closely at the data that was in our database relative to the incidents that I witnessed, I recognized that every piece of data we had was being negotiated during the incidents.</p>
+
+<p>They weren’t crisp measurable points. They were all judgment calls. Every one of them.</p>
+
+<p>What’s more, there were existing company processes related to customer root cause analysis documents our team was involved in that further negotiated the customer impact reported to customers. When a customer would demand a report, say after a bad month, our job was to identify the incidents over the span of that report that would have affected the customer based on what we had, which products were affected, and which products that customer was paying for.</p>
+
+<p>So a great deal of effort was spent on our part to clean the data and double-check with teams who had maybe not finished their data entry on the customer impact to ensure that that customer’s impact based on the incidents over the period was focused on only those things that could have affected them.</p>
+
+<p>And I don’t want to suggest that the work we were doing for the RCAs was in any way deceptive. I think it was appropriate. But what I do want to make clear is that it was very expensive.</p>
+
+<p>Only my teammates and I could actually see how much it was costing the company to collect the data. It was spread thinly across every single team, hidden in ordinary day-to-day work. The resulting numbers were based on judgment calls. For the many teams where roadmaps and schedules remained even under the code-freeze, all these very expensive-to-collect numbers failed to reduce technical debt or otherwise improve reliability.</p>
+
+<p>The costs to morale across the company were substantial. And all of it further undermined the quality of what the company learned from incidents because so many were too busy fighting over who owned the impact.</p>
