@@ -8,9 +8,37 @@ bundle install
 bundle exec jekyll build
 ```
 
-testing locally
+## handling missing indexes
+
+First run the build which replaces the files and folders in _site
+
 ``` bash
-(cd jekyll; bundle exec jekyll serve)
+bundle exec jekyll build
+```
+
+Inspect if there are any new month and year folders.
+
+``` bash
+comm -13 <(find thinair -type d) <(cd _site; find thinair -type d)
+```
+
+Generate month and year folders and index templates.
+
+``` bash
+comm -13 <(find thinair -type d) <(cd _site; find thinair -type d) | \
+perl -F/ -lane 'use File::Path qw(make_path); shift(@F); my $x=join("-", @F); my $FH=qq{./$_/index.html}; make_path($_); open(FH, ">",$FH); print FH "---\n", "layout: periodic\n", $x=~/-/ ? "month" : "year", qq{: "$x"\n}, "---"'
+```
+
+Re-run the build to generate the index files from the new templates
+
+``` bash
+bundle exec jekyll build
+```
+
+# testing locally with deno's file_server
+``` bash
+cd jekyll/_site
+file_server -p 1080
 ```
 
 # publishing
