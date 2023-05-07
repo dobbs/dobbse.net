@@ -1,0 +1,32 @@
+---
+layout: post
+title: "Resilience ≠ Reliability?"
+link: https://dobbse.net/thinair/2023/05/resilience-and-reliability.html
+date: 2023-05-07T13:28:00-600
+---
+<p>Resilience is human skills and human relationships. Reliability is what we build into our software. There are four different concepts that get lumped into conversations about resilience and reliability. This post uses software engineering examples to clarify the four different meanings of resilience from Dr. David Woods paper: Four concepts for resilience and the implications for the future of resilience engineering. Reliability Engineering and System Safety 141 (2015) 5-9. <a href="https://www.researchgate.net/publication/276139783_Four_concepts_for_resilience_and_the_implications_for_the_future_of_resilience_engineering">PDF at researchgate</a>.</p>
+
+<h2>rebound—returns to previous level of function</h2>
+
+<p>There are many common examples of rebound. We’ll name a few and trust your own experience to fill in with other examples. Roll back a deploy. Restore lost data from a backup. Reboot a server. Restart a container. Truncate log files to free up disk space. Follow the instructions in a runbook. Basically, this is anything you do to put some sub-system more or less back the way it was.<p>
+
+<h2>robustness—copes with predictable challenges</h2>
+
+<p>Robustness is what we build when we automate common rebound scenarios. Monitoring and alerting are the most basic measures. We build one component to monitor another and call in the humans if some threshold is crossed. Kubernetes comes with built-in behavior that kills containers that run out of memory and other behavior which restarts containers when they fail. Common practice for databases includes having read-only replicas, hot-standby replicas, or automated failover. Load balancers include built-in health-checks for the servers they’re balancing and will adapt to send traffic only to the healthy servers. One of the most common reasons people want to move to the cloud is to enable autoscaling, where the systems can adapt to extra traffic by spinning up more containers and then spin down those extras when the surge in traffic subsides. More sophisticated examples of robustness include bulkheads, circuit breakers, and automated chaos experiments.<p>
+
+<p>The basic idea behind most of these interventions is that we build the system to adapt to failure modes we know can happen. That is also one of the key weaknesses of robustness measures. Every automation that handles some known failure becomes something new that can fail in a surprising way. Or the measures we put in place get tested by loads that exceed their response.<p>
+
+<h2>graceful extensibility—changes performance to meet urgent new challenges</h2>
+
+<p>When circumstances change in surprising ways, especially under pressure, we must change goals. Every adaptive part of a complex system, at any scale you examine, needs ways to stretch and change under pressure. Every part has limits. Stuff happens that exceeds those limits. We gracefully extend under these pressures or we collapse in brittle failure. The best example we have of graceful extensibility in the software business is incident response. Once we detect that some part of our system is getting overwhelmed or otherwise misbehaving, some group of us drop what we’re doing to prevent the problem from getting worse and to remediate.</p>
+
+<h2>sustained adaptability—maintains ability to adapt to new surprises</h2>
+<p>This is Woods’ most demanding concept of resilience. All systems reach their own previously known limits. This happens almost continuously. People in the systems continually stretch the systems to adapt to new circumstances. Successful components in the system induce demand that exceeds their original design. It is completely predictable that something will fail under the changing conditions. The specifics of what will fail and when is less predictable.</p>
+
+<p>There are always multiple, competing trade-offs at work in successful systems. Sustained adaptability calls on us to identify the trade-offs and monitor how we balance and prioritize among them to protect our capacity to continuously adapt the system.</p>
+
+<p>We have a few examples that address sustained adaptability. Many teams are adopting operational review meetings which is an excellent practice to help monitor how the ecosystem around them is changing and how their services are responding to the relentless change. Creating a Learning From Incidents team to conduct cognitive interviews, facilitate learning reviews, and generally help other teams broaden and deepen what we learn when circumstances overwhelm our sub-systems.</p>
+
+<p>We need both resilience and reliability</p>
+
+<p>Improving reliability calls for building robustness wherever it makes sense balanced with customer facing product features. Improving resilience calls for practicing and extending our skills, describing and sharing our expertise and experience, and prioritizing our work differently. Resilience is about us humans. Improving it looks more like the school of hard knocks, mentoring, apprenticeship, or learning and development.</p>
