@@ -1,9 +1,11 @@
-# what worked 2022-06-18:
+# what worked 2023-05-05:
 
 ``` bash
-rm Gemfile.lock
-bundle install --path vendor/bundle
-(cd jekyll; bundle exec jekyll build)
+docker start jekyll  # existing container was already present and stopped
+docker exec -it jekyll bash
+cd jekyll
+bundle install
+bundle exec jekyll build
 ```
 
 testing locally
