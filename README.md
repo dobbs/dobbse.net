@@ -8,33 +8,6 @@ bundle install
 bundle exec jekyll build
 ```
 
-## handling missing indexes
-
-First run the build which replaces the files and folders in _site
-
-``` bash
-bundle exec jekyll build
-```
-
-Inspect if there are any new month and year folders.
-
-``` bash
-comm -13 <(find thinair -type d) <(cd _site; find thinair -type d)
-```
-
-Generate month and year folders and index templates.
-
-``` bash
-comm -13 <(find thinair -type d) <(cd _site; find thinair -type d) | \
-perl -F/ -lane 'use File::Path qw(make_path); shift(@F); my $x=join("-", @F); my $FH=qq{./$_/index.html}; make_path($_); open(FH, ">",$FH); print FH "---\n", "layout: periodic\n", $x=~/-/ ? "month" : "year", qq{: "$x"\n}, "---"'
-```
-
-Re-run the build to generate the index files from the new templates
-
-``` bash
-bundle exec jekyll build
-```
-
 # testing locally with deno's file_server
 ``` bash
 cd jekyll/_site
@@ -78,6 +51,37 @@ create the missing file.
 as a pre-commit hook, but I'm not quite ready to commit to that
 automation. I'll wait to feel if this current hack hurts enough to
 make it worth more effort here.)
+
+## handling missing indexes
+
+One way to fix these is to run the tests as described above and
+copy-n-paste the shell commands to create the missing indexes.
+Another way is to run the build and compare the source folders in the
+thinair directory with the generated one in _site.
+
+``` bash
+bundle exec jekyll build
+```
+
+Inspect if there are any new month and year folders.
+
+``` bash
+comm -13 <(find thinair -type d) <(cd _site; find thinair -type d)
+```
+
+Generate month and year folders and index templates.
+
+``` bash
+comm -13 <(find thinair -type d) <(cd _site; find thinair -type d) | \
+perl -F/ -lane 'use File::Path qw(make_path); shift(@F); my $x=join("-", @F); my $FH=qq{./$_/index.html}; make_path($_); open(FH, ">",$FH); print FH "---\n", "layout: periodic\n", $x=~/-/ ? "month" : "year", qq{: "$x"\n}, "---"'
+```
+
+Whichever way you fix the indexes, you'll need to re-run the build to
+generate the index files from the new templates
+
+``` bash
+bundle exec jekyll build
+```
 
 # link maintenance
 

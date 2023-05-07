@@ -17,10 +17,10 @@ test(function counts_of_headers() {
   assertEquals(
     db.headers,
     {
-      title: 232,
-      layout: 232,
-      link: 232,
-      date: 232,
+      title: 235,
+      layout: 235,
+      link: 235,
+      date: 235,
       scripts: 4
     }
   )
