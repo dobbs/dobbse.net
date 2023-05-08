@@ -1,8 +1,24 @@
 # what worked 2023-05-05:
 
 ``` bash
+docker run \
+--name jekyll \
+-it \
+-v $PWD:/dobbse.net \
+-w /dobbse.net \
+ruby:2.6-buster bash
+```
+
+OR
+
+``` bash
 docker start jekyll  # existing container was already present and stopped
 docker exec -it jekyll bash
+```
+
+Once inside the container
+
+``` bash
 cd jekyll
 bundle install
 bundle exec jekyll build
