@@ -24,7 +24,7 @@ bundle install
 bundle exec jekyll build
 ```
 
-# testing locally with deno's file_server
+# reviewing locally with deno's file_server
 ``` bash
 cd jekyll/_site
 file_server -p 1080

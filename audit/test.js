@@ -13,7 +13,7 @@ import {parseAllPosts} from "./parse-all-posts.js"
 
 const db = parseAllPosts()
 
-test(function counts_of_headers() {
+test(function no_surprises_in_distribution_of_headers() {
   assertEquals(
     db.headers,
     {
@@ -26,7 +26,7 @@ test(function counts_of_headers() {
   )
 })
 
-test(function every_post_has_link() {
+test(function every_post_has_link_header() {
   assert(db.rows.every(({headers:{link}}) => !!link))
 })
 
