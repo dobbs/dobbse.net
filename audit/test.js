@@ -17,10 +17,10 @@ test(function no_surprises_in_distribution_of_headers() {
   assertEquals(
     db.headers,
     {
-      title: 235,
-      layout: 235,
-      link: 235,
-      date: 235,
+      title: 236,
+      layout: 236,
+      link: 236,
+      date: 236,
       scripts: 4
     }
   )

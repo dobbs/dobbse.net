@@ -1,0 +1,113 @@
+---
+layout: post
+title: "Insight and Incidents"
+link: https://dobbse.net/thinair/2023/06/insight-and-incidents.html
+date: 2023-06-25T17:07:00-600
+---
+<p>
+  Conventional thinking in the software industry—what we call our best practices—sees incidents as an irritating interruption that slows progress against our roadmap. Whatever the most recent failure is, we seek minimum viable fixes to prevent the failure from ever happening again. The range of solutions that can be considered are limited to whatever minimizes disruption to our existing plan. We add alerts, add dashboards, update a runbook, and maybe instrument our code with more logging or tracing. The often unspoken pressure to maintain velocity and get back to the planned work hangs over retrospectives confining what participants will even consider.
+</p>
+<p>
+  There are a few pockets of excellence adopting a different paradigm where incidents are seen as an opportunity to uncover some of the most important insights about our software and our business. Incidents can fuel powerful innovation. Of course we will continually improve the robustness of our systems as we learn new ways they can fail. And there is so much more.
+</p>
+<p>
+  Software design aims to reshape, mold, and change reality. But reality pushes back against our designs—everywhere our systems contact the world we find the world demanding changes to our designs. Paying attention to these points of friction is a way to get a better fit between our code and the world we are trying to improve.
+</p>
+<h2>
+  Design and Reality
+</h2>
+<p>
+In <a href="https://wirfs-brock.com/blog/2021/09/13/design-and-reality/">Design and Reality: Reframing the problem through design</a>, Mathias Verraes and Rebecca Wirfs-Brock
+<sup><a href="#fnvm57pk1" id="fnvm57pk-r1">[1]</a></sup> describe a moment of insight that resolved tensions in their software design and opened new opportunities. Wirfs-Brock was invited to consult for a company that makes hardware and software for oil rigs. Early in her contract, a competitor’s oil rig exploded in the gulf, motivating their team to look closely at how their own software performed during incidents.
+</p>
+<p>
+  Consider how unusual this is in the software business. The incident wasn’t for their team. It wasn’t even their company. Yet Wirfs-Brock led her team to take their competitor’s misfortune as an opportunity to reflect carefully on their own system to see what there was to learn.
+</p>
+<p>
+  Their initial model assumed alarms are directly connected to emergency conditions in the world. The software’s image of the world was distorted: when engineers turned off the alarm, the software assumed the emergency was over. But it was not. Turning an alarm off doesn’t change the emergency condition in the world. Reflecting on an incident outside of their company, the team discovered a distinction between the alarm sounding, and the state of alertness. They adapted their model to decouple the emergency from the sounding of the alarm by introducing "alert conditions" in addition to "alerts".
+</p>
+<blockquote>
+<p>
+  There was a missing concept, and at first the team didn’t know something was missing. It wasn’t obvious at first, because there wasn’t a name for “alert condition” in the domain language. The oil rig engineers’ job isn’t designing software or creating a precise language, they just want to be able to respond to alarms and fix problems in peace. Alert conditions didn’t turn up in a specification document, or in any communication between the oil rig engineers. The concept was not used implicitly by the engineers or the software; no, the whole concept did not exist.
+</p>
+<p>…</p>
+<p>
+  These creative introductions of novel concepts into the model are rarely discussed in literature about modeling. Software design books talk about turning concepts into types and data structures, but what if the concept isn’t there yet? Forming distinctions, not just abstractions, however, can help clarify a model. These distinctions create opportunities.
+</p>
+</blockquote>
+<p>
+  Also noteworthy, it often isn’t sufficient to discover a different way of thinking about the business problems. Wirfs-Brock’s team invested the time to improve the design of their software with something not previously on the roadmap.
+</p>
+<h2>
+  Generating Insight
+</h2>
+<p>
+
+  There’s an enormous competitive advantage for making this paradigm shift to treat incidents as a source of insight and innovation. This idea comes from Gary Klein, a research psychologist famous for pioneering work in the field of naturalistic decision making—how experts make effective decisions under pressure
+  <sup><a href="#fnvm57pk2" id="fnvm57pk-r2">[2]</a></sup>.
+  He shares three paths to generate insight: contradictions, connections, and creative desperation
+  <sup><a href="#fnvm57pk3" id="fnvm57pk-r3">[3]</a></sup>.
+  Incidents are a rich source for insights using all three paths.
+</p>
+<p>
+  What contradictions do we see?
+</p>
+<ul>
+  <li>How does this process usually work?</li>
+  <li>And what made it work differently this time?</li>
+  <li>What surprised us?</li>
+  <li>What were we expecting to happen and how did reality turn out differently?</li>
+  <li>What aspects contributed to this failure that were originally added to prevent previous failures?
+    <sup><a href="#fnvm57pk4" id="fnvm57pk-r4">[4]</a></sup>
+  </li>
+</ul>
+<p>
+  What connections can we find?
+</p>
+<ul>
+  <li>Do other people here see similar symptoms?</li>
+  <li>How have others responded to similar situations?</li>
+  <li>Who had the expertise to mitigate and how did they know what to do?</li>
+  <li>Who was it that knew how to navigate the organization to find the right people?</li>
+</ul>
+<p>
+  What can we learn from creative desperation?
+</p>
+<ul>
+  <li>When time was running out and limiting our options, what policies did we have to break?</li>
+  <li>What assumptions did we drop in order to resolve this incident?</li>
+  <li>Should we change the rules now that we’ve seen how they play out under real pressures?</li>
+</ul>
+<p>
+  Most of the time we don’t notice the partial degradation ever-present in our complex systems. We build in redundancy and keep everything running despite dark debt and known limitations
+  <sup><a href="#fnvm57pk5" id="fnvm57pk-r5">[5]</a></sup>.
+We can predict a steady stream of incidents. It will take more time and effort to consider these questions than the more typical and more shallow interventions of estimating impact, measuring time to detect, adjusting alert thresholds, or adding to the runbook. But insights into your business may uncover opportunities you would otherwise miss.
+</p>
+<p><em>
+  Thanks to Will Gallego, Fred Hebert, and Vanessa Huerta Granda for valuable feedback on early drafts. This is a much more focused story than where I began.
+</em></p>
+<hr>
+<p>
+  <a href="#fnvm57pk-r1" id="fnvm57pk1">[1]</a>
+  Rebecca Wirfs-Brock was the lead author on two pioneering books on object-oriented design, Designing Object-Oriented Software, 1990, and Object Design: Roles, Responsibilities, and Collaborations, 2003.
+  <a href="https://www.wirfs-brock.com/DesignBooks.html">https://www.wirfs-brock.com/DesignBooks.html</a>
+</p>
+<p>
+  <a href="#fnvm57pk-r2" id="fnvm57pk2">[2]</a>
+  Readers interested in more from Klein can find much more in this curated list of resilience engineering papers:
+  <a href="https://github.com/lorin/resilience-engineering#gary-klein">https://github.com/lorin/resilience-engineering#gary-klein</a>
+</p>
+<p>
+  <a href="#fnvm57pk-r3" id="fnvm57pk3">[3]</a>
+  Seeing What Others Don’t, Klein, 2015.
+</p>
+<p>
+  <a href="#fnvm57pk-r4" id="fnvm57pk4">[4]</a>
+  See Lorin’s Law:
+  <a href="https://surfingcomplexity.blog/2017/06/24/a-conjecture-on-why-reliable-systems-fail/">https://surfingcomplexity.blog/2017/06/24/a-conjecture-on-why-reliable-systems-fail/</a>
+</p>
+<p>
+  <a href="#fnvm57pk-r5" id="fnvm57pk5">[5]</a>
+  How Complex Systems Fail, Cook, 1998
+  <a href="https://how.complexsystems.fail/#5">https://how.complexsystems.fail/#5</a>
+</p>
