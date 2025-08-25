@@ -1,396 +1,372 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-    <title>Eric Dobbs</title>
-    <meta charset="utf-8">
-    <style type="text/css">
-     body {
-         font-family: Verdana,sans-serif;
-         font-size: 12pt;
-         margin: auto;
-     }
-     #resume {
-         margin: 5em;
-     }
-     header {
-         position: relative;
-     }
-     header h1 {
-         position: absolute;
-         top: 0;
-         padding: 0;
-         margin: 0;
-         font-size: 320%;
-     }
-     header p {
-         margin: 0;
-         text-align: right;
-     }
-     #strengths {
-         clear: left;
-     }
-     .position, .degree, #education, #objective, #strengths, #copyright {
-         margin-top: 2em;
-     }
-     .position h2 {
-         float: left;
-     }
-     .position h3 {
-         float: right;
-     }
-     .position p.date {
-         clear: both;
-     }
-     h2, h3 {
-         font-size: 100%;
-         font-weight: bold;
-         margin: 0;
-     }
-     p.date {
-         font-size: 100%;
-         margin: 0;
-     }
-     dt {
-         width: 7em;
-         float: left;
-         clear: left
-     }
-     dd {
-         margin-left: 8em;
-     }
-     #skills span {
-         padding-right: 2em;
-         white-space: nowrap;
-     }
-     #skills dd {
-         padding-bottom: 1em;
-     }
-     #copyright {
-         clear: left;
-         font-size: 80%;
-         font-style: italic;
-     }
-     #copyright p {
-         display: inline;
-     }
+      <title>Eric Dobbs</title>
+      <meta charset="utf-8">
+      <style type="text/css">
+       body {
+           font-family: Verdana,sans-serif;
+           font-size: 12pt;
+           margin: auto;
+       }
+       about-section { display:block; margin-top: 2em; }
+       #resume {
+           margin: 5em;
+       }
+       header {
+           position: relative;
+       }
+       header h1 {
+           position: absolute;
+           top: 0;
+           padding: 0;
+           margin: 0;
+           font-size: 320%;
+       }
+       header p {
+           margin: 0;
+           text-align: right;
+       }
+       #strengths {
+           clear: left;
+       }
+       .position, .degree, #education, #objective, #strengths, #copyright {
+           margin-top: 2em;
+       }
+       .position p.date {
+           clear: both;
+       }
+       h2, h3 {
+           font-weight: normal;
+           margin: 0;
+       }
+       p.date {
+           font-size: 100%;
+           margin: 0;
+       }
+       dt {
+           width: 7em;
+           float: left;
+           clear: left
+       }
+       dd {
+           margin-left: 8em;
+       }
+       #skills span {
+           padding-right: 2em;
+           white-space: nowrap;
+       }
+       #skills dd {
+           padding-bottom: 1em;
+       }
+       #copyright {
+           clear: left;
+           font-size: 80%;
+           font-style: italic;
+       }
+       #copyright p {
+           display: inline;
+       }
 
-     @media print {
-         .noprint {display: none;}
+       @media print {
+           .noprint {display: none;}
 
-         body {
-             font-size: 10pt;
-         }
+           body {
+               font-size: 10pt;
+           }
 
-         #resume {
-             margin: .75in;
-         }
-     }
+           #resume {
+               margin: .75in;
+           }
+       }
 
-    </style>
-</head>
-<body style="">
-    <main id="resume">
+      </style>
+    </head>
+    <body>
+      <main id="resume">
         <header>
-            <h1>Eric Dobbs</h1>
-            <p>eric@dobbse.net</p>
-            <p>Boulder, Colorado</p>
-            <p class="noprint"><a rel="alternate" href="http://dobbse.net/resume/eric-dobbs.pdf">PDF version</a></p>
+          <h1>Eric Dobbs</h1>
+          <p>eric@dobbse.net</p>
+          <p>Boulder, Colorado</p>
+          <p class="noprint"><a rel="alternate" href="//dobbse.net/resume/eric-dobbs.pdf">PDF version</a></p>
         </header>
-        <section id="strengths">
-            <h2>Creating resilience in complex systems and software teams.</h2>
-            <ul>
-                <li>Personal and professional integrity
-                </li>
-                <li>Demonstrated ability to identify and deliver systemic improvements
-                </li>
-                <li>Exceptional written, verbal, and visual communication
-                </li>
-                <li>Enthusiasm for learning and teaching
-                </li>
-                <li>Extremely versatile
-                </li>
-                <li>Over two decades in web development
-                </li>
-            </ul></section>
+        <about-section source="/strengths.json">Ask me how I can help you grow and continuously improve a world-class resilience engineering practice fueled by deep learning from incidents and chaos engineering. I love cultivating reliability in complex systems: resilience in software teams &amp; robustness in their services. Half software engineering and half relationship building. Demonstrated ability to identify &amp; deliver systemic improvements &amp; culture change.</about-section>
+        <!-- <strengths-section id="strengths" source="/strengths.json"></strengths-section> -->
         <section id="jobs">
-            <article class="position">
+    <article class="position">
 
-                <h2>Manager of Software Development – DevOps</h2>
-                <h3>Itron, Inc. (was Comverge)</h3>
-                <p class="date"><time>December 2013</time> to <time>March 2018</time></p>
-                <dl>
+      <h2>Principal Incident Analyst</h2>
+      <h3>Indeed</h3>
+      <p class="date"><time datetime="2021-06">June 2021</time> to <time datetime="2025-08">August 2025</time></p>
 
-                    <dt>Impact</dt><dd>
-                        <p>Applied diplomacy and role-modeling to streamline communications and greatly increase collaboration between QA, Development, IT, and Solutions Delivery.</p>
-                        <p>Increased productivity for 20 developers and 4 technicians.  Drastically reduced build times and deploy times while also increasing reliability.</p>
-                        <p>Successfully lead adoption of Docker throughout the organization.</p>
-                    </dd>
+        <p>
+          <strong>Impact.</strong>
+          Technical leadership of the team celebrated as an exemplar in learning from incidents at LFI Conf 2023.
+        </p>
 
-                    <dt>Leadership</dt><dd>
-                        <p>Fostered deep respect and trust from my team.  The director of development received repeated requests that they remain on my team.  Several senior devs expressed specific interest in joining my team.
-                        </p>
-                        <p>Nurtured emotional safety and courage.  Established weekly retros and bi-weekly one-on-ones where we focused on social and emotional aspects of software development.  Modeled speaking hard truths and admissions of failure. Gave specific and concrete applause frequently.
-                        </p>
-                        <p>Impacted the entire development team when my fellow  managers also adopted retros and one-on-ones.</p>
-                    </dd>
+        <p>
+          <strong>Learning From Incidents .</strong>
+          Developed, practiced, and mentored teammates in cognitive interviewing, generating and synthesizing themes, facilitating productive retrospectives, and narrative composition and graphic representation.
+We produced 30 internal incident reports digging deep into social and technical details all over the software ecosystem. Most reports featured interactions between systems managed by multiple teams. Many reports involved challenges between internal platforms, vendor platforms, or partner platforms.
+We facilitated learning review meetings for each of the internal reports. Most of those meetings were attended by a diverse cross-section of the company including many people who had not been directly responders.
+        </p>
 
-                    <dt>Mentorship</dt><dd>
-                        <p>Successfully encouraged professional development in all levels of technical experience: high-school intern, junior dev fresh out of a code school, intermediate dev transitioning from QA to engineering, and two senior developers.</p>
-                        <p>One exceeded their goal of submitting a proposal when their talk was not only accepted, but also well received at Rocky Mountain Ruby 2015.</p>
-                    </dd>
+        <p>
+          <strong>Change Management.</strong>
+          Developed a change management plan, secured funding, identified and hired the vendor for incident response training for 30-40% of the company including all of Research and Development and cross-functional partners in Security, Legal, Operations, and Customer Support.
+Crowd-sourced a list of over 50 migration projects and thereby catalyzed the creation of a tiger team and program to manage migrations for platforms, languages, and library upgrades.
+        </p>
 
-                    <dt>DevOps</dt><dd>
-                        <p>Reduced build times from 8 hours to 30 minutes by a combination of expanding the jenkins cluster from 20 to 70 VMs, and identifying and fixing the worst-offenders in the test suite.</p>
-                        <p>Improved our deploys with significant increase in consistency and reducing time-to-deploy from one month to a few hours.  Instituted standardized deploy process with team-wide adoption of runbooks, and made semi-automated deploys into a consistent part of the software delivery life-cycle.</p>
-                        <p>Social and technical engineering of Docker adoption. Enabled early adopters to experiment and learn containers in development.  Deployed first containers into our Continuous Integration cluster.  Created first containerized tests and deploys.  Designed and evangelized effective patterns of use.  Planned, negotiated, persuaded, and executed deployment in stages from dev, to test, QA, UAT, and production.</p>
-                    </dd>
-                </dl>
-            </article>
-            <article class="position">
+        <p>
+          <strong>Collaboration &amp; Mentorship.</strong>
+          Coordinated messaging with a company-wide training program transforming the product management practice at the company to improve alignment between reliability and product.
+Mentored 2 staff engineers and 2 senior engineers on my own team, led the community of practice of principal site reliability engineers.
+Advised many technical fellows, senior managers, directors, and some VPs in the nuances of our complex systems and especially through the sociotechnical lens.
+        </p>
+    </article>
+    <article class="position">
 
-                <h2>Senior Software Engineer</h2>
-                <h3>Mobilecause</h3>
-                <p class="date"><time>February 2012</time> to <time>November 2013</time></p>
-                <dl>
+      <h2>Principal SRE—Resilience Engineering</h2>
+      <h3>Procore</h3>
+      <p class="date"><time datetime="2020-09">September 2020</time> to <time datetime="2021-04">April 2021</time></p>
 
-                    <dt>Impact</dt><dd>
-                        <p>
-                            Fostered a culture of continuous improvement through
-                            honest and courageous communication, by speaking hard
-                            truths, and applauding when others did the same.
-                        </p>
-                    </dd>
+        <p>
+          <strong>Impact.</strong>
+          Founded the Incident Management &amp; Resilience Engineering team. Defined mission, vision, and roadmap. Wrote an effective job description. Successfully recruited and hired a Principal Resilience Engineer to join the team.
+        </p>
 
-                    <dt>Emergent Design</dt><dd>
-                        <p>
-                            Refactored all outbound messaging, the core purpose of the
-                            software, into a delivery service without disrupting any
-                            existing message flows.  Thanks to this layer of
-                            abstraction, only two weeks later we were able to easily
-                            improve throughput just in time for a customer's big
-                            campaign messaging over 330,000 numbers.
-                        </p>
-                        <p>
-                            Introduced a command dispatcher and handlers for message
-                            processing.
-                        </p>
-                        <p>
-                            Created a foundation for modularized html, css, and
-                            javascript which enabled migration of the existing UI from
-                            a home-grown CSS-soup to Bootstrap.
-                        </p>
-                        <p>
-                            Refactored one particularly messy controller with just a
-                            handful of method extractions.  A few weeks later those
-                            changes enabled a colleague to clarify the routing and
-                            models and complete the cleanup without me.
-                        </p>
-                    </dd>
+        <p>
+          <strong>Collaboration.</strong>
+          Developed relationships widely across the organization including diverse teams: Learning &amp; Delivery, Product &amp; Technology Excellence, Application Infrastructure, Software Delivery, Architecture Advisory Group, Security, Customer Success, Mobile Development and Product.
+        </p>
 
-                    <dt>Scale</dt><dd>
-                        <p>
-                            Profiled outbound messaging performance and throughput.
-                            Identified garbage collection and IO as primary
-                            bottlenecks.
-                        </p>
-                        <p>
-                            Threaded message delivery for an immediate twelvefold
-                            increase in SMS message throughput.  Introduced retries
-                            and fallbacks to ensure message logging and persistance
-                            and expand the ability to identify and diagnose failures.
-                        </p>
-                        <p>
-                            Enabled message workers to run under JRuby as a strategic
-                            move to open other performance opportunities via JVM based
-                            tools and languages.
-                        </p>
-                    </dd>
+        <p>
+          <strong>Learning From Incidents .</strong>
+          Engaged Adaptive Capacity Labs to train a cohort of a dozen people across the organization. Developed the business case. Identified participants. Supported logistics and communication. Supported contract negotiations.
+Led or contributed to six learning reports surfacing a dozen themes. Organized and iterated on an information architecture for themes and reports.
+        </p>
+    </article>
+    <article class="position">
 
-                    <dt>Front-end Engineering</dt><dd>
-                        <p>
-                            Streamlined unit testing of javascript front end code
-                            using Jasmine.
-                        </p>
-                        <p>
-                            Created dynamic and thoroughly customizable fundraising
-                            thermometer and pledge wall for use in high-profile gala
-                            events.  Produced the SVG graphic for dynamic display and
-                            employed Ember.js for updates.
-                        </p>
-                    </dd>
+      <h2>Senior Software Engineer—Reliability</h2>
+      <h3>New Relic</h3>
+      <p class="date"><time datetime="2018-06">June 2018</time> to <time datetime="2020-06">June 2020</time></p>
 
-                    <dt>Methodology</dt><dd>
-                        <p>
-                            Full-stack agile methodologies including continuous
-                            integration, full-time pair-programming, retrospectives, etc.
-                        </p>
-                    </dd>
-                </dl>
-            </article>
-            <article class="position">
+        <p>
+          <strong>Impact.</strong>
+          Pioneered chaos engineering practices to build skills and confidence across teams. Identified enabling infrastructure and features to allow safer experimentation in staging and production—e.g. traffic shaping, traffic mirroring, and advanced canary deployments. Balanced improvement of code &amp; components and individual skills &amp; teamwork.
 
-                <h2>Software Engineer</h2>
-                <h3>Pivotal Labs</h3>
-                <p class="date"><time>November 2010</time> to <time>September 2011</time></p>
-                <dl>
+        </p>
 
-                    <dt>Impact</dt><dd>
-                        <p>
-                            Initiated an informal usability analysis for Groupon's
-                            editorial tools via direct observation of editors and deal
-                            creators.
-                        </p>
-                        <p>
-                            Consequently created dramatic improvements in deal
-                            creation and editorial workflows.  Streamlined
-                            communications between sales and editorial teams by
-                            integrating with Salesforce.
-                        </p>
-                    </dd>
+        <p>
+          <strong>Mentorship.</strong>
+          Actively coached across skill levels: from a college intern, to lead engineers including security, tech support, devops, and software devs.
+Apprenticed myself to a shihan in programming, mentoring, and community organizing to study closely how he supports and encourages growth and independence.
 
-                    <dt>Learning</dt><dd>
-                        <p>
-                            Mastered Ruby within a month.  Immediately effective
-                            maintaining and updating existing Rails application for
-                            Groupon Merchant Center team.
-                        </p>
-                    </dd>
+        </p>
 
-                    <dt>Scale</dt><dd>
-                        <p>
-                            Refactored Groupon's merchant analytics into an
-                            independent service-oriented architecture.  Improved
-                            largest deal analytics reports from a query time of 7
-                            minutes down to 15 seconds.
-                        </p>
-                    </dd>
+        <p>
+          <strong>Cross-team Coordination.</strong>
+          Led chaos engineering experiments (including the first in production), from developing experience across the organization, negotiating organizational buy-in, and synthesizing cross-team expertise into concrete experiment design.
 
-                    <dt>Methodology</dt><dd>
-                        <p>
-                            Full-time pair-programming, behavior-driven design (BDD),
-                            continuous integration, collective ownership, small
-                            releases, planning game, retrospectives, on-site customer.
-                        </p>
-                    </dd>
-                </dl>
-            </article>
-            <article class="position">
+Resolved gnarly, entangled design problems, integrating tooling with production systems and requiring buy-in from multiple teams.
 
-                <h2>Consultant</h2>
-                <h3>bivio Software, Inc.</h3>
-                <p class="date"><time>December 2003</time> to <time>May 2010</time></p>
-                <dl>
+        </p>
 
-                    <dt>Impact</dt><dd>
-                        <p>
-                            Changed the company culture: Testing became a core value.
-                            Extended internal unit testing framework to simplify
-                            testing core business logic.  Number of test files grew
-                            from 85 to 585 or 20% to 60% coverage.
-                        </p>
-                        <p>
-                            Drove successful adoption of XHTML and CSS for web
-                            interfaces, and wikis and blogs for content management,
-                            both internally and for bivio's customers.
-                        </p>
-                    </dd>
+        <p>
+          <strong>Thought Leadership.</strong>
+          Developed professional relationships with leaders in learning from incidents and chaos engineering. Participated in SNAFUcatchers.com. Supported learning from incidents workshop at Velocity San José 2019.
 
-                    <dt>Learning</dt><dd>
-                        <p>
-                            In order to build a python interface to a C++ scientific
-                            visualization toolkit, learned on demand the toolkit's API,
-                            C++, Qt, PyQt, OpenGL, PyOpenGL, NumPy, python distuitls,
-                            SIP, and GNU autotools.
-                        </p>
-                        <p>
-                            Kept pace with bOP, an extremely complex and abstract web
-                            framework under continual evolution: The framework grew from
-                            390 classes to 900+ through 720 releases with a median
-                            days-between-release of 1.
-                        </p>
-                    </dd>
+Wrote extensively in internal blogs. Actively participated in informal Slack conversations. Gave formal presentations and lightning talks in many communities of practice: Reliability, Chaos Engineering, Kubernetes, Ruby, Javascript, and others.
 
-                    <dt>Teaching</dt><dd>
-                        <p>
-                            Trained programmers with wildly diverse levels of
-                            experience from high-school student interns with no
-                            previous programming experience to veteran C++ and Java
-                            developers with decades of experience.
-                        </p>
-                        <p>
-                            Trained customer support staff in investment club
-                            accounting software, managing customer expectations, and
-                            in the use of CRM systems.  Most of the training was by
-                            teleconference or online via WebEx or GoToMeeting.
-                        </p>
-                        <p>
-                            Lead a three-day bOP training course for a client's entire
-                            development team whose programming skills ranged from
-                            systems administrators to senior embedded systems
-                            programmers.  Also created the overall training plan and
-                            most of the supporting documentation.  Received strong
-                            positive feedback from all participants.
-                        </p>
-                    </dd>
+        </p>
 
-                    <dt>Client Impact</dt><dd>
-                        <p>
-                            Saved face for the company when the president forgot a
-                            meeting with the biggest client.  Took his place offering
-                            valuable contributions around complex design and security
-                            issues.  Client was seriously impressed with my ability to
-                            step in unprepared and to turn a potential train wreck
-                            into a productive meeting.
-                        </p>
-                    </dd>
+        <p>
+          <strong>Code, Runbooks, Process, and Training.</strong>
+          Incident chat ops: for example, used TDD to bootstrap test scaffolding and implement a micro-rules engine that automated escalation and paging during incidents.
 
-                    <dt>Complexity</dt><dd>
-                        <p>
-                            Maintained and extended applications in diverse and
-                            complex domains including a state-wide insurance
-                            accounting system, a non-profit grant application system,
-                            a formal balloting system for industry standards, an
-                            alumni association membership system, and an investment
-                            club tax accounting system.
-                        </p>
-                    </dd>
-                </dl>
-            </article>
-            <article class="position">
+Social engineering and evangelism for changes to policy around incident tracking, metrics collection and reporting, team health, and incident retros.
 
-                <h2>Aikido Instructor</h2>
-                <h3>University of Colorado Recreation Center</h3>
-                <p class="date"><time>August 2005</time> to <time>Present</time></p>
-                <dl>
+Helped write and organize Service Level Objectives documentation and tooling.
 
-                    <dt>Impact</dt><dd>
-                        <p>
-                            Three students gave unsolicited feedback that my teaching
-                            changed their lives.
-                        </p>
-                        <p>
-                            Increased typical class enrollment by 50%.  Inspired many
-                            students to join Boulder Aikikai.
-                        </p>
-                    </dd>
-                </dl>
-            </article>
-        </section>
+        </p>
+    </article>
+    <article class="position">
+
+      <h2>Principal Software Engineer</h2>
+      <h3>Itron, Inc. (was Comverge)</h3>
+      <p class="date"><time datetime="2013-12">December 2013</time> to <time datetime="2018-03">March 2018</time></p>
+
+        <p>
+          <strong>Impact.</strong>
+          Applied diplomacy and role-modeling to streamline communications and increase collaboration between QA, Development, IT, and Solutions Delivery.
+Increased productivity for 20 developers and 4 technicians. Reduced build times and deploy times while also increasing reliability.
+Lead adoption of Docker throughout the organization.
+        </p>
+
+        <p>
+          <strong>Leadership.</strong>
+          Fostered deep respect and trust from my team. The director received repeated requests to remain on my team and several senior devs expressed specific interest in joining me.
+Nurtured emotional safety and courage. Established weekly retros and bi-weekly one-on-ones focused on social-emotional parts of software development. Spoke hard truths and admissions of failure. Gave specific and concrete applause frequently. Other managers followed my lead.
+        </p>
+
+        <p>
+          <strong>Mentorship.</strong>
+          Encouraged professional development in all levels of expertise: high-school intern, junior dev fresh out of a code school, intermediate dev transitioning from QA to engineering, and two senior developers. One exceeded her own goals in a well-received talk at Rocky Mountain Ruby 2015.
+        </p>
+
+        <p>
+          <strong>DevOps.</strong>
+          Reduced build times from 8 hours to 30 minutes by expanding the jenkins cluster from 20 to 70 VMs, and finding and fixing the worst-offenders in the test suite.
+
+Improved whole software delivery life-cycle. Instituted standardized deploy process, team-wide runbooks, and semi-automated deploys that increased repeatability and reduced time required from one month to a few hours.
+
+Social and technical engineering of Docker adoption. Enabled early adopters to experiment. Deployed first containers into CI. Created first containerized tests and deploys. Designed and evangelized effective patterns. Planned, negotiated, persuaded, and executed deployment in stages from dev, to test, QA, UAT, and production.
+        </p>
+    </article>
+    <article class="position">
+
+      <h2>Senior Software Engineer</h2>
+      <h3>Mobilecause</h3>
+      <p class="date"><time datetime="2012-02">February 2012</time> to <time datetime="2013-11">November 2013</time></p>
+
+        <p>
+          <strong>Impact.</strong>
+          Fostered a culture of continuous improvement through honest and courageous communication, by speaking hard truths, and applauding when others did the same.
+Designed and implemented customizable &amp; embeddable donation form that became the company's flagship feature.
+        </p>
+
+        <p>
+          <strong>Emergent Design.</strong>
+          Refactored all outbound messaging into a delivery service while maintaining existing message flows. This abstraction only two weeks later enabled us to improve throughput just in time for a customer's campaign messaging over 330,000 numbers.
+Created a foundation for modularized html, css, and javascript enabling migration UI from home-grown CSS-soup to Bootstrap.
+
+
+                          Refactored one particularly messy controller with just a
+                          handful of method extractions.  A few weeks later those
+                          changes enabled a colleague to clarify the routing and
+                          models and complete the cleanup without me.
+
+        </p>
+
+        <p>
+          <strong>Scale.</strong>
+
+                          Profiled outbound messaging performance and throughput.
+                          Identified garbage collection and IO as primary
+                          bottlenecks.
+
+Threaded message delivery for an immediate twelvefold increase in SMS message throughput. Introduced retries and fallbacks to ensure message logging and persistence and expand the ability to identify and diagnose failures.
+
+                          Enabled message workers to run under JRuby as a strategic
+                          move to open other performance opportunities via JVM based
+                          tools and languages.
+
+        </p>
+
+        <p>
+          <strong>Front-end Engineering.</strong>
+
+                          Streamlined unit testing of javascript front end code
+                          using Jasmine.
+
+
+                          Created dynamic and thoroughly customizable fundraising
+                          thermometer and pledge wall for use in high-profile gala
+                          events.  Produced the SVG graphic for dynamic display and
+                          employed Ember.js for updates.
+
+        </p>
+
+        <p>
+          <strong>Methodology.</strong>
+
+                          Full-stack agile methodologies including continuous
+                          integration, full-time pair-programming, retrospectives, etc.
+
+        </p>
+    </article>
+    <article class="position">
+
+      <h2>Software Engineer</h2>
+      <h3>Pivotal Labs</h3>
+      <p class="date"><time datetime="2010-11">November 2010</time> to <time datetime="2011-09">September 2011</time></p>
+
+        <p>
+          <strong>Impact.</strong>
+
+                          Initiated an informal usability analysis for Groupon's
+                          editorial tools via direct observation of editors and deal
+                          creators.
+
+
+                          Consequently created dramatic improvements in deal
+                          creation and editorial workflows.  Streamlined
+                          communications between sales and editorial teams by
+                          integrating with Salesforce.
+
+        </p>
+
+        <p>
+          <strong>Learning.</strong>
+
+                          Mastered Ruby within a month.  Immediately effective
+                          maintaining and updating existing Rails application for
+                          Groupon Merchant Center team.
+
+        </p>
+
+        <p>
+          <strong>Scale.</strong>
+
+                          Refactored Groupon's merchant analytics into an
+                          independent service-oriented architecture.  Improved
+                          largest deal analytics reports from a query time of 7
+                          minutes down to 15 seconds.
+
+        </p>
+
+        <p>
+          <strong>Methodology.</strong>
+
+                          Full-time pair-programming, behavior-driven design (BDD),
+                          continuous integration, collective ownership, small
+                          releases, planning game, retrospectives, on-site customer.
+
+        </p>
+    </article>
+    <article class="position">
+
+      <h2>Aikido Instructor</h2>
+      <h3>University of Colorado Recreation Center</h3>
+      <p class="date"><time datetime="2004-08">August 2004</time> to <time datetime="">Present</time></p>
+
+        <p>
+          <strong>Impact.</strong>
+
+                          Three students gave unsolicited feedback that my teaching
+                          changed their lives.
+
+
+                          Increased typical class enrollment by 50%.  Inspired many
+                          students to join Boulder Aikikai.
+
+        </p>
+    </article></section>
         <section id="education">
-            <article class="degree">
-                <h2>Third Degree Black Belt</h2>
-                <h3>Boulder Aikikai</h3>
-                <p class="date">May 2013</p>
-            </article>
-            <article class="degree">
-                <h2>Bachelor's of Environmental Design, emphasizing computer methods in design</h2>
-                <h3>College of Architecture and Planning, University of Colorado at Boulder</h3>
-                <p class="date">May 1994</p>
-            </article>
-        </section>
+    <article class="degree">
+      <h2>Fifth Degree Black Belt</h2>
+      <h3>Boulder Aikikai</h3>
+      <p class="date">January 2025</p>
+    </article>
+    <article class="degree">
+      <h2>Bachelor's of Environmental Design, emphasizing computer methods in design</h2>
+      <h3>College of Architecture and Planning, University of Colorado at Boulder</h3>
+      <p class="date">May 1994</p>
+    </article></section>
         <section id="copyright">
-            <p>Copyright © 2018 Eric Dobbs.</p>
-            <p>All rights reserved.</p>
-            <p>Redistribution is forbidden without written consent of the author.</p>
+          <p>Copyright © 2025 Eric Dobbs.</p>
+          <p>All rights reserved.</p>
+          <p>Redistribution is forbidden without written consent of the author.</p>
         </section>
-    </main>
+      </main>
 </body></html>
