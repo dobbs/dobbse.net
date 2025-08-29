@@ -1,0 +1,25 @@
+---
+layout: post
+title: "Expertise vs LLM"
+link: https://dobbse.net/thinair/2025/05/expertise-vs-llm.html
+date: 2025-05-01T19:15:00-600
+---
+<p>I used an LLM to summarize an incident slack channel. At a casual glance it looked like a decent enough summary. But on closer analysis, the LLM got it exactly backwards. This scares me. Casual inspection will mislead people to trust the summaries. And actions taken in response will make things worse.</p>
+
+<p>We have many kubernetes clusters. Security was on a months-long journey to carefully introduce a tool to all of the clusters that would scan the filesystem for vulnerabilities.</p>
+
+<p>There were recurring incidents with recurring arguments between Security and the SREs about whether the new tool was causing the disruptions. The symptoms and behaviors were rich with ambiguity. As each incident resolved, the arguments were not. The mechanism of failure remained elusive. Security continued introducing the tool to successively larger clusters.</p>
+
+<p>During the specific incident that was summarized, Security and SRE were again arguing. There were a lot of words in the slack channel about the tool and two different clusters. The two clusters were in the same region and shared the same external load balancers. Call one of them the "experiment", where the tool had been applied. Call the other one the "control", where the tool had not been applied.</p>
+
+<p>The presenting symptoms featured disruptions in both the "control" and the "experiment" clusters. This appeared to support Security's argument that the problem couldn't be from applying the tool. Many words were traded including disagreements about a previous incident and how it was resolved.</p>
+
+<p>There was at last a one sentence explanation given for the unexpected behavior in the control cluster. The SREs explained that the shared load balancers were known to be sensitively tuned. The increased latency in the experimental cluster cascaded into failures in the shared load balancers and thereby impacted both clusters.</p>
+
+<p>The critical insight that drew SRE attention to the load balancers was a short recognition of absence of evidence in the third cluster from the previous incident where the tool had been rolled back.</p>
+
+<p>The LLM claimed that the incident was resolved when the tool was deployed to the control when in fact they removed the tool from the experiment. The LLM got it exactly backwards. Someone in a hurry and not following closely but skimming the actual messages in slack and comparing the LLM summary would conclude it was close enough. Ship it.</p>
+
+<p>To follow what actually happened would require a clear understanding of the flow of the insights and disproof. And it requires understanding of both the absence of evidence, the surprising cascade of impact, and even the absence of words in the transcript when the argument was settled and action turned to removing the tool and rebooting the load balancers.</p>
+
+<p>I don’t think the statistical foundations of LLM machinery can catch that. There were so many words in the conversation about the wrong conclusions and too few words about the actual resolution.</p>

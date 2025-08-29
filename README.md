@@ -26,8 +26,7 @@ bundle exec jekyll build
 
 # reviewing locally with deno's file_server
 ``` bash
-cd jekyll/_site
-file_server -p 1080
+file_server -p 1080 jekyll/_site
 ```
 
 # publishing
